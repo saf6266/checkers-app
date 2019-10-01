@@ -7,7 +7,7 @@ a web micro-framework.
 ## Team
 
 - Shakeel Farooq
-- MEMBER2
+- Georgi Thomas
 - MEMBER3
 - MEMBER4
 
