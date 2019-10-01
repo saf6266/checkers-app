@@ -9,7 +9,7 @@ a web micro-framework.
 - Shakeel Farooq
 - Georgi Thomas
 - Allen Su
-- MEMBER4
+- Dom Hen
 
 
 ## Prerequisites
