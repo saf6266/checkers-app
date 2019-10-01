@@ -8,7 +8,7 @@ a web micro-framework.
 
 - Shakeel Farooq
 - Georgi Thomas
-- MEMBER3
+- Allen Su
 - MEMBER4
 
 
