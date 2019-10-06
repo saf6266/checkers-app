@@ -25,4 +25,8 @@ public class PlayerLobby {
         }
         return false;
     }
+
+    public ArrayList<Player> getPlayers(){
+        return this.players;
+    }
 }
