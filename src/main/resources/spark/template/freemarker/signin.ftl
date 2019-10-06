@@ -19,8 +19,12 @@
 
     <div class="body">
 
-         <form id="signin" action="/signin" method="post">
-             <a href="#" onclick="event.preventDefault(); sign.submit();">sign in [${currentUser.name}]</a>
+         <form id="signin" action="/signin" method="POST">
+<#--             <a href="#" onclick="event.preventDefault(); sign.submit();">sign in [${currentUser.name}]</a>-->
+             <br>
+             <input name="username"/>
+             <br/><br/>
+             <button type="submit">Sign In</button>
          </form>
          <!-- Provide a message to the user, if supplied. -->
          <#include "message.ftl" />
@@ -30,6 +34,9 @@
                  spectating active games,
                  or replay archived games
          -->
+
+
+
 
     </div>
 
