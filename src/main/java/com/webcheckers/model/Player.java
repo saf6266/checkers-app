@@ -1,7 +1,9 @@
 package com.webcheckers.model;
 
 public class Player {
-
+    /**
+     * The player class to determine the different attributes of the user
+     */
     //Attributes
     private boolean turn;
     private String name;
