@@ -9,11 +9,13 @@ public class PlayerLobby {
     private ArrayList<Player> players = new ArrayList<>(); //The list of players
 
     /**
-     * This program checks to see if the player's username is already in use
+     * This program checks to see if the player's username is already in use/or is invalid
      * @param player: The current user
-     * @return false if player is not on the list, true if player is on the list
+     * @return false if player is not on the list, true if player is on the list/or invalid
      */
     private boolean checkPlayer(Player player){
+        if(!player.validName())
+            return true;
         if(!(players.isEmpty())) {
             for (Player person : players) {
                 if (person.getName().equals(player.getName()))

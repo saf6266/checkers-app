@@ -31,6 +31,30 @@ public class Player {
         this.turn = turn;
     }
 
+    public boolean validName(){
+        String TempName = this.getName();
+        int len = TempName.length();
+        char letter;
+        int ASCII;
+        for(int i = 1; i < len; i++){
+            letter = TempName.charAt(i);
+            ASCII = (int)letter;
+            if(ASCII <= 31)
+                return false;
+            else if(ASCII >= 33)
+                if(ASCII <= 47)
+                    return false;
+            else if(ASCII >= 58)
+                if(ASCII <= 64)
+                    return false;
+            else if(ASCII >= 91)
+                if(ASCII <= 96)
+                    return false;
+            else if(ASCII >= 123)
+                return false;
+        }
+        return true;
+    }
     /**
      * Get the name of the user
      * @return name of the player
