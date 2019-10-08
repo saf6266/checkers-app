@@ -15,7 +15,6 @@
   <!-- Provide a navigation bar -->
   <#include "nav-bar.ftl" />
 
-  <#include "signin.ftl" />
 
 
   <div class="body">

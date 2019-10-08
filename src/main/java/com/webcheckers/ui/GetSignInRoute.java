@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.util.Message;
 import spark.*;
 
 import java.util.HashMap;
@@ -17,6 +18,8 @@ public class GetSignInRoute implements Route{
 
     private final TemplateEngine templateEngine;
 
+    private static final Message SIGNIN_MSG = Message.info("Enter your name to sign in as a player.");
+
     public GetSignInRoute(final TemplateEngine templateEngine){
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine required.");
 
@@ -30,7 +33,7 @@ public class GetSignInRoute implements Route{
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Sign In!");
         //
-        vm.put("message", "Sign In as a player");
+        vm.put("message", SIGNIN_MSG);
 
         return templateEngine.render(new ModelAndView(vm, "signin.ftl"));
     }
