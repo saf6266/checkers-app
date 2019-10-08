@@ -61,6 +61,9 @@ public class GetHomeRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
 
+    //display a list of play that currently in the game.
+    vm.put("playerList", playerLobby.getPlayers());
+
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
   }
