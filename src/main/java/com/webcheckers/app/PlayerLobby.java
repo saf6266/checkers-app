@@ -11,18 +11,18 @@ public class PlayerLobby {
     /**
      * This program checks to see if the player's username is already in use/or is invalid
      * @param player: The current user
-     * @return false if player is not on the list, true if player is on the list/or invalid
+     * @return true if player is ok to add, false if player cannot be added
      */
     private boolean checkPlayer(Player player){
         if(!player.validName())
-            return true;
+            return false;   //player's name is not valid
         if(!(players.isEmpty())) {
             for (Player person : players) {
                 if (person.getName().equals(player.getName()))
-                    return true;    //player is in the list
+                    return false;    //player fails the test, name is a repeat
             }
         }
-        return false;   //player is not in the list
+        return true;   //player is not in the list
     }
 
     /**
@@ -31,7 +31,7 @@ public class PlayerLobby {
      * @return true if the player was added, false if the player name is already in the database
      */
     public boolean addPlayer(Player player){
-        if(!(checkPlayer(player))) {
+        if((checkPlayer(player))) {
             players.add(player);
             return true;
         }
