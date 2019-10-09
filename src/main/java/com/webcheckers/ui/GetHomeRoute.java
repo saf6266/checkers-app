@@ -21,8 +21,10 @@ import com.webcheckers.util.Message;
  */
 public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
+  //values for view-model map
+  final static String VIEW_NAME = "home.ftl";
 
-  private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;

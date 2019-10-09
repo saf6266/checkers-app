@@ -54,4 +54,12 @@ public class PlayerLobby {
     public ArrayList<Player> getPlayers(){
         return this.players;
     }
+
+    /**
+     * Get number of players in the lobby - current player
+     * @return int for the number of players
+     */
+    public int getNumPlayers(){
+        return this.players.size();
+    }
 }

@@ -9,14 +9,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import com.webcheckers.ui.GetHomeRoute;
 
 public class PostSignInRoute implements Route {
 
-    private final static String VIEW_NAME = "signin.ftl";
+    final static String VIEW_NAME = "signin.ftl";
     private final static Message NAME_EXISTS = Message.info("The name you entered already exists, enter a different name.");
     private final static Message INVALID_NAME = Message.info("The name you entered has at least one non-alphanumeric letter, enter" +
                                                     " a new name.");
     private final static Message ADDED_NAME = Message.info("Successfully added you name to the list!");
+    static final String CURR_USER_ATTR = "currentUser";
 
     private final PlayerLobby playerLobby;
     private final TemplateEngine templateEngine;
@@ -48,24 +50,30 @@ public class PostSignInRoute implements Route {
         final String name = request.queryParams("username");
 
         final Player player = new Player(name);
-
         ModelAndView mv;
         //Check to see that there are not any non-alphanumeric letters
         if(player.validName()){
-            //Check to see if the name already exists or not
+            //do if player name already in lobby
             if(!(playerLobby.addPlayer(player))){
                 mv = error(vm, NAME_EXISTS);
                 return templateEngine.render(mv);
             }
-
+            else {
+//                vm.put("message", ADDED_NAME);
+                //add player object to View_model map
+                vm.put(CURR_USER_ATTR, player);
+                //add to session (why?);
+                httpSession.attribute(CURR_USER_ATTR, player);
+                //add welcome message
+                // display a user message in the Home page
+                vm.put("message", GetHomeRoute.WELCOME_MSG);
+                vm.put("playerList", playerLobby.getPlayers());
+                return templateEngine.render(new ModelAndView(vm, GetHomeRoute.VIEW_NAME));
+            }
         }
         else{
             mv = error(vm, INVALID_NAME);
             return templateEngine.render(mv);
         }
-        httpSession.attribute("player", player);
-
-        vm.put("message", ADDED_NAME);
-        return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
 }
