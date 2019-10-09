@@ -20,7 +20,7 @@ public class GetSignInRoute implements Route{
 
     private static final Message SIGNIN_MSG = Message.info("Enter your name to sign in as a player.");
 
-    public GetSignInRoute(final TemplateEngine templateEngine){
+    GetSignInRoute(final TemplateEngine templateEngine){
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine required.");
 
         LOG.config("GetSignInRoute is initialized.");

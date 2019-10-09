@@ -91,9 +91,14 @@ public class Player {
     public void setNone(){side = Color.NONE;}
 
 
-    //Constructor
+    //Constructors
     public Player(boolean turn, String name){
         setTurn(turn);
+        setName(name);
+        setNone();
+    }
+
+    public Player(String name){
         setName(name);
         setNone();
     }
