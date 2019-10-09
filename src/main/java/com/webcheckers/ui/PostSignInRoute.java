@@ -62,13 +62,12 @@ public class PostSignInRoute implements Route {
 //                vm.put("message", ADDED_NAME);
                 //add player object to View_model map
                 vm.put(CURR_USER_ATTR, player);
-                //add to session (why?);
+                //add to session (why?) --> so the home route can retrieve the player name;
                 httpSession.attribute(CURR_USER_ATTR, player);
-                //add welcome message
-                // display a user message in the Home page
-                vm.put("message", GetHomeRoute.WELCOME_MSG);
-                vm.put("playerList", playerLobby.getPlayers());
-                return templateEngine.render(new ModelAndView(vm, GetHomeRoute.VIEW_NAME));
+
+                // Go back to the home page
+                response.redirect(WebServer.HOME_URL);
+                return null;
             }
         }
         else{

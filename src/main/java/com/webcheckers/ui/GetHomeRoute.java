@@ -6,11 +6,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.webcheckers.app.PlayerLobby;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import com.webcheckers.model.Player;
+import spark.*;
 
 import com.webcheckers.util.Message;
 
@@ -62,6 +59,15 @@ public class GetHomeRoute implements Route {
 
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
+
+    //retrieve the player's name
+    final Session session = request.session();
+    final Player player = session.attribute(PostSignInRoute.CURR_USER_ATTR);
+
+    //check to see if the player exists
+    if(player != null){
+        vm.put(PostSignInRoute.CURR_USER_ATTR, player);
+    }
 
     //display a list of play that currently in the game.
     vm.put("playerList", playerLobby.getPlayers());
