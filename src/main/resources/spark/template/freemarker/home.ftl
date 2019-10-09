@@ -5,6 +5,27 @@
 <#--  <meta http-equiv="refresh" content="10">-->
   <title>Web Checkers | ${title}</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even){
+            background-color: #FFDDA1;
+        }
+        tr:nth-child(odd){
+            background-color: #DFFDFF ;
+        }
+
+        th {
+            color: azure;
+            background-color: #223843;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,7 +52,7 @@
 
 <#--      Other users online besides me, displays list make it clickable-->
       <#else>
-        <table style="width: 100%">
+        <table>
           <tr>
             <th>
               PlayerName
