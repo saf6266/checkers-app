@@ -28,7 +28,25 @@
           <ul>
             <li>There are no other players available to play at this time.</li>
           </ul>
+
+<#--      Other users online besides me, displays list make it clickable-->
+      <#else>
+        <table style="width: 100%">
+          <tr>
+            <th>
+              PlayerName
+            </th>
+          </tr>
+        <#list playerList as playerName>
+          <#if playerName != currentUser>
+           <tr>
+             <td>${playerName.getName()}</td>
+           </tr>
+          </#if>
+        </#list>
+        </table>
       </#if>
+
     <#else>
 <#--      Player is not signed in, can only see a number-->
       <ul>
