@@ -11,6 +11,11 @@ public class Row implements Iterable<Space> {
         this.index = index;
     }
 
+    private ArrayList<Space> generateSpaces(ArrayList<Space> spaceList){
+        for(int i = 0; i < 8; i++){
+            Space space = new Space()
+        }
+    }
     public int getIndex() {
         return index;
     }

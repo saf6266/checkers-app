@@ -13,8 +13,9 @@ public class BoardView implements Iterable<Row>{
     private ArrayList<Row> generateBoard(ArrayList<Row> row){
         for(int i = 0; i < 8; i++){
             Row r = new Row(i);
-            row[i].add(r);
+            row.add(r);
         }
+        return row;
     }
 
     @Override
