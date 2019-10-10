@@ -73,30 +73,34 @@ public class GetHomeRoute implements Route {
     final Player player = session.attribute(PostSignInRoute.CURR_USER_ATTR);
 
     //check to see if the player exists
-    if(player != null){
+    if(player != null) {
         vm.put(PostSignInRoute.CURR_USER_ATTR, player);
+        session.removeAttribute(PostSignInRoute.CURR_USER_ATTR);
     }
+
 
     //display a list of play that currently in the game.
     vm.put("playerList", playerLobby.getPlayers());
 
     final Session httpSession = request.session();
     ModelAndView mv;
-    for(Player opponent : playerLobby.getPlayers()){
-        //Is the player in a game already?
 
-        if(!(opponent.isInGame())){                 //No
-            playerLobby.addPlayerInGame(opponent);
-            playerLobby.addPlayerInGame(player);
-            httpSession.attribute("currentUser", player);
-            httpSession.attribute("whitePlayer", opponent);
-            httpSession.attribute("redPlayer", player);
-            response.redirect(WebServer.GAME_URL);
-            return null;
-        }
-        else{                                       //Yes
-            mv = error(vm, PLAYER_IN_GAME);
-            return templateEngine.render(mv);
+    //If I am not the only one in the game
+    if(playerLobby.getNumPlayers() != 1) {
+        for (Player opponent : playerLobby.getPlayers()) {
+            //Is the player in a game already?
+
+            if (!(opponent.isInGame())) {                 //No
+                playerLobby.addPlayerInGame(opponent);
+                playerLobby.addPlayerInGame(player);
+                httpSession.attribute("whitePlayer", opponent);
+                httpSession.attribute("redPlayer", player);
+                response.redirect(WebServer.GAME_URL);
+                return null;
+            } else {                                       //Yes
+                mv = error(vm, PLAYER_IN_GAME);
+                return templateEngine.render(mv);
+            }
         }
     }
 
