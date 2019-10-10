@@ -50,8 +50,8 @@ public class BoardView implements Iterable<Row>{
 
     public BoardView flipBoard(BoardView board){
         BoardView copyBoard = new BoardView(board);
-        for(int i = 7; i > 0; i--){
-            Row r = board.getRow(i);
+        for(int i = 8; i > 0; i--){
+            Row r = board.getRow(i-1);
             copyBoard.getRows().add(8-i, r);
         }
         return copyBoard;
