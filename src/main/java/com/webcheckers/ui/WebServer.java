@@ -153,6 +153,9 @@ public class WebServer {
     //Post a SIGNIN request
     post(SIGNIN_URL, new PostSignInRoute(playerLobby, templateEngine));
 
+    //Post a GAME request
+    post(GAME_URL, new PostGameRoute(playerLobby));
+
     //Get the game route
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby));
     //

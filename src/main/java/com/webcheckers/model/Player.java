@@ -35,6 +35,7 @@ public class Player {
     public boolean isInGame(){
         return this.inGame;
     }
+
     public void setInGame(boolean inGame){
         this.inGame = inGame;
     }

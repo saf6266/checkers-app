@@ -64,6 +64,7 @@ public class PostSignInRoute implements Route {
                 vm.put(CURR_USER_ATTR, player);
                 //add to session (why?) --> so the home route can retrieve the player name;
                 httpSession.attribute(CURR_USER_ATTR, player);
+                httpSession.attribute("player", player);
 
                 // Go back to the home page
                 response.redirect(WebServer.HOME_URL);
