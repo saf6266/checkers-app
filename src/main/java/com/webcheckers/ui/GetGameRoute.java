@@ -6,9 +6,11 @@ import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import spark.*;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class GetGameRoute implements Route {
 
@@ -18,6 +20,7 @@ public class GetGameRoute implements Route {
 
     static final String RED_PLAYER = "redPlayer";
     static final String WHITE_PLAYER = "whitePlayer";
+    private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
     static final String ACTIVE_COLOR = "activeColor";
 
     GetGameRoute(TemplateEngine templateEngine, PlayerLobby playerLobby, GameCenter gameCenter){
@@ -40,8 +43,9 @@ public class GetGameRoute implements Route {
 
         final Player currentUser = session.attribute(RED_PLAYER);
         final Player opponent = session.attribute(WHITE_PLAYER);
-        BoardView board = gameCenter.getBoard();
 
+        BoardView board = gameCenter.getBoard();
+        LOG.finer(currentUser.getName());
         //Set the players side
         opponent.setWhite();
         currentUser.setRed();

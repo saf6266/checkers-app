@@ -9,6 +9,7 @@ public class Player {
     private boolean inGame;
     private String name;
     private Color side;
+    private Player opponent;
 
     public enum Color{
         RED,
@@ -38,6 +39,14 @@ public class Player {
 
     public void setInGame(boolean inGame){
         this.inGame = inGame;
+    }
+
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
+    }
+
+    public Player getOpponent() {
+        return opponent;
     }
 
     public boolean validName(){

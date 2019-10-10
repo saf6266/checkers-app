@@ -69,10 +69,14 @@ public class GetHomeRoute implements Route {
     //retrieve the player's name
     final Session session = request.session();
     final Player player = session.attribute(PostSignInRoute.CURR_USER_ATTR);
+    final Player opponent;
     //Get the playerInGame message if it exists
     final Message playerInGame = session.attribute("message");
 
     if (gameCenter.inGame(player)){
+      opponent = player.getOpponent();
+      session.attribute(GetGameRoute.WHITE_PLAYER, player);
+      session.attribute(GetGameRoute.RED_PLAYER, opponent);
       response.redirect(WebServer.GAME_URL);
       halt();
       return null;
