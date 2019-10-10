@@ -59,7 +59,5 @@ public class PostGameRoute implements Route {
             response.redirect(WebServer.GAME_URL);
             return null;
         }
-
-
     }
 }
