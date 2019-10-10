@@ -62,7 +62,7 @@
                 <#list playerList as playerName>
                   <#if playerName != currentUser>
                    <tr>
-                       <input id="opponent" type="hidden" value="${playerName.getName()}">
+                       <input name="opponent" type="hidden" value="${playerName.getName()}">
                      <td>
                          <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>
                      </td>
