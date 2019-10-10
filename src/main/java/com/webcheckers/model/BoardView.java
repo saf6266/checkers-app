@@ -17,13 +17,6 @@ public class BoardView implements Iterable<Row>{
         this.opponent = opponent;
     }
 
-    public void setCurrentUser(Player currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public void setOpponent(Player opponent) {
-        this.opponent = opponent;
-    }
 
     private ArrayList<Row> generateBoard(ArrayList<Row> row){
         for(int i = 0; i < 8; i++){
