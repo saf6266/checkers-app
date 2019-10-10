@@ -1,4 +1,6 @@
-package com.webcheckers.ui;
+package com.webcheckers.model;
+
+import com.webcheckers.model.Piece;
 
 public class Space {
 
@@ -6,7 +8,7 @@ public class Space {
     private Piece piece;
     private boolean isDark;
 
-    public Space(Piece piece, int cellIdx, boolean isDark) {
+    public Space( Piece piece, int cellIdx, boolean isDark) {
         this.piece = piece;
         this.cellIdx = cellIdx;
         this.isDark = isDark;

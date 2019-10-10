@@ -1,7 +1,10 @@
-package com.webcheckers.ui;
+package com.webcheckers.model;
+
+import com.webcheckers.model.Row;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
 
 public class BoardView implements Iterable<Row>{
 
@@ -20,7 +23,8 @@ public class BoardView implements Iterable<Row>{
 
     @Override
     public Iterator<Row> iterator() {
-
+        Iterator<Row> iterator = generateBoard(rows).iterator();
+        return iterator;
     }
 }
 
