@@ -26,6 +26,14 @@ public class BoardView implements Iterable<Row>{
         return row;
     }
 
+    public Player getCurrentUser() {
+        return currentUser;
+    }
+
+    public Player getOpponent() {
+        return opponent;
+    }
+
     @Override
     public Iterator<Row> iterator() {
         Iterator<Row> iterator = rows.listIterator();
