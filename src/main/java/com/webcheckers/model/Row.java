@@ -13,6 +13,7 @@ public class Row implements Iterable<Space> {
     private int index;
     public Row(int index) {
         this.index = index;
+        spaces = generateSpaces(spaces, index);
     }
 
     public ArrayList<Space> generateSpaces(ArrayList<Space> spaceList, int i){
@@ -73,7 +74,7 @@ public class Row implements Iterable<Space> {
 
     @Override
     public Iterator<Space> iterator() {
-        Iterator<Space> iterator = generateSpaces(spaces, getIndex()).listIterator();
+        Iterator<Space> iterator = spaces.listIterator();
         return iterator;
     }
 }

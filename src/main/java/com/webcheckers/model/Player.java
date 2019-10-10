@@ -72,6 +72,13 @@ public class Player {
         return name;
     }
 
+    public boolean isRed(){
+        return this.side == Color.RED;
+    }
+
+    public boolean isWhite(){
+        return this.side == Color.WHITE;
+    }
     /**
      * Give the user/player a name
      * @param name The name of the user
