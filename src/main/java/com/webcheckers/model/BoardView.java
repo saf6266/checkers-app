@@ -18,6 +18,12 @@ public class BoardView implements Iterable<Row>{
         rows = generateBoard(rows);
     }
 
+    private BoardView(BoardView board){
+        this.currentUser = board.getCurrentUser();
+        this.opponent = board.getOpponent();
+        this.rows = board.getRows();
+    }
+
     public void setCurrentUser(Player currentUser) {
         this.currentUser = currentUser;
     }
@@ -26,12 +32,29 @@ public class BoardView implements Iterable<Row>{
         this.opponent = opponent;
     }
 
+    public ArrayList<Row> getRows(){
+        return this.rows;
+    }
+
+    private Row getRow(int index){
+        return getRows().get(index);
+    }
+
     private ArrayList<Row> generateBoard(ArrayList<Row> row){
         for(int i = 0; i < 8; i++){
             Row r = new Row(i);
             row.add(r);
         }
         return row;
+    }
+
+    public BoardView flipBoard(BoardView board){
+        BoardView copyBoard = new BoardView(board);
+        for(int i = 7; i > 0; i--){
+            Row r = board.getRow(i);
+            copyBoard.getRows().add(8-i, r);
+        }
+        return copyBoard;
     }
 
     public Player getCurrentUser() {

@@ -44,7 +44,6 @@ public class PostGameRoute implements Route {
 
         //Is the opponent already in a game
         if(gameCenter.inGame(opponent)){
-            session.attribute(PostSignInRoute.CURR_USER_ATTR, currentUser);
             session.attribute("message", PLAYER_IN_GAME);
             response.redirect(WebServer.HOME_URL);
             return null;
