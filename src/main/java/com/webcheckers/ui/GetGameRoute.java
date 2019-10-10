@@ -29,11 +29,12 @@ public class GetGameRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response){
-
         Map<String, Object> vm = new HashMap<>();
 
         vm.put("title", "GAME");
+
         final Session session = request.session();
+
         final Player currentUser = session.attribute(RED_PLAYER);
         final Player opponent = session.attribute(WHITE_PLAYER);
 

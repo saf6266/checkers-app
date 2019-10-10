@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-<#--  <meta http-equiv="refresh" content="10">-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<#--  <meta http-equiv="refresh" content="5">-->
   <title>Web Checkers | ${title}</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
     <style>
@@ -58,18 +58,18 @@
               PlayerName
             </th>
           </tr>
-        <#list playerList as playerName>
-          <#if playerName != currentUser>
-           <tr>
-<#--    <a href="#" onclick="event.preventDefault(); signout.submit();">sign out [${currentUser.getName()}]</a>-->
-             <td>
-                 <form id="${playerName.getName()}" action="/game" method="get">
-                 <a href="#" onclick="event.preventDefault()" data-value="${playerName.getName()}"> ${playerName.getName()}  </a>
-                 </form>
-             </td>
-           </tr>
-          </#if>
-        </#list>
+            <form id="postgame" action="/game" method="POST">
+                <#list playerList as playerName>
+                  <#if playerName != currentUser>
+                   <tr>
+                       <input id="opponent" type="hidden" value="${playerName.getName()}">
+                     <td>
+                         <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>
+                     </td>
+                   </tr>
+                  </#if>
+                </#list>
+            </form>
         </table>
       </#if>
 
@@ -83,7 +83,7 @@
 
     <!-- TODO: future content on the Home:
             to start games,
-            spectating active games,
+            spectating active games,lo
             or replay archived games
     -->
 
