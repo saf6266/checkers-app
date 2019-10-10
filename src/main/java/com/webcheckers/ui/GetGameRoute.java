@@ -38,7 +38,7 @@ public class GetGameRoute implements Route {
 
         final Player currentUser = session.attribute(RED_PLAYER);
         final Player opponent = session.attribute(WHITE_PLAYER);
-        final BoardView board = new BoardView();
+        final BoardView board = new BoardView(currentUser, opponent);
 
         //Set the players side
         opponent.setWhite();

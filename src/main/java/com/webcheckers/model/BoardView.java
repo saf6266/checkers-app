@@ -9,9 +9,14 @@ import java.util.Iterator;
 public class BoardView implements Iterable<Row>{
 
     private ArrayList<Row> rows = new ArrayList<>();
+    private Player currentUser;
+    private Player opponent;
 
-    public BoardView() {
+    public BoardView(Player currentUser, Player opponent) {
+        this.currentUser = currentUser;
+        this.opponent = opponent;
     }
+
 
     private ArrayList<Row> generateBoard(ArrayList<Row> row){
         for(int i = 0; i < 8; i++){
@@ -21,9 +26,17 @@ public class BoardView implements Iterable<Row>{
         return row;
     }
 
+    public Player getCurrentUser() {
+        return currentUser;
+    }
+
+    public Player getOpponent() {
+        return opponent;
+    }
+
     @Override
     public Iterator<Row> iterator() {
-        Iterator<Row> iterator = generateBoard(rows).iterator();
+        Iterator<Row> iterator = generateBoard(rows).listIterator();
         return iterator;
     }
 }

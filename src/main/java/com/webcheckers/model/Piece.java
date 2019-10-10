@@ -2,26 +2,26 @@ package com.webcheckers.model;
 
 public class Piece {
 
-    enum type {
-        Single, King
+    enum TYPE {
+        SINGLE, KING
     }
-    enum color {
+    enum COLOR {
         RED, WHITE
     }
-    private type pieceType= null;
-    private color pieceColor= null;
+    private TYPE pieceTYPE = null;
+    private COLOR pieceCOLOR = null;
 
 
-    public Piece(type type, color color) {
-        this.pieceType = type;
-        this.pieceColor = color;
+    public Piece(TYPE type, COLOR color) {
+        this.pieceTYPE = type;
+        this.pieceCOLOR = color;
     }
 
-    public type getType() {
-        return pieceType;
+    public TYPE getType() {
+        return pieceTYPE;
     }
 
-    public color getColor() {
-        return pieceColor;
+    public COLOR getColor() {
+        return pieceCOLOR;
     }
 }
