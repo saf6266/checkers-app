@@ -5,11 +5,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
 import com.webcheckers.model.Player;
 import spark.*;
 
 import com.webcheckers.util.Message;
+
+import static spark.Spark.halt;
 
 /**
  * The UI Controller to GET the Home page.
@@ -25,6 +28,7 @@ public class GetHomeRoute implements Route {
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;
+  private final GameCenter gameCenter;
 
 
 
@@ -36,9 +40,10 @@ public class GetHomeRoute implements Route {
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  GetHomeRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
+  GetHomeRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby, GameCenter gameCenter) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     this.playerLobby = Objects.requireNonNull(playerLobby, "playerLobby is required");
+    this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required");
     //
     LOG.config("GetHomeRoute is initialized.");
   }
@@ -67,6 +72,13 @@ public class GetHomeRoute implements Route {
     //Get the playerInGame message if it exists
     final Message playerInGame = session.attribute("message");
 
+    if (gameCenter.inGame(player)){
+      response.redirect(WebServer.GAME_URL);
+      halt();
+      return null;
+
+    }
+
     if(playerInGame == null) {
       // display a user message in the Home page
       vm.put("message", WELCOME_MSG);
@@ -78,6 +90,7 @@ public class GetHomeRoute implements Route {
     if(player != null) {
         vm.put(PostSignInRoute.CURR_USER_ATTR, player);
     }
+
 
 
     //display a list of play that currently in the game.
