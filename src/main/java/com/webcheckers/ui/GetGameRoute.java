@@ -54,6 +54,7 @@ public class GetGameRoute implements Route {
         vm.put(RED_PLAYER, currentUser);
 
 
+
         //Red player goes first
         vm.put(ACTIVE_COLOR, Player.Color.RED);
 
