@@ -22,7 +22,6 @@ public class GetHomeRoute implements Route {
   final static String VIEW_NAME = "home.ftl";
 
   static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
-  static final Message PLAYER_IN_GAME = Message.info("That player is already in a game. Select someone else.");
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;
@@ -62,17 +61,22 @@ public class GetHomeRoute implements Route {
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
 
-    // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
-
     //retrieve the player's name
     final Session session = request.session();
     final Player player = session.attribute(PostSignInRoute.CURR_USER_ATTR);
+    //Get the playerInGame message if it exists
+    final Message playerInGame = session.attribute("message");
 
+    if(playerInGame == null) {
+      // display a user message in the Home page
+      vm.put("message", WELCOME_MSG);
+    }
+    else{
+      vm.put("message", playerInGame);
+    }
     //check to see if the player exists
     if(player != null) {
         vm.put(PostSignInRoute.CURR_USER_ATTR, player);
-        session.removeAttribute(PostSignInRoute.CURR_USER_ATTR);
     }
 
 
@@ -81,6 +85,6 @@ public class GetHomeRoute implements Route {
 
 
     // render the View
-    return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+    return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
   }
 }
