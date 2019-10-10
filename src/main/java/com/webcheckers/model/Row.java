@@ -2,17 +2,14 @@ package com.webcheckers.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 public class Row implements Iterable<Space> {
-
-    private static final Logger LOG = Logger.getLogger(Row.class.getName());
-
 
     private ArrayList<Space> spaces = new ArrayList<>();
     private int index;
     public Row(int index) {
         this.index = index;
+        this.spaces = generateSpaces(spaces, getIndex());
     }
 
     public ArrayList<Space> generateSpaces(ArrayList<Space> spaceList, int i){
@@ -73,7 +70,7 @@ public class Row implements Iterable<Space> {
 
     @Override
     public Iterator<Space> iterator() {
-        Iterator<Space> iterator = generateSpaces(spaces, getIndex()).listIterator();
+        Iterator<Space> iterator = spaces.listIterator();
         return iterator;
     }
 }

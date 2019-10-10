@@ -15,14 +15,7 @@ public class BoardView implements Iterable<Row>{
     public BoardView(Player currentUser, Player opponent) {
         this.currentUser = currentUser;
         this.opponent = opponent;
-    }
-
-    public void setCurrentUser(Player currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public void setOpponent(Player opponent) {
-        this.opponent = opponent;
+        rows = generateBoard(rows);
     }
 
     private ArrayList<Row> generateBoard(ArrayList<Row> row){
@@ -33,17 +26,9 @@ public class BoardView implements Iterable<Row>{
         return row;
     }
 
-    public Player getCurrentUser() {
-        return currentUser;
-    }
-
-    public Player getOpponent() {
-        return opponent;
-    }
-
     @Override
     public Iterator<Row> iterator() {
-        Iterator<Row> iterator = generateBoard(rows).listIterator();
+        Iterator<Row> iterator = rows.listIterator();
         return iterator;
     }
 }

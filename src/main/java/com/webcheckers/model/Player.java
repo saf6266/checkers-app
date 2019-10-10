@@ -17,6 +17,14 @@ public class Player {
         NONE
     }
 
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
+    }
+
     /**
      * Checks if it is my turn
      * @return true if my turn, false if not my turn
@@ -39,14 +47,6 @@ public class Player {
 
     public void setInGame(boolean inGame){
         this.inGame = inGame;
-    }
-
-    public void setOpponent(Player opponent) {
-        this.opponent = opponent;
-    }
-
-    public Player getOpponent() {
-        return opponent;
     }
 
     public boolean validName(){
@@ -82,6 +82,13 @@ public class Player {
         return name;
     }
 
+    public boolean isRed(){
+        return this.side == Color.RED;
+    }
+
+    public boolean isWhite(){
+        return this.side == Color.WHITE;
+    }
     /**
      * Give the user/player a name
      * @param name The name of the user

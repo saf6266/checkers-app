@@ -8,20 +8,20 @@ public class Piece {
     enum COLOR {
         RED, WHITE
     }
-    private TYPE pieceTYPE = null;
-    private COLOR pieceCOLOR = null;
+    private TYPE pieceType= null;
+    private COLOR pieceColor= null;
 
 
     public Piece(TYPE type, COLOR color) {
-        this.pieceTYPE = type;
-        this.pieceCOLOR = color;
+        this.pieceType = type;
+        this.pieceColor = color;
     }
 
     public TYPE getType() {
-        return pieceTYPE;
+        return pieceType;
     }
 
     public COLOR getColor() {
-        return pieceCOLOR;
+        return pieceColor;
     }
 }

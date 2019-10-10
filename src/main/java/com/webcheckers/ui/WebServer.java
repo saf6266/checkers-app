@@ -89,11 +89,11 @@ public class WebServer {
     Objects.requireNonNull(templateEngine, "templateEngine must not be null");
     Objects.requireNonNull(gson, "gson must not be null");
     Objects.requireNonNull(playerLobby, "playerLobby must not be null");
+    this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter must not be null");
     //
     this.templateEngine = templateEngine;
     this.gson = gson;
     this.playerLobby = playerLobby;
-    this.gameCenter = gameCenter;
   }
 
   //
