@@ -6,10 +6,11 @@ public class Player {
      */
     //Attributes
     private boolean turn;
+    private boolean inGame;
     private String name;
     private Color side;
 
-    enum Color{
+    public enum Color{
         RED,
         WHITE,
         NONE
@@ -29,6 +30,13 @@ public class Player {
      */
     public void setTurn(boolean turn) {
         this.turn = turn;
+    }
+
+    public boolean isInGame(){
+        return this.inGame;
+    }
+    public void setInGame(boolean inGame){
+        this.inGame = inGame;
     }
 
     public boolean validName(){

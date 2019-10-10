@@ -22,9 +22,17 @@ public class GetHomeRoute implements Route {
   final static String VIEW_NAME = "home.ftl";
 
   static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  static final Message PLAYER_IN_GAME = Message.info("That player is already in a game. Select someone else.");
 
   private final TemplateEngine templateEngine;
   private final PlayerLobby playerLobby;
+
+
+  private ModelAndView error(final Map<String, Object> vm, final Message message){
+        vm.put("message", message);
+        return new ModelAndView(vm, VIEW_NAME);
+  }
+
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -71,6 +79,26 @@ public class GetHomeRoute implements Route {
 
     //display a list of play that currently in the game.
     vm.put("playerList", playerLobby.getPlayers());
+
+    final Session httpSession = request.session();
+    ModelAndView mv;
+    for(Player opponent : playerLobby.getPlayers()){
+        //Is the player in a game already?
+
+        if(!(opponent.isInGame())){                 //No
+            playerLobby.addPlayerInGame(opponent);
+            playerLobby.addPlayerInGame(player);
+            httpSession.attribute("currentUser", player);
+            httpSession.attribute("whitePlayer", opponent);
+            httpSession.attribute("redPlayer", player);
+            response.redirect(WebServer.GAME_URL);
+            return null;
+        }
+        else{                                       //Yes
+            mv = error(vm, PLAYER_IN_GAME);
+            return templateEngine.render(mv);
+        }
+    }
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));

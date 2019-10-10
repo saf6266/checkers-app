@@ -2,6 +2,7 @@ package com.webcheckers.app;
 
 import com.webcheckers.model.Player;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PlayerLobby {
@@ -61,5 +62,14 @@ public class PlayerLobby {
      */
     public int getNumPlayers(){
         return this.players.size();
+    }
+
+    public void addPlayerInGame(Player player){
+        inGamePlayers.add(player);
+        player.setInGame(true);
+    }
+
+    public ArrayList<Player> getPlayerInGame(){
+        return this.inGamePlayers;
     }
 }
