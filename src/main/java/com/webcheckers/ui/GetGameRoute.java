@@ -38,16 +38,22 @@ public class GetGameRoute implements Route {
 
         final Session session = request.session();
 
-        final Player currentUser = session.attribute(RED_PLAYER);
-        final Player opponent = session.attribute(WHITE_PLAYER);
+        final Player redPlayer = session.attribute(RED_PLAYER);
+        final Player whitePlayer = session.attribute(WHITE_PLAYER);
+        final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
         BoardView board = gameCenter.getBoard();
 
+        whitePlayer.setWhite();
+        redPlayer.setRed();
         //Set the players side
-        opponent.setWhite();
-        currentUser.setRed();
-        vm.put(PostSignInRoute.CURR_USER_ATTR, currentUser);
-        vm.put(WHITE_PLAYER, opponent);
-        vm.put(RED_PLAYER, currentUser);
+        if(currentUser == redPlayer) {
+            vm.put(PostSignInRoute.CURR_USER_ATTR, redPlayer);
+        }
+        else{
+            vm.put(PostSignInRoute.CURR_USER_ATTR, whitePlayer);
+        }
+        vm.put(WHITE_PLAYER, whitePlayer);
+        vm.put(RED_PLAYER, redPlayer);
 
 
         //Red player goes first
