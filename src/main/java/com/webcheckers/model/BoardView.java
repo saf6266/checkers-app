@@ -26,6 +26,10 @@ public class BoardView implements Iterable<Row>{
         return row;
     }
 
+    public ArrayList<Row> getRows(){
+        return this.rows;
+    }
+
     public Player getCurrentUser() {
         return currentUser;
     }

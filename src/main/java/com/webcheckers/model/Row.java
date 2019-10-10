@@ -64,6 +64,10 @@ public class Row implements Iterable<Space> {
 
         return spaceList;
     }
+
+    public ArrayList<Space> getSpaces(){
+        return this.spaces;
+    }
     public int getIndex() {
         return index;
     }

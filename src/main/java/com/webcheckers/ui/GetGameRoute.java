@@ -4,8 +4,10 @@ import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Row;
 import spark.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -50,6 +52,10 @@ public class GetGameRoute implements Route {
             vm.put(PostSignInRoute.CURR_USER_ATTR, redPlayer);
         }
         else{
+            for(Row row : board.getRows()){
+                Collections.reverse(row.getSpaces());
+            }
+            Collections.reverse(board.getRows());
             vm.put(PostSignInRoute.CURR_USER_ATTR, whitePlayer);
         }
         vm.put(WHITE_PLAYER, whitePlayer);
