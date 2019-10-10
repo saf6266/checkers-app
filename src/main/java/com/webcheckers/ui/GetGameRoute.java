@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import spark.*;
 
@@ -37,6 +38,7 @@ public class GetGameRoute implements Route {
 
         final Player currentUser = session.attribute(RED_PLAYER);
         final Player opponent = session.attribute(WHITE_PLAYER);
+        final BoardView board = new BoardView();
 
         //Set the players side
         opponent.setWhite();
@@ -45,11 +47,15 @@ public class GetGameRoute implements Route {
         vm.put(WHITE_PLAYER, opponent);
         vm.put(RED_PLAYER, currentUser);
 
+
         //Red player goes first
         vm.put(ACTIVE_COLOR, Player.Color.RED);
 
         //Set the view Mode as PLAY (for now)
         vm.put("viewMode", GameCenter.Mode.PLAY);
+
+        //add the board
+        vm.put("board", board);
 
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));
 

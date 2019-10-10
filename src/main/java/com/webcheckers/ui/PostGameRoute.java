@@ -43,6 +43,8 @@ public class PostGameRoute implements Route {
             return null;
         }
         else{
+            currentUser.setInGame(true);
+            opponent.setInGame(true);
             session.attribute(GetGameRoute.RED_PLAYER, currentUser);
             session.attribute(GetGameRoute.WHITE_PLAYER, opponent);
             response.redirect(WebServer.GAME_URL);
