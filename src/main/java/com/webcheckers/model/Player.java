@@ -70,6 +70,7 @@ public class Player {
                     return false;
             else if(ASCII >= 123)
                 return false;
+            //knk
         }
         return true;
     }
