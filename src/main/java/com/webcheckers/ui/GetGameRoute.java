@@ -4,6 +4,7 @@ import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Row;
 import spark.*;
 
 
@@ -22,6 +23,7 @@ public class GetGameRoute implements Route {
     static final String WHITE_PLAYER = "whitePlayer";
     private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
     static final String ACTIVE_COLOR = "activeColor";
+    static final String BOARD = "board";
 
     GetGameRoute(TemplateEngine templateEngine, PlayerLobby playerLobby, GameCenter gameCenter){
         Objects.requireNonNull(templateEngine, "templateEngine is required.");
@@ -33,6 +35,7 @@ public class GetGameRoute implements Route {
 
     }
 
+
     @Override
     public Object handle(Request request, Response response){
         Map<String, Object> vm = new HashMap<>();
@@ -41,17 +44,30 @@ public class GetGameRoute implements Route {
 
         final Session session = request.session();
 
-        final Player currentUser = session.attribute(RED_PLAYER);
-        final Player opponent = session.attribute(WHITE_PLAYER);
+        final Player redPlayer = session.attribute(RED_PLAYER);
+        final Player whitePlayer = session.attribute(WHITE_PLAYER);
+        final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
 
         BoardView board = gameCenter.getBoard();
-        LOG.finer(currentUser.getName());
+        BoardView flippedBoard = board.flipBoard(board);
+
         //Set the players side
-        opponent.setWhite();
-        currentUser.setRed();
-        vm.put(PostSignInRoute.CURR_USER_ATTR, currentUser);
-        vm.put(WHITE_PLAYER, opponent);
-        vm.put(RED_PLAYER, currentUser);
+        whitePlayer.setWhite();
+        redPlayer.setRed();
+
+        //Determine if redPlayer is the currentUser
+        if(redPlayer == currentUser) {
+            session.removeAttribute(PostSignInRoute.CURR_USER_ATTR);
+            vm.put(PostSignInRoute.CURR_USER_ATTR, redPlayer);
+            vm.put(BOARD, board);
+        }
+        else{
+            session.removeAttribute(PostSignInRoute.CURR_USER_ATTR);
+            vm.put(PostSignInRoute.CURR_USER_ATTR, whitePlayer);
+            vm.put(BOARD, flippedBoard);
+        }
+        vm.put(WHITE_PLAYER, whitePlayer);
+        vm.put(RED_PLAYER, redPlayer);
 
 
 
@@ -61,8 +77,6 @@ public class GetGameRoute implements Route {
         //Set the view Mode as PLAY (for now)
         vm.put("viewMode", GameCenter.Mode.PLAY);
 
-        //add the board
-        vm.put("board", board);
 
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));
 
