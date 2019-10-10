@@ -6,6 +6,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
+import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
 import com.webcheckers.ui.WebServer;
 
@@ -87,6 +88,7 @@ public final class Application {
     }
 
     final PlayerLobby playerLobby = new PlayerLobby();
+    final GameCenter gameCenter = new GameCenter(null, null);
     // The application uses FreeMarker templates to generate the HTML
     // responses sent back to the client. This will be the engine processing
     // the templates and associated data.
@@ -98,7 +100,7 @@ public final class Application {
     final Gson gson = new Gson();
 
     // inject the game center and freemarker engine into web server
-    final WebServer webServer = new WebServer(templateEngine, gson, playerLobby);
+    final WebServer webServer = new WebServer(templateEngine, gson, playerLobby, gameCenter);
 
     // inject web server into application
     final Application app = new Application(webServer);

@@ -18,13 +18,13 @@ public class Row implements Iterable<Space> {
                 if( i < 3) {
                     if (i % 2 == 0) {
                         if (j % 2 == 1) {
-                            spaceList.add(new Space(new Piece(Piece.type.Single, Piece.color.WHITE), j, true));
+                            spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE), j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
                         }
                     } else {
                         if (j % 2 == 0) {
-                            spaceList.add(new Space(new Piece(Piece.type.Single, Piece.color.WHITE), j, true));
+                            spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE), j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
                         }
@@ -32,13 +32,13 @@ public class Row implements Iterable<Space> {
                 } else if ( i > 4){
                     if (i % 2 == 1) {
                         if (j % 2 == 0) {
-                            spaceList.add(new Space(new Piece(Piece.type.Single, Piece.color.RED), j, true));
+                            spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED), j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
                         }
                     } else {
                         if (j % 2 == 1) {
-                            spaceList.add(new Space(new Piece(Piece.type.Single, Piece.color.RED), j, true));
+                            spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED), j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
                         }
@@ -70,7 +70,7 @@ public class Row implements Iterable<Space> {
 
     @Override
     public Iterator<Space> iterator() {
-        Iterator<Space> iterator = generateSpaces(spaces, getIndex()).iterator();
+        Iterator<Space> iterator = spaces.listIterator();
         return iterator;
     }
 }
