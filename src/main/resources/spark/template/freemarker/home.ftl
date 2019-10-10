@@ -61,7 +61,12 @@
         <#list playerList as playerName>
           <#if playerName != currentUser>
            <tr>
-             <td>${playerName.getName()}</td>
+<#--    <a href="#" onclick="event.preventDefault(); signout.submit();">sign out [${currentUser.getName()}]</a>-->
+             <td>
+                 <form id="${playerName.getName()}" action="/game" method="get">
+                 <a href="#" onclick="event.preventDefault()" data-value="${playerName.getName()}"> ${playerName.getName()}  </a>
+                 </form>
+             </td>
            </tr>
           </#if>
         </#list>

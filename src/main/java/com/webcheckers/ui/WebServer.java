@@ -151,6 +151,8 @@ public class WebServer {
     //Post a SIGNIN request
     post(SIGNIN_URL, new PostSignInRoute(playerLobby, templateEngine));
 
+
+
     //
     LOG.config("WebServer is initialized.");
   }

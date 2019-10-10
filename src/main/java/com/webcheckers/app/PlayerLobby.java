@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class PlayerLobby {
 
     private ArrayList<Player> players = new ArrayList<>(); //The list of players
-
+    private ArrayList<Player> inGamePlayers = new ArrayList<>(); //list of players in game
     /**
      * This program checks to see if the player's username is already in use/or is invalid
      * @param player: The current user
