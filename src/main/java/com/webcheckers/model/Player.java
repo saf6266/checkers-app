@@ -49,14 +49,20 @@ public class Player {
         this.inGame = inGame;
     }
 
+    /**
+     * TODO: only allow alphanumeric ranges
+     * logic incorrect!!!!!!!!!!!
+     * @return
+     */
     public boolean validName(){
         String TempName = this.getName();
         int len = TempName.length();
+        //check length, if the input is 0
         char letter;
-        int ASCII;
-        for(int i = 1; i < len; i++){
+        int ASCII;          //maybe redundant
+        for(int i = 1; i < len; i++){     //maybe start from 0
             letter = TempName.charAt(i);
-            ASCII = (int)letter;
+            ASCII = (int)letter;        //maybe redundant
             if(ASCII <= 31)
                 return false;
             else if(ASCII >= 33)
