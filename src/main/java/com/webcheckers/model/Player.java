@@ -1,26 +1,58 @@
 package com.webcheckers.model;
 
+/**
+ * The model of the player.
+ * Deals with player specific attributes like the name of the player,
+ * what color they are (red, white or none), etc.
+ */
 public class Player {
-    /**
-     * The player class to determine the different attributes of the user
-     */
-    //Attributes
-    private boolean turn;
-    private boolean inGame;
-    private String name;
-    private Color side;
-    private Player opponent;
 
+    /**
+     * The color of the player:
+     * Red player
+     * White player
+     * None
+     */
     public enum Color{
         RED,
         WHITE,
         NONE
     }
 
+    ///
+    ///Attributes
+    ///
+    private boolean turn;
+    private String name;
+    private Color side;
+    private Player opponent;
+
+    ///
+    ///Constructors
+    ///
+    public Player(boolean turn, String name){
+        setTurn(turn);
+        setName(name);
+        setNone();
+    }
+
+    public Player(String name){
+        setName(name);
+        setNone();
+    }
+
+    /**
+     * Get the opponent of this player
+     * @return this.opponent
+     */
     public Player getOpponent() {
         return opponent;
     }
 
+    /**
+     * Set the player's opponent to an opponent
+     * @param opponent The opponent of the player
+     */
     public void setOpponent(Player opponent) {
         this.opponent = opponent;
     }
@@ -41,45 +73,7 @@ public class Player {
         this.turn = turn;
     }
 
-    public boolean isInGame(){
-        return this.inGame;
-    }
 
-    public void setInGame(boolean inGame){
-        this.inGame = inGame;
-    }
-
-    /**
-     * TODO: only allow alphanumeric ranges
-     * logic incorrect!!!!!!!!!!!
-     * @return
-     */
-    public boolean validName(){
-        String TempName = this.getName();
-        int len = TempName.length();
-        //check length, if the input is 0
-        char letter;
-        int ASCII;          //maybe redundant
-        for(int i = 1; i < len; i++){     //maybe start from 0
-            letter = TempName.charAt(i);
-            ASCII = (int)letter;        //maybe redundant
-            if(ASCII <= 31)
-                return false;
-            else if(ASCII >= 33)
-                if(ASCII <= 47)
-                    return false;
-            else if(ASCII >= 58)
-                if(ASCII <= 64)
-                    return false;
-            else if(ASCII >= 91)
-                if(ASCII <= 96)
-                    return false;
-            else if(ASCII >= 123)
-                return false;
-            //knk
-        }
-        return true;
-    }
     /**
      * Get the name of the user
      * @return name of the player
@@ -88,10 +82,18 @@ public class Player {
         return name;
     }
 
+    /**
+     * Check to see if this player is a red player
+     * @return true if red, false otherwise
+     */
     public boolean isRed(){
         return this.side == Color.RED;
     }
 
+    /**
+     * Check to see if this player is a white player
+     * @return true if white, false otherwise
+     */
     public boolean isWhite(){
         return this.side == Color.WHITE;
     }
@@ -122,18 +124,39 @@ public class Player {
      */
     public void setNone(){side = Color.NONE;}
 
-
-    //Constructors
-    public Player(boolean turn, String name){
-        setTurn(turn);
-        setName(name);
-        setNone();
+    /**
+     * TODO: only allow alphanumeric ranges
+     * logic incorrect!!!!!!!!!!!
+     * @return
+     */
+    public boolean validName(){
+        String TempName = this.getName();
+        int len = TempName.length();
+        //check length, if the input is 0
+        char letter;
+        int ASCII;          //maybe redundant
+        for(int i = 1; i < len; i++){     //maybe start from 0
+            letter = TempName.charAt(i);
+            ASCII = (int)letter;        //maybe redundant
+            if(ASCII <= 31)
+                return false;
+            else if(ASCII >= 33)
+                if(ASCII <= 47)
+                    return false;
+                else if(ASCII >= 58)
+                    if(ASCII <= 64)
+                        return false;
+                    else if(ASCII >= 91)
+                        if(ASCII <= 96)
+                            return false;
+                        else if(ASCII >= 123)
+                            return false;
+            //knk
+        }
+        return true;
     }
 
-    public Player(String name){
-        setName(name);
-        setNone();
-    }
+
 
 
 }

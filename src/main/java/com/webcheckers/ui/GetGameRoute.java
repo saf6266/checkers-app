@@ -11,17 +11,29 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Logger;
 
+/**
+ * The {@code GET /game} route handler.
+ */
 public class GetGameRoute implements Route {
-
+    private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
+    ///
+    ///Attributes
+    ///
     private TemplateEngine templateEngine;
     private PlayerLobby playerLobby;
     private GameCenter gameCenter;
 
+    //Values used in the view-model map for rendering the game view
     static final String RED_PLAYER = "redPlayer";
     static final String WHITE_PLAYER = "whitePlayer";
     static final String ACTIVE_COLOR = "activeColor";
+    static final String TITLE = "GAME";
 
+    ///
+    ///Constructor
+    ///
     GetGameRoute(TemplateEngine templateEngine, PlayerLobby playerLobby, GameCenter gameCenter){
         Objects.requireNonNull(templateEngine, "templateEngine is required.");
         Objects.requireNonNull(playerLobby, "playerLobby is required.");
@@ -29,14 +41,29 @@ public class GetGameRoute implements Route {
 
         this.templateEngine = templateEngine;
         this.playerLobby = playerLobby;
+        //
+        LOG.config("GetGameRoute is initialized.");
 
     }
 
+    /**
+     * Render the WebCheckers Game page.
+     *
+     * @param request
+     *   the HTTP request
+     * @param response
+     *   the HTTP response
+     *
+     * @return
+     *   the rendered HTML for the Game page
+     */
     @Override
     public Object handle(Request request, Response response){
+        LOG.finer("GetGameRoute is invoked.");
+
         Map<String, Object> vm = new HashMap<>();
 
-        vm.put("title", "GAME");
+        vm.put("title", TITLE);
 
         final Session session = request.session();
 
@@ -52,10 +79,7 @@ public class GetGameRoute implements Route {
             vm.put(PostSignInRoute.CURR_USER_ATTR, redPlayer);
         }
         else{
-            for(Row row : board.getRows()){
-                Collections.reverse(row.getSpaces());
-            }
-            Collections.reverse(board.getRows());
+            board.flipBoard();
             vm.put(PostSignInRoute.CURR_USER_ATTR, whitePlayer);
         }
         vm.put(WHITE_PLAYER, whitePlayer);

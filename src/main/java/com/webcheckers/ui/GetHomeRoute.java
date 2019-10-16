@@ -23,6 +23,7 @@ public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
   //values for view-model map
   final static String VIEW_NAME = "home.ftl";
+  final static String TITLE = "Welcome!";
 
   static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
@@ -64,7 +65,7 @@ public class GetHomeRoute implements Route {
     LOG.finer("GetHomeRoute is invoked.");
     //
     Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
+    vm.put("title", TITLE);
 
     //retrieve the player's name
     final Session session = request.session();

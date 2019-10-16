@@ -5,11 +5,18 @@ import com.webcheckers.model.Player;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * PlayerLobby is the lobby of players that are signed in to the
+ * Web Checkers site. Various functions are in this class to determine
+ * if a player name is already been used, adding a player name that signs in
+ * to the player list, or removing a player name that signs out from the player list.
+ */
 public class PlayerLobby {
 
     private ArrayList<Player> players = new ArrayList<>(); //The list of players
+
     /**
-     * This program checks to see if the player's username is already in use/or is invalid
+     * Check to see if the player's username is already in use/or is invalid
      * @param player: The current user
      * @return true if player is ok to add, false if player cannot be added
      */
