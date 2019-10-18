@@ -47,6 +47,10 @@ public class GameCenter {
         inGameList.add(player);
     }
 
+    public void removePlayer(Player player){
+        inGameList.remove(player);
+    }
+
     /**
      * Checks to see if a player is already in a game.
      * @param player The player that is being checked

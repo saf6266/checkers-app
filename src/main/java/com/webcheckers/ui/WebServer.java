@@ -60,6 +60,8 @@ public class WebServer {
 
   public static final String GAME_URL = "/game";
 
+  public static final String SIGNOUT_URL = "/signout";
+
   //
   // Attributes
   //
@@ -155,6 +157,9 @@ public class WebServer {
 
     //Post a SIGNIN request
     post(SIGNIN_URL, new PostSignInRoute(playerLobby, templateEngine));
+
+    //Post a SIGNOUT request
+    post(SIGNOUT_URL, new PostSignOutRoute(templateEngine, playerLobby, gameCenter));
 
     //Post a GAME request
     post(GAME_URL, new PostGameRoute(playerLobby, gameCenter));
