@@ -11,18 +11,21 @@ import java.util.Iterator;
  */
 public class BoardView implements Iterable<Row>{
 
-    //The rows of the board
+    //The rows of the board aka the board
     private ArrayList<Row> rows = new ArrayList<>();
     //The currentUser that is shown the board
     private Player currentUser;
     //The opponent to the currentUser
     private Player opponent;
+    //2d array copy of the rows board
+    private Piece[][] model;
 
     //Constructor
     public BoardView(Player currentUser, Player opponent) {
         this.currentUser = currentUser;
         this.opponent = opponent;
-        rows = generateBoard(rows);
+        this.rows = generateBoard(rows);
+        this.model = generateBoardArray(rows);
     }
 
     /**
@@ -37,6 +40,22 @@ public class BoardView implements Iterable<Row>{
         }
         return row;
     }
+
+    private Piece[][] generateBoardArray(ArrayList<Row> rows){
+         this.model = new Piece[8][8];
+         int i = 0;
+         //loop through row
+         for (Row row: rows){
+             //loop through spaces in that row
+             for(  Space spaces: row.getSpaces()){
+                 model[i][spaces.getCellIdx()] = spaces.getPiece();
+             }
+             i++;
+         }
+        return model;
+    }
+
+
 
     /**
      * Get the rows of the board
@@ -57,6 +76,8 @@ public class BoardView implements Iterable<Row>{
         Collections.reverse(getRows());
 
     }
+
+
 
     /**
      * Get the current User
