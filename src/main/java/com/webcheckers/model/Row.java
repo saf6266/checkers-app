@@ -23,6 +23,16 @@ public class Row implements Iterable<Space> {
     }
 
     /**
+     * Contructor for the conversion used in boardview
+     * @param index
+     * @param spaces
+     */
+    public Row(int index, ArrayList<Space> spaces){
+        this.index = index;
+        this.spaces = spaces;
+    }
+
+    /**
      * Get the spaces in this row
      * @return this.spaces
      */
