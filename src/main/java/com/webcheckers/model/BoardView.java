@@ -110,11 +110,17 @@ public class BoardView implements Iterable<Row>{
 
 
     private void doNewGame() {
-
         board.setUpGame();   // Set up the pieces.
         currentPlayer = BoardChecker.RED;   // RED moves first.
         legalMoves = board.getLegalMoves(BoardChecker.RED);  // Get RED's legal moves.
     }
+
+
+
+
+
+
+
 
     public void doClickSquare(int row, int col) {
         // This is called by mousePressed() when a player clicks on the
