@@ -23,6 +23,7 @@ public class BoardView implements Iterable<Row>{
         this.currentUser = currentUser;
         this.opponent = opponent;
         rows = generateBoard(rows);
+        doNewGame();
     }
 
     /**
@@ -107,6 +108,13 @@ public class BoardView implements Iterable<Row>{
     //    This board is also responsible for generating
     //    lists of legal moves.
 
+
+    private void doNewGame() {
+
+        board.setUpGame();   // Set up the pieces.
+        currentPlayer = BoardChecker.RED;   // RED moves first.
+        legalMoves = board.getLegalMoves(BoardChecker.RED);  // Get RED's legal moves.
+    }
 
     public void doClickSquare(int row, int col) {
         // This is called by mousePressed() when a player clicks on the
