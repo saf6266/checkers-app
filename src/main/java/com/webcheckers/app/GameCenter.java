@@ -49,6 +49,7 @@ public class GameCenter {
     }
 
     public void removePlayer(Player player){
+        board.setCurrentUser(null);
         inGameList.remove(player);
     }
 
