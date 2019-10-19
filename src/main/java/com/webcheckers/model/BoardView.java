@@ -11,19 +11,24 @@ import java.util.Iterator;
  */
 public class BoardView implements Iterable<Row>{
 
-    //The rows of the board
+    //The rows of the board aka the board
     private ArrayList<Row> rows = new ArrayList<>();
     //The currentUser that is shown the board
     private Player currentUser;
     //The opponent to the currentUser
     private Player opponent;
+    //2d array copy of the rows board
+    private Space[][] model;
 
     //Constructor
     public BoardView(Player currentUser, Player opponent) {
         this.currentUser = currentUser;
         this.opponent = opponent;
-        rows = generateBoard(rows);
-        doNewGame();
+
+        this.rows = generateBoard(rows);
+        this.model = generateBoardArray(rows);
+
+
     }
 
     /**
@@ -37,6 +42,56 @@ public class BoardView implements Iterable<Row>{
             row.add(r);
         }
         return row;
+    }
+
+    /**
+     * Generate a copy of arraylist rows to 2d array for easier manipulation
+     * @param rows the ArrayList of rows
+     * @return a 2D Piece array representation of rows
+     */
+    private Space[][] generateBoardArray(ArrayList<Row> rows){
+         Space[][] model = new Space[8][8];
+         int i = 0;
+         //loop through row
+         for (Row row: rows){
+             //loop through spaces in that row
+             for(  Space spaces: row.getSpaces()){
+                 model[i][spaces.getCellIdx()] = spaces;
+             }
+             i++;
+         }
+        return model;
+    }
+
+    /**
+     * Converts the 2d Piece array back into an array list for the iterator to work
+     * rows is a arraylist of Rows and Rows is an arraylist of Spaces.
+     * update rows!
+     * @param model the 2d Piece Array
+     * @return a Arraylist representation of {model}
+     */
+    private void convertToArrayList(Space[][] model){
+        //ArrayList of rows
+        ArrayList<Row> rows = new ArrayList<>();
+        //looping through model by rows
+        for (int i = 0; i < 8; i++){
+            //ArrayList of spaces
+            ArrayList<Space> spaces = new ArrayList<>();
+
+            ArrayList<Row> rowsForSpaces = new ArrayList<>();
+            //looping through cols of 2d array and add to spaces array
+            for ( int j = 0; j < 8; j++){
+                spaces.add(model[i][j]);
+            }
+            Row r = new Row(i, spaces);
+            rows.add(r);
+
+        }
+        setRows(rows);
+    }
+
+    public void setRows(ArrayList<Row> rows) {
+        this.rows = rows;
     }
 
     /**
@@ -58,6 +113,8 @@ public class BoardView implements Iterable<Row>{
         Collections.reverse(getRows());
 
     }
+
+
 
     /**
      * Get the current User
