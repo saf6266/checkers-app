@@ -125,31 +125,33 @@ public class Player {
     public void setNone(){side = Color.NONE;}
 
     /**
-     * TODO: only allow alphanumeric ranges
-     * logic incorrect!!!!!!!!!!!
-     * @return
+     * the method will check user input is valid or not
+     * only alphanumeric characters will be accepted for the username
+     * @return boolean false-not acceptable
+     *                 true-acceptable
      */
     public boolean validName(){
         String TempName = this.getName();
         int len = TempName.length();
+        if(len == 0){
+            return false;
+        }
         //check length, if the input is 0
         char letter;
-        int ASCII;          //maybe redundant
-        for(int i = 1; i < len; i++){     //maybe start from 0
+        for(int i = 1; i < len; i++){
             letter = TempName.charAt(i);
-            ASCII = (int)letter;        //maybe redundant
-            if(ASCII <= 31)
+            if(letter <= 31)
                 return false;
-            else if(ASCII >= 33)
-                if(ASCII <= 47)
+            else if(letter >= 33)
+                if(letter <= 47)
                     return false;
-                else if(ASCII >= 58)
-                    if(ASCII <= 64)
+                else if(letter >= 58)
+                    if(letter <= 64)
                         return false;
-                    else if(ASCII >= 91)
-                        if(ASCII <= 96)
+                    else if(letter >= 91)
+                        if(letter <= 96)
                             return false;
-                        else if(ASCII >= 123)
+                        else if(letter >= 123)
                             return false;
             //knk
         }
