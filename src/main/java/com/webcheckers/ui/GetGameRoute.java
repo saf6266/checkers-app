@@ -6,6 +6,7 @@ import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.Row;
 import spark.*;
+import com.google.gson.Gson;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -71,7 +72,6 @@ public class GetGameRoute implements Route {
         final Player whitePlayer = session.attribute(WHITE_PLAYER);
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
         BoardView board = gameCenter.getBoard();
-
         whitePlayer.setWhite();
         redPlayer.setRed();
         //Set the players side
@@ -88,6 +88,13 @@ public class GetGameRoute implements Route {
 
         //Red player goes first
         vm.put(ACTIVE_COLOR, Player.Color.RED);
+
+        //check if game is ended then display this object for game.ftl
+      //  final Map<String, Object> modeOptions = new HashMap<>(2);
+      //  modeOptions.put("isGameOver", true);
+       // modeOptions.put("gameOverMessage", /* get end of game message */);
+       // vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+
 
         //Set the view Mode as PLAY (for now)
         vm.put("viewMode", GameCenter.Mode.PLAY);

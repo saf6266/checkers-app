@@ -74,6 +74,10 @@ public class BoardView implements Iterable<Row>{
         return opponent;
     }
 
+    public void setCurrentUser(Player currentUser) {
+        this.currentUser = currentUser;
+    }
+
     /**
      * Create an iterator of the rows of the board
      * @return iterator

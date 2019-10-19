@@ -55,15 +55,14 @@ public class PostGameRoute implements Route {
         final String opponentName = request.queryParams("opponent");
 
         Player opponent = null;
-        for(Player player : playerLobby.getPlayers()){
-            if(player.getName().equals(opponentName)){
+        for(Player player : playerLobby.getPlayers()) {
+            if (player.getName().equals(opponentName)) {
                 opponent = player;
                 break;
             }
         }
 
-        LOG.finer(opponent.getName());
-        final Player currentUser = session.attribute("player");
+        final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
 
         //Is the opponent already in a game
         if(gameCenter.inGame(opponent)){        //Yes

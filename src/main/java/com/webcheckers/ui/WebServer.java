@@ -62,6 +62,16 @@ public class WebServer {
 
   public static final String SIGNOUT_URL = "/signout";
 
+  public static final String VALIDATE_MOVE = "/validateMove";
+
+  public static final String SUBMIT_TURN = "/submitTurn";
+
+  public static final String BACKUP_MOVE = "/backupMove";
+
+  public static final String RESIGN_GAME = "/resignGame";
+
+  public static final String CHECK_TURN = "/checkTurn";
+
   //
   // Attributes
   //
@@ -167,6 +177,8 @@ public class WebServer {
     //Get the game route
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameCenter));
     //
+
+
     LOG.config("WebServer is initialized.");
   }
 
