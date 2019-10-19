@@ -8,13 +8,22 @@ import spark.*;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * The UI Controller to POST the Sign Out Route
+ */
 public class PostSignOutRoute implements Route {
     private static final Logger LOG = Logger.getLogger(PostSignOutRoute.class.getName());
 
+    ///
+    ///Attributes
+    ///
     private TemplateEngine templateEngine;
     private PlayerLobby playerLobby;
     private GameCenter gameCenter;
 
+    ///
+    ///Constructor
+    ///
     PostSignOutRoute(TemplateEngine templateEngine, PlayerLobby playerLobby, GameCenter gameCenter){
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         this.playerLobby = Objects.requireNonNull(playerLobby, "playerLobby is required");
@@ -47,6 +56,9 @@ public class PostSignOutRoute implements Route {
         }
         //Remove the player from the player lobby
         playerLobby.removePlayer(currentUser);
+
+        //Remove the currentUser from the session
+        session.removeAttribute(PostSignInRoute.CURR_USER_ATTR);
 
         //Redirect to the home page
         response.redirect(WebServer.HOME_URL);
