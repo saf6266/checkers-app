@@ -44,6 +44,7 @@ public class GameCenter {
      * @param player The player that is being added
      */
     public void addPlayer(Player player){
+        board.setCurrentUser(player);
         inGameList.add(player);
     }
 

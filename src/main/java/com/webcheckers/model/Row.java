@@ -34,7 +34,7 @@ public class Row implements Iterable<Space> {
      * Get the row index
      * @return this.index
      */
-    private int getIndex() {
+    public int getIndex() {
         return index;
     }
 
