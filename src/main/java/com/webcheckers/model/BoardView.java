@@ -122,10 +122,10 @@ public class BoardView implements Iterable<Row>{
             if (legalMoves[i].fromRow == row && legalMoves[i].fromCol == col) {
                 selectedRow = row;
                 selectedCol = col;
-                if (currentPlayer == BoardChecker.RED)
-                    setText("RED:  Make your move."); //Output
-                else
-                    setText("BLACK:  Make your move."); //Output
+                //if (currentPlayer == BoardChecker.RED)
+                  //  setText("RED:  Make your move."); //Output
+                //else
+                  //  setText("BLACK:  Make your move."); //Output
             }
 
       /* If the user clicked on a squre where the selected piece can be
@@ -141,7 +141,7 @@ public class BoardView implements Iterable<Row>{
          the user just clicked is not one where that piece can be legally moved.
          Show an error message. */
 
-        message.setText("Click the square you want to move to.");
+        //message.setText("Click the square you want to move to.");
 
     }  // end doClickSquare()
 
@@ -161,10 +161,10 @@ public class BoardView implements Iterable<Row>{
         if (move.isJump()) {
             legalMoves = board.getLegalJumpsFrom(currentPlayer,move.toRow,move.toCol);
             if (legalMoves != null) {
-                if (currentPlayer == BoardChecker.RED)
-                    message.setText("RED:  You must continue jumping.");
-                else
-                    message.setText("BLACK:  You must continue jumping.");
+                //if (currentPlayer == BoardChecker.RED)
+                    //RED:  You must continue jumping.
+                //else
+                    //message.setText("BLACK:  You must continue jumping.");
                 selectedRow = move.toRow;  // Since only one piece can be moved, select it.
                 selectedCol = move.toCol;
                 }
@@ -177,22 +177,22 @@ public class BoardView implements Iterable<Row>{
         if (currentPlayer == BoardChecker.RED) {
             currentPlayer = BoardChecker.BLACK;
             legalMoves = board.getLegalMoves(currentPlayer);
-            if (legalMoves == null)
-                gameOver("BLACK has no moves.  RED wins.");
-            else if (legalMoves[0].isJump())
-                message.setText("BLACK:  Make your move.  You must jump.");
-            else
-                message.setText("BLACK:  Make your move.");
+            //if (legalMoves == null)
+                //gameOver("BLACK has no moves.  RED wins.");
+            //else if (legalMoves[0].isJump())
+                //message.setText("BLACK:  Make your move.  You must jump.");
+            //else
+               // message.setText("BLACK:  Make your move.");
         }
         else {
             currentPlayer = BoardChecker.RED;
             legalMoves = board.getLegalMoves(currentPlayer);
-            if (legalMoves == null)
-                gameOver("RED has no moves.  BLACK wins.");
-            else if (legalMoves[0].isJump())
-                message.setText("RED:  Make your move.  You must jump.");
-            else
-                message.setText("RED:  Make your move.");
+            //if (legalMoves == null)
+                //gameOver("RED has no moves.  BLACK wins.");
+            //else if (legalMoves[0].isJump())
+               // message.setText("RED:  Make your move.  You must jump.");
+            //else
+                //message.setText("RED:  Make your move.");
         }
 
 
