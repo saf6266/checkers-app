@@ -26,21 +26,32 @@ public class Player {
     private String name;
     private Color side;
     private Player opponent;
+    private int coins;
 
     ///
     ///Constructors
     ///
-    public Player(boolean turn, String name){
-        setTurn(turn);
-        setName(name);
-        setNone();
-    }
 
     public Player(String name){
         setName(name);
         setNone();
+        this.coins = 12;
     }
 
+    /**
+     * Lose a coin when it is taken
+     */
+    public void Loss(){
+        this.coins--;
+    }
+
+    /**
+     *
+     * @return false if no more tokens, true if tokens still remaining
+     */
+    public boolean validGame(){
+        return this.coins == 0;
+    }
     /**
      * Get the opponent of this player
      * @return this.opponent
@@ -122,7 +133,10 @@ public class Player {
     /**
      * When the game is finished, call this to reset the player to know they can play a game
      */
-    public void setNone(){side = Color.NONE;}
+    public void setNone(){
+        side = Color.NONE;
+        this.coins = 12;
+    }
 
     /**
      * the method will check user input is valid or not

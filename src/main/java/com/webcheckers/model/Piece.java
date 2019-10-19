@@ -48,4 +48,8 @@ public class Piece {
     public COLOR getColor() {
         return pieceColor;
     }
+
+    public void coronate(){
+        this.pieceType = TYPE.KING;
+    }
 }
