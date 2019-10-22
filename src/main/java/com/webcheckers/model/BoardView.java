@@ -20,6 +20,7 @@ public class BoardView implements Iterable<Row>{
     //2d array copy of the rows board
     private Space[][] model;
 
+
     //Constructor
     public BoardView(Player currentUser, Player opponent) {
         this.currentUser = currentUser;
