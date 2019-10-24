@@ -17,11 +17,16 @@ public class PostSignInRoute implements Route {
     private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
     //values for the view-model map
-    private final static String VIEW_NAME = "signin.ftl";
-    private final static Message NAME_EXISTS = Message.error("The name you entered already exists, enter a different name.");
-    private final static Message INVALID_NAME = Message.error("The name you entered has at least one non-alphanumeric letter, enter" +
+    final static String TITLE_ATTR = "title";
+    final static String TITLE = "Sign In!";
+    final static String VIEW_NAME = "signin.ftl";
+    final static String MESSAGE_ATTR = "message";
+
+    final static Message NAME_EXISTS = Message.error("The name you entered already exists, enter a different name.");
+    final static Message INVALID_NAME = Message.error("The name you entered has at least one non-alphanumeric letter, enter" +
                                                     " a new name.");
     static final String CURR_USER_ATTR = "currentUser";
+    static final String USERNAME_PARAM = "username";
 
     private final PlayerLobby playerLobby;
     private final TemplateEngine templateEngine;
@@ -45,7 +50,7 @@ public class PostSignInRoute implements Route {
      * @return the Model-View for the SignIn page with the message
      */
     private ModelAndView error(final Map<String, Object> vm, final Message message){
-        vm.put("message", message);
+        vm.put(MESSAGE_ATTR, message);
         return new ModelAndView(vm, VIEW_NAME);
     }
 
@@ -67,10 +72,10 @@ public class PostSignInRoute implements Route {
 
         //Start building the View-Model
         final Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Sign In!");
+        vm.put(TITLE_ATTR, TITLE);
 
         //retrieve request parameter
-        final String name = request.queryParams("username");
+        final String name = request.queryParams(USERNAME_PARAM);
 
         final Player player = new Player(name);
         ModelAndView mv;

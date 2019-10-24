@@ -7,6 +7,9 @@ import com.webcheckers.model.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
 
+/**
+ * @author Shakeel Farooq
+ */
 @Tag ("Application-Tier")
 public class GameCenterTest {
 
