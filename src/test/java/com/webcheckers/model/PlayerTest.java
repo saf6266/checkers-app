@@ -56,6 +56,18 @@ public class PlayerTest {
         assertFalse(CuT.isRed());
         assertFalse(CuT.isWhite());
     }
+    @Test
+    public void testTurn(){
+        final Player CuT = new Player("Bob");
+
+        assertFalse(CuT.isTurn());
+
+        CuT.setTurn(true);
+
+        assertTrue(CuT.isTurn());
+
+
+    }
 
 
 }
