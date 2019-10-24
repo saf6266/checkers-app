@@ -43,10 +43,32 @@ public class GameCenterTest {
     }
 
     @Test
+    public void test_remove_player(){
+
+        final GameCenter CuT = new GameCenter(PLAYER, OPPONENT);
+
+        //Add player names to game list
+        CuT.addPlayer(PLAYER);
+        CuT.addPlayer(OPPONENT);
+
+        //Analyze player names in the games list
+        assertTrue(CuT.inGame(PLAYER));
+        assertTrue(CuT.inGame(OPPONENT));
+
+        //Remove player names from game list
+        CuT.removePlayer(PLAYER);
+        CuT.removePlayer(OPPONENT);
+
+        //Analyze player names not in list
+        assertFalse(CuT.inGame(PLAYER));
+        assertFalse(CuT.inGame(OPPONENT));
+    }
+
+    @Test
     public void testGetBoardView(){
 
         final GameCenter CuT = new GameCenter(PLAYER, OPPONENT);
-        final BoardView board = new BoardView(PLAYER, OPPONENT);
+        final BoardView board = CuT.getBoard();
 
         //Analyze the two boards are the same
         assertEquals(board, CuT.getBoard());
