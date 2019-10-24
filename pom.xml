@@ -120,7 +120,7 @@
           <mainClass>com.webcheckers.Application</mainClass>
         </configuration>
         <executions>
-	  <!-- Run all tier-specific unit test with code coverage
+	  <!-- Run all tier-specific unit model with code coverage
 	       report -->
           <execution>
             <id>tests-and-coverage</id>
@@ -241,7 +241,7 @@
           <execution>
             <id>jacoco-initialize</id>
             <configuration>
-              <!-- throw away the old data with each test run -->
+              <!-- throw away the old data with each model run -->
               <append>false</append>
             </configuration>
             <goals>
