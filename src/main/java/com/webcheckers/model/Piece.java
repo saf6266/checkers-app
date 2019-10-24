@@ -8,14 +8,14 @@ public class Piece {
     /**
      * The type of piece
      */
-    enum TYPE {
+    public enum TYPE {
         SINGLE, KING
     }
 
     /**
      * The color of the piece
      */
-    enum COLOR {
+    public enum COLOR {
         RED, WHITE
     }
 
