@@ -19,9 +19,11 @@ public class GetSignInRoute implements Route{
     private final TemplateEngine templateEngine;
 
     //values for the view-model map
-    private static final Message SIGNIN_MSG = Message.info("Enter your name to sign in as a player.");
-    private static final String TITLE = "Sign In!";
-    private static final String VIEW_NAME = "signin.ftl";
+    public static final Message SIGNIN_MSG = Message.info("Enter your name to sign in as a player.");
+    public static final String TITLE = "Sign In!";
+    public static final String VIEW_NAME = "signin.ftl";
+    public static final String TITLE_ATTR = "title";
+    public static final String MESSAGE_ATTR = "message";
 
     ///
     ///Constructor
