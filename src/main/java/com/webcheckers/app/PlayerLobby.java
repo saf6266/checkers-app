@@ -20,7 +20,7 @@ public class PlayerLobby {
      * @param player: The current user
      * @return true if player is ok to add, false if player cannot be added
      */
-    private boolean checkPlayer(Player player){
+    public boolean checkPlayer(Player player){
         if(!player.validName())
             return false;   //player's name is not valid
         if(!(players.isEmpty())) {
