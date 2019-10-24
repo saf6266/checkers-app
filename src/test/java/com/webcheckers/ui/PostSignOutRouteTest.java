@@ -4,10 +4,11 @@ import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
-import spark.Request;
-import spark.Session;
-import spark.TemplateEngine;
+import org.junit.jupiter.api.Test;
+import spark.*;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,11 +22,13 @@ public class PostSignOutRouteTest {
     private TemplateEngine engine;
     private PlayerLobby playerLobby;
     private GameCenter gameCenter;
+    private Response response;
 
     @BeforeEach
     public void setup() {
         request = mock(Request.class);
         session = mock(Session.class);
+        response = mock(Response.class);
         when(request.session()).thenReturn(session);
         engine = mock(TemplateEngine.class);
 
@@ -34,5 +37,16 @@ public class PostSignOutRouteTest {
         gameCenter = mock(GameCenter.class);
 
         CuT = new PostSignOutRoute(engine, playerLobby, gameCenter);
+    }
+
+    @Test
+    public void test_remove_player(){
+        when(session.attribute(eq(PostSignInRoute.CURR_USER_ATTR))).thenReturn("");
+
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        CuT.handle(request,response);
+        testHelper.assertViewModelAttribute(PostSignInRoute.CURR_USER_ATTR, "");
     }
 }
