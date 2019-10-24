@@ -35,7 +35,6 @@ public class Player {
     public Player(String name){
         setName(name);
         setNone();
-        this.coins = 12;
     }
 
     /**

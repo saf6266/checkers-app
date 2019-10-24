@@ -43,7 +43,7 @@ public class PostSignInRouteTest {
 
         playerLobby = mock(PlayerLobby.class);
 
-        //Create a unique CuT for each test
+        //Create a unique CuT for each model
         CuT = new PostSignInRoute(playerLobby, engine);
     }
 

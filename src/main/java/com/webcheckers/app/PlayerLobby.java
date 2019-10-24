@@ -26,7 +26,7 @@ public class PlayerLobby {
         if(!(players.isEmpty())) {
             for (Player person : players) {
                 if (person.getName().equals(player.getName()))
-                    return false;    //player fails the test, name is a repeat
+                    return false;    //player fails the model, name is a repeat
             }
         }
         return true;   //player is not in the list

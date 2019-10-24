@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Tag;
 @Tag ("Application-Tier")
 public class GameCenterTest {
 
-    private final static Player PLAYER = new Player("test");
+    private final static Player PLAYER = new Player("model");
     private final static Player OPPONENT = new Player("opponent");
 
     @Test
