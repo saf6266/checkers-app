@@ -48,5 +48,6 @@ public class PostSignOutRouteTest {
 
         CuT.handle(request,response);
         testHelper.assertViewModelAttribute(PostSignInRoute.CURR_USER_ATTR, "");
+
     }
 }
