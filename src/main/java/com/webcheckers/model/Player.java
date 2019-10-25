@@ -93,6 +93,19 @@ public class Player {
         return name;
     }
 
+
+    /**
+     * Give the user/player a name
+     * @param name The name of the user
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Color getColor(){
+        return this.side;
+    }
+
     /**
      * Check to see if this player is a red player
      * @return true if red, false otherwise
@@ -107,13 +120,6 @@ public class Player {
      */
     public boolean isWhite(){
         return this.side == Color.WHITE;
-    }
-    /**
-     * Give the user/player a name
-     * @param name The name of the user
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
