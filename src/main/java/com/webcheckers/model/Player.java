@@ -24,7 +24,7 @@ public class Player {
     ///
     private boolean turn;
     private String name;
-    private Color side;
+    private Color color;
     private Player opponent;
     private int coins;
 
@@ -97,7 +97,7 @@ public class Player {
      * @return true if red, false otherwise
      */
     public boolean isRed(){
-        return this.side == Color.RED;
+        return this.color == Color.RED;
     }
 
     /**
@@ -105,7 +105,7 @@ public class Player {
      * @return true if white, false otherwise
      */
     public boolean isWhite(){
-        return this.side == Color.WHITE;
+        return this.color == Color.WHITE;
     }
     /**
      * Give the user/player a name
@@ -119,22 +119,26 @@ public class Player {
      * Set the player's color to red
      */
     public void setRed(){
-        this.side = Color.RED;
+        this.color = Color.RED;
     }
 
     /**
      * Set the player's color to to white
      */
     public void setWhite(){
-        this.side = Color.WHITE;
+        this.color = Color.WHITE;
     }
 
     /**
      * When the game is finished, call this to reset the player to know they can play a game
      */
     public void setNone(){
-        side = Color.NONE;
+        this.color = Color.NONE;
         this.coins = 12;
+    }
+
+    public Color getColor(){
+        return this.color;
     }
 
     /**

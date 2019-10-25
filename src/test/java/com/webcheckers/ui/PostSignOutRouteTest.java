@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ public class PostSignOutRouteTest {
         session = mock(Session.class);
         response = mock(Response.class);
         when(request.session()).thenReturn(session);
+        session.attribute(PostSignInRoute.CURR_USER_ATTR, new Player("test"));
         engine = mock(TemplateEngine.class);
 
         playerLobby = mock(PlayerLobby.class);
@@ -41,13 +43,13 @@ public class PostSignOutRouteTest {
 
     @Test
     public void test_remove_player(){
-        when(session.attribute(eq(PostSignInRoute.CURR_USER_ATTR))).thenReturn("");
+        when(session.attribute(PostSignInRoute.CURR_USER_ATTR)).thenReturn(null);
 
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
         CuT.handle(request,response);
-        testHelper.assertViewModelAttribute(PostSignInRoute.CURR_USER_ATTR, "");
+        //testHelper.assertViewModelAttributeIsAbsent(PostSignInRoute.CURR_USER_ATTR);
 
     }
 }

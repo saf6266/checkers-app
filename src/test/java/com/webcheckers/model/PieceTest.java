@@ -6,17 +6,6 @@ import org.junit.jupiter.api.Test;
 @Tag("Model-Tier")
 public class PieceTest {
 
-    @Test
-    public void ctor_withArg(){
-        //testing constructors
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE);
-            new Piece(Piece.TYPE.KING, Piece.COLOR.WHITE);
-            new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED);
-            new Piece(Piece.TYPE.KING, Piece.COLOR.RED);
-        }, "Constructor not accepting legal arguments");
-
-    }
 
     @Test
     public void get_type(){
