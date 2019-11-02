@@ -1,7 +1,5 @@
 package com.webcheckers.model;
 
-import com.webcheckers.model.Piece;
-
 /**
  * The model of a space in a row
  */

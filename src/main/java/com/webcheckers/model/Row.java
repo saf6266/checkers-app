@@ -55,7 +55,6 @@ public class Row implements Iterable<Space> {
      * @return The updated space list
      */
     private ArrayList<Space> generateSpaces(ArrayList<Space> spaceList, int i){
-
             for ( int j = 0; j < 8; j++){
                 if( i < 3) { // Generate the WHITE side of the board
                     if (i % 2 == 0) {
@@ -63,29 +62,27 @@ public class Row implements Iterable<Space> {
                             spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE), j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
-                        }
-                    } else {
+                        }}
+                    else {
                         if (j % 2 == 0) {
                             spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE), j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
-                        }
-                    }
-                } else if ( i > 4){ // Generate the RED side of the board
+                        }}}
+                else if ( i > 4){ // Generate the RED side of the board
                     if (i % 2 == 1) {
                         if (j % 2 == 0) {
                             spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED), j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
-                        }
-                    } else {
+                        }}
+                    else {
                         if (j % 2 == 1) {
                             spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED), j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
-                        }
-                    }
-                } else { //Generate the pieces in the middle without a piece on them
+                        }}}
+                else { //Generate the pieces in the middle without a piece on them
                     if (i % 2 == 1) {
                         if (j % 2 == 0) {
                             spaceList.add(new Space(null, j, true));
@@ -97,13 +94,7 @@ public class Row implements Iterable<Space> {
                             spaceList.add(new Space(null, j, true));
                         } else {
                             spaceList.add(new Space(null, j, false));
-                        }
-                    }
-
-                }
-
-            }
-
+                    }}}}
         return spaceList;
     }
 
