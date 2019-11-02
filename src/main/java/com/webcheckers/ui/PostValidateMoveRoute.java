@@ -31,7 +31,7 @@ public class PostValidateMoveRoute implements Route {
         final Session session = request.session();
         String query = request.queryParams("actionData");
         Move move = gson.fromJson(query, Move.class);
-        BoardView board = gameCenter.getBoard();
+        BoardView boardView = gameCenter.getBoardView();
         return null;
     }
 }

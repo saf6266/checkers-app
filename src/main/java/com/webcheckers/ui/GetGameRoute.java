@@ -72,7 +72,7 @@ public class GetGameRoute implements Route {
         final Player whitePlayer = session.attribute(WHITE_PLAYER);
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
         Player.Color activeColor = session.attribute(ACTIVE_COLOR);
-        BoardView board = gameCenter.getBoard();
+        BoardView board = gameCenter.getBoardView();
         whitePlayer.setWhite();
         redPlayer.setRed();
         //Set the players side
