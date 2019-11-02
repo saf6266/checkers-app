@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/*
+Dom Hen
+ */
 @Tag("UI-tier")
 public class GetSignInRouteTest {
     private GetSignInRoute CuT;
@@ -49,6 +52,7 @@ public class GetSignInRouteTest {
 
     @Test
     public void isRendering(){
+        //Testing that class contains correct attributes, vm
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
         CuT.handle(request, response);
@@ -65,7 +69,7 @@ public class GetSignInRouteTest {
 
     @Test
     public void signInViewTest(){
-
+        //Testing route so that html contains what is needed
         final Map<String, Object> vm = new HashMap<>();
         final ModelAndView modelAndView = new ModelAndView(vm, GetSignInRoute.VIEW_NAME);
         vm.put(GetSignInRoute.TITLE_ATTR, TITLE);
@@ -83,6 +87,7 @@ public class GetSignInRouteTest {
 
     @Test
     public void missingTitle(){
+        //Testing html if title is not included in vm
         final Map<String, Object> vm = new HashMap<>();
         final ModelAndView modelAndView = new ModelAndView(vm, GetSignInRoute.VIEW_NAME);
         vm.put(GetSignInRoute.MESSAGE_ATTR, SIGNIN_MSG);
