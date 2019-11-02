@@ -26,7 +26,7 @@ public class Player {
     private String name;
     private Color color;
     private Player opponent;
-    private int coins;
+    private int pieces;
 
     ///
     ///Constructors
@@ -41,7 +41,7 @@ public class Player {
      * Lose a coin when it is taken
      */
     public void Loss(){
-        this.coins--;
+        this.pieces--;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Player {
      * @return false if no more tokens, true if tokens still remaining
      */
     public boolean validGame(){
-        return this.coins == 0;
+        return this.pieces == 0;
     }
     /**
      * Get the opponent of this player
@@ -134,7 +134,7 @@ public class Player {
      */
     public void setNone(){
         this.color = Color.NONE;
-        this.coins = 12;
+        this.pieces = 12;
     }
 
     public Color getColor(){
@@ -157,18 +157,18 @@ public class Player {
         char letter;
         for(int i = 1; i < len; i++){
             letter = TempName.charAt(i);
-            if(letter <= 31)
+            if(letter <= 31) //Check if has an ascii code under 31(Space)
                 return false;
-            else if(letter >= 33)
-                if(letter <= 47)
+            else if(letter >= 33) //Check if higher than space, will consider all punctuation characters here
+                if(letter <= 47) //Check if ascii code is lower than code for '0'
                     return false;
-                else if(letter >= 58)
-                    if(letter <= 64)
+                else if(letter >= 58) //Check if higher than '9'
+                    if(letter <= 64) //Check if ascii code is lower than code for 'A'
                         return false;
-                    else if(letter >= 91)
-                        if(letter <= 96)
+                    else if(letter >= 91) // Check if ascii code higher than code for 'Z'
+                        if(letter <= 96) //Check if ascii code is below code for 'a'
                             return false;
-                        else if(letter >= 123)
+                        else if(letter >= 123) //Check if ascii code is higher than code for 'z'
                             return false;
             //knk
         }

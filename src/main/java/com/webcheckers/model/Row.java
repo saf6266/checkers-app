@@ -57,7 +57,7 @@ public class Row implements Iterable<Space> {
     private ArrayList<Space> generateSpaces(ArrayList<Space> spaceList, int i){
 
             for ( int j = 0; j < 8; j++){
-                if( i < 3) {
+                if( i < 3) { // Generate the WHITE side of the board
                     if (i % 2 == 0) {
                         if (j % 2 == 1) {
                             spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE), j, true));
@@ -71,7 +71,7 @@ public class Row implements Iterable<Space> {
                             spaceList.add(new Space(null, j, false));
                         }
                     }
-                } else if ( i > 4){
+                } else if ( i > 4){ // Generate the RED side of the board
                     if (i % 2 == 1) {
                         if (j % 2 == 0) {
                             spaceList.add(new Space(new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED), j, true));
@@ -85,7 +85,7 @@ public class Row implements Iterable<Space> {
                             spaceList.add(new Space(null, j, false));
                         }
                     }
-                } else {
+                } else { //Generate the pieces in the middle without a piece on them
                     if (i % 2 == 1) {
                         if (j % 2 == 0) {
                             spaceList.add(new Space(null, j, true));

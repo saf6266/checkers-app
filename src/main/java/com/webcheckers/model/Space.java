@@ -40,6 +40,20 @@ public class Space {
     }
 
     /**
+     * Put a piece in a spot
+     */
+    public void putPiece(Piece p){
+        this.piece = p;
+    }
+
+    /**
+     * Removes a piece that was in a spot
+     */
+    public void removePiece(){
+        this.piece = null;
+    }
+
+    /**
      * Check to see if this space is dark
      * @return this.isDark
      */

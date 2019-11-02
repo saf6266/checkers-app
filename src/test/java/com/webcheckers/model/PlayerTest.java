@@ -17,7 +17,6 @@ public class PlayerTest {
 
         final Player CuT = new Player("Billy");
 
-
         //Check if the name is valid
         assertTrue(CuT.validName());
 
@@ -29,6 +28,9 @@ public class PlayerTest {
 
     }
 
+    /*
+    Tests whether the color is properly changing
+     */
     @Test
     public void testColor_(){
         final Player CuT = new Player("test");
@@ -56,6 +58,9 @@ public class PlayerTest {
         assertFalse(CuT.isRed());
         assertFalse(CuT.isWhite());
     }
+    /*
+    Test the ba
+     */
     @Test
     public void testTurn(){
         final Player CuT = new Player("Bob");
@@ -66,8 +71,6 @@ public class PlayerTest {
 
         assertTrue(CuT.isTurn());
 
-
     }
-
 
 }
