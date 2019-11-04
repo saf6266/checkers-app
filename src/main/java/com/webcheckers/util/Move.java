@@ -18,12 +18,10 @@ public class Move {
         return this.end;
     }
 
-    @Override
-    public boolean equals(Object move){
-        if(move instanceof Move){
-            Move other = (Move) move;
-            return this.start == other.start && this.end == other.end;
-        }
-        return false;
+
+    public boolean equals(Move move){
+
+        return this.start.getRow() == move.start.getRow() && this.end.getRow() == move.end.getRow()
+                && this.end.getCell() == move.end.getCell() && this.start.getCell() == move.start.getCell();
     }
 }

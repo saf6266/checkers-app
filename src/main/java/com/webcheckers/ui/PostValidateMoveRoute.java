@@ -4,10 +4,13 @@ import com.google.gson.Gson;
 import com.webcheckers.app.GameCenter;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.BoardView;
+import com.webcheckers.model.Player;
+import com.webcheckers.model.Row;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.Move;
 import spark.*;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -31,11 +34,13 @@ public class PostValidateMoveRoute implements Route {
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         final Session session = request.session();
+        Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
         String query = request.queryParams("actionData");
         Move move = gson.fromJson(query, Move.class);
         BoardView boardView = gameCenter.getBoardView();
+
         Board b = new Board(gameCenter);
-        if(b.isValidMove(move)){
+        if(b.isValidMove(move, activeColor)){
              boardView.setModel(gameCenter.getBoardView().getModel());
              boardView.updateModel(move);
              return gson.toJson(Message.info("the move is valid"));

@@ -58,6 +58,7 @@ public class GetGameRoute implements Route {
             Collections.reverse(board.getRows());
             vm.put(PostSignInRoute.CURR_USER_ATTR, whitePlayer);
         }
+
         vm.put(WHITE_PLAYER, whitePlayer);
         vm.put(RED_PLAYER, redPlayer);
 

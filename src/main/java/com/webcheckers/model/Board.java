@@ -40,8 +40,8 @@ public class Board {
         this.possibleMoves = possibleMoves;
     }
 
-    public boolean isValidMove(Move playerMove){
-        findMoves(gameCenter.getBoardView());
+    public boolean isValidMove(Move playerMove, Player.Color color){
+        findMoves(gameCenter.getBoardView(), color);
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){
                 setPossibleMoves(null);
@@ -399,12 +399,12 @@ public class Board {
         possibleMoves = null;
     }
 
-    public void findMoves(BoardView board){
+    public void findMoves(BoardView board, Player.Color color){
         Space[][] model = board.getModel();
         Piece piece = model[row][col].getPiece();
         Player currentUser = board.getCurrentUser();
         if(jumped){
-            if(currentUser.getColor() == Player.Color.RED) {
+            if(color == Player.Color.RED) {
                 jumpable(row, col, Piece.COLOR.RED, piece.getType());
                 if(possibleMoves.size() == 0){
                     reset();
@@ -424,7 +424,7 @@ public class Board {
                     if(model[r][c].isDark()) {
                         piece = model[r][c].getPiece();
                         if(piece != null) {
-                            if (currentUser.getColor() == Player.Color.RED) {
+                            if (color == Player.Color.RED) {
                                 if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
                                     jumpable(r, c, Piece.COLOR.RED, piece.getType());
                                 }
@@ -446,7 +446,7 @@ public class Board {
 
                             piece = model[r][c].getPiece();
                             if(piece != null) {
-                                if (currentUser.getColor() == Player.Color.RED) {
+                                if (color == Player.Color.RED) {
                                     if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
                                         movePiece(r, c, Piece.COLOR.RED, piece.getType());
                                     }
