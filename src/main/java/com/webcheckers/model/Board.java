@@ -15,7 +15,7 @@ public class Board {
     private int col;
     boolean turn;
 
-    Board(GameCenter gameCenter){
+    public Board(GameCenter gameCenter){
         this.gameCenter = gameCenter;
     }
 

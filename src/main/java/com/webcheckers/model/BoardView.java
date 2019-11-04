@@ -47,10 +47,7 @@ public class BoardView implements Iterable<Row>{
         return row;
     }
 
-    private void updateModel(Move move){
-        if (getStackOfBoards().empty()){
-            pushModelStack(getModel());
-        }
+    public void updateModel(Move move){
         Piece p = this.model[move.getStart().getRow()][move.getStart().getCell()].getPiece();
         if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 0){
            int r = move.getStart().getRow() + move.getEnd().getRow()/2;
@@ -60,8 +57,8 @@ public class BoardView implements Iterable<Row>{
         this.model[move.getStart().getRow()][move.getStart().getCell()].removePiece();
         this.model[move.getEnd().getRow()][move.getEnd().getCell()].putPiece(p);
         pushModelStack(getModel());
-    }
 
+    }
 
     //add to stack
     public void pushModelStack(Space[][] model){
@@ -136,6 +133,10 @@ public class BoardView implements Iterable<Row>{
      */
     public Space[][] getModel() {
         return model;
+    }
+
+    public void setModel(Space[][] m){
+        this.model = m;
     }
 
     /**
