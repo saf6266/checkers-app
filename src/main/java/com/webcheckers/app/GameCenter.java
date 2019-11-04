@@ -22,21 +22,21 @@ public class GameCenter {
     }
 
     /* The board for the two players in a game */
-    private BoardView board;
+    private BoardView boardView;
     /* The list of players in a game */
     private ArrayList<Player> inGameList = new ArrayList<>();
 
     /* Constructor */
     public GameCenter(Player currentUser, Player opponent){
-        board = new BoardView(currentUser, opponent);
+        boardView = new BoardView(currentUser, opponent);
     }
 
     /**
      * Gets the board for the two players
      * @return this.board
      */
-    public BoardView getBoard() {
-        return board;
+    public BoardView getBoardView() {
+        return boardView;
     }
 
     /**
@@ -44,12 +44,12 @@ public class GameCenter {
      * @param player The player that is being added
      */
     public void addPlayer(Player player){
-        board.setCurrentUser(player);
+        boardView.setCurrentUser(player);
         inGameList.add(player);
     }
 
     public void removePlayer(Player player){
-        board.setCurrentUser(null);
+        boardView.setCurrentUser(null);
         inGameList.remove(player);
     }
 

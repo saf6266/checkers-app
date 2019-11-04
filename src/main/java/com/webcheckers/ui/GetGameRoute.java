@@ -71,7 +71,8 @@ public class GetGameRoute implements Route {
         final Player redPlayer = session.attribute(RED_PLAYER);
         final Player whitePlayer = session.attribute(WHITE_PLAYER);
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
-        BoardView board = gameCenter.getBoard();
+        Player.Color activeColor = session.attribute(ACTIVE_COLOR);
+        BoardView board = gameCenter.getBoardView();
         whitePlayer.setWhite();
         redPlayer.setRed();
         //Set the players side
@@ -87,7 +88,7 @@ public class GetGameRoute implements Route {
 
 
         //Red player goes first
-        vm.put(ACTIVE_COLOR, Player.Color.RED);
+        vm.put(ACTIVE_COLOR, activeColor);
 
         //check if game is ended then display this object for game.ftl
       //  final Map<String, Object> modeOptions = new HashMap<>(2);

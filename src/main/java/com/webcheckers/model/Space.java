@@ -39,6 +39,9 @@ public class Space {
         return piece;
     }
 
+    public Piece.COLOR getPieceColor(){
+        return this.piece.getColor();
+    }
     /**
      * Check to see if this space is dark
      * @return this.isDark
