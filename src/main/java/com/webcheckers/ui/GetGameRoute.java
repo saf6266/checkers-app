@@ -73,6 +73,7 @@ public class GetGameRoute implements Route {
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
         Player.Color activeColor = session.attribute(ACTIVE_COLOR);
         BoardView board = gameCenter.getBoardView();
+
         whitePlayer.setWhite();
         redPlayer.setRed();
         //Set the players side
@@ -80,7 +81,10 @@ public class GetGameRoute implements Route {
             vm.put(PostSignInRoute.CURR_USER_ATTR, redPlayer);
         }
         else{
-            board.flipBoard();
+            for(Row row : board.getRows()){ //Flip the board
+                Collections.reverse(row.getSpaces());
+            }
+            Collections.reverse(board.getRows());
             vm.put(PostSignInRoute.CURR_USER_ATTR, whitePlayer);
         }
         vm.put(WHITE_PLAYER, whitePlayer);

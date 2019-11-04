@@ -39,7 +39,9 @@ public class GameCenter {
     }
 
 
-
+    public BoardView getBoard() {
+        return boardView;
+    }
 
 
     /**

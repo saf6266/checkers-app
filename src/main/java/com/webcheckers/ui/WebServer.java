@@ -176,6 +176,7 @@ public class WebServer {
 
     //Get the game route
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameCenter));
+
     //
     post(VALIDATE_MOVE, new PostValidateMoveRoute(templateEngine, gameCenter));
 

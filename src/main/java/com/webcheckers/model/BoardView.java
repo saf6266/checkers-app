@@ -30,7 +30,7 @@ public class BoardView implements Iterable<Row>{
         this.currentUser = currentUser;
         this.opponent = opponent;
         this.stackOfBoards =  new Stack<>();
-        this.rows = generateBoard(rows);
+        rows = generateBoard(rows);
         this.model = generateBoardArray(rows);
     }
 
@@ -50,9 +50,9 @@ public class BoardView implements Iterable<Row>{
     public void updateModel(Move move){
         Piece p = this.model[move.getStart().getRow()][move.getStart().getCell()].getPiece();
         if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 0){
-           int r = move.getStart().getRow() + move.getEnd().getRow()/2;
-           int c = move.getStart().getCell() + move.getEnd().getCell()/2;
-           this.model[r][c].removePiece();
+            int r = move.getStart().getRow() + move.getEnd().getRow()/2;
+            int c = move.getStart().getCell() + move.getEnd().getCell()/2;
+            this.model[r][c].removePiece();
         }
         this.model[move.getStart().getRow()][move.getStart().getCell()].removePiece();
         this.model[move.getEnd().getRow()][move.getEnd().getCell()].putPiece(p);
@@ -76,16 +76,16 @@ public class BoardView implements Iterable<Row>{
      * @return a 2D Piece array representation of rows
      */
     private Space[][] generateBoardArray(ArrayList<Row> rows){
-         Space[][] model = new Space[8][8];
-         int i = 0;
-         //loop through row
-         for (Row row: rows){
-             //loop through spaces in that row
-             for(  Space spaces: row.getSpaces()){
-                 model[i][spaces.getCellIdx()] = spaces;
-             }
-             i++;
-         }
+        Space[][] model = new Space[8][8];
+        int i = 0;
+        //loop through row
+        for (Row row: rows){
+            //loop through spaces in that row
+            for( Space spaces: row.getSpaces()){
+                model[i][spaces.getCellIdx()] = spaces;
+            }
+            i++;
+        }
         return model;
     }
 
@@ -124,7 +124,7 @@ public class BoardView implements Iterable<Row>{
      * Get the rows of the board
      * @return this.rows
      */
-    private ArrayList<Row> getRows(){
+    public ArrayList<Row> getRows(){
         return this.rows;
     }
 
@@ -145,13 +145,12 @@ public class BoardView implements Iterable<Row>{
      * the white player.
      */
     public void flipBoard(){
+
         for(Row row : getRows()){
             Collections.reverse(row.getSpaces());
         }
         Collections.reverse(getRows());
-
     }
-
 
 
     /**
