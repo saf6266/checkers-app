@@ -44,7 +44,7 @@ public class Board {
         findMoves(gameCenter.getBoardView(), color);
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){
-                setPossibleMoves(null);
+                setPossibleMoves(new ArrayList<>());
                 if(jumped) {
                     setTurn(true);
                     row = playerMove.getEnd().getRow();
