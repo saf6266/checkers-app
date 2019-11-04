@@ -41,7 +41,5 @@ public class PostValidateMoveRoute implements Route {
         }else{
              return gson.toJson(Message.error("the move is invalid"));
         }
-
-        return null;
     }
 }
