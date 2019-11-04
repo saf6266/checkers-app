@@ -30,24 +30,16 @@ public class GameCenter {
     /* The list of players in a game */
     private ArrayList<Player> inGameList = new ArrayList<>();
 
-    //A stack of models(Space[][])
-    private Stack<Space[][]> stackOfBoards;
+
 
     /* Constructor */
     public GameCenter(Player currentUser, Player opponent){
         boardView = new BoardView(currentUser, opponent);
-        this.stackOfBoards =  new Stack<>();
+
     }
 
 
-    //add to stack
-    public void pushModelStack(Move move){
-        Space[][] model = getStackOfBoards().peek();
-    }
 
-    public Stack<Space[][]> getStackOfBoards() {
-        return stackOfBoards;
-    }
 
     /**
      * Gets the board for the two players
