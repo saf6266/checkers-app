@@ -33,7 +33,11 @@
           <fieldset id="game-info">
             <legend>Info</legend>
 
-            <#include "message.ftl" />
+            <#if modeOptions??>
+              <div id="message">${modeOptions.gameOverMessage}}</div>
+            <#else>
+                <#include "message.ftl" />
+            </#if>
 
             <div>
               <table data-color='RED'>
