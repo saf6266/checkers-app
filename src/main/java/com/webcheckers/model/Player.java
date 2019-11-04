@@ -101,10 +101,6 @@ public class Player {
         this.name = name;
     }
 
-    public Color getColor(){
-        return this.side;
-    }
-
     /**
      * Check to see if this player is a red player
      * @return true if red, false otherwise
