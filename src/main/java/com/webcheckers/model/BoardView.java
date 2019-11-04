@@ -63,6 +63,7 @@ public class BoardView implements Iterable<Row>{
     //add to stack
     public void pushModelStack(Space[][] model){
         getStackOfBoards().push(model);
+        convertToArrayList(model);
     }
 
     public Stack<Space[][]> getStackOfBoards() {
