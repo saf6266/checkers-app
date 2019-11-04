@@ -49,6 +49,8 @@ public class BoardView implements Iterable<Row>{
 
     public void updateModel(Move move){
         Piece p = this.model[move.getStart().getRow()][move.getStart().getCell()].getPiece();
+        Piece wp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE);     //White Normal Piece
+        Piece rp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED);       //Red Normal Piece
         if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 0){
             int r = move.getStart().getRow() + move.getEnd().getRow()/2;
             int c = move.getStart().getCell() + move.getEnd().getCell()/2;
@@ -56,6 +58,14 @@ public class BoardView implements Iterable<Row>{
         }
         this.model[move.getStart().getRow()][move.getStart().getCell()].removePiece();
         this.model[move.getEnd().getRow()][move.getEnd().getCell()].putPiece(p);
+        Piece test = this.model[move.getEnd().getRow()][move.getEnd().getCell()].getPiece();
+        if(test.equals(rp)||test.equals(wp))//If the piece is a normal piece and reaches the other side, make it a king
+            if(test.getColor() == Piece.COLOR.WHITE)
+                if(move.getEnd().getRow() == 7)
+                    test.coronate();
+            if(test.getColor() == Piece.COLOR.RED)
+                if(move.getEnd().getRow() == 0)
+                    test.coronate();
         pushModelStack(getModel());
 
     }
