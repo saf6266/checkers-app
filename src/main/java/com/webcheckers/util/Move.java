@@ -2,23 +2,28 @@ package com.webcheckers.util;
 
 public class Move {
 
-    private int startRow;
-    private int endRow;
-    private int startCell;
-    private int endCell;
+    private Position start;
+    private Position end;
 
-    Move(int startRow, int endRow, int startCell, int endCell){
-        this.startRow = startRow;
-        this.endRow = endRow;
-        this.startCell = startCell;
-        this.endCell = endCell;
+    public Move(Position start, Position end){
+        this.start = start;
+        this.end = end;
     }
 
     public Position getStart(){
-        return new Position(startRow, startCell);
+        return this.start;
     }
 
     public Position getEnd(){
-        return new Position(endRow, endCell);
+        return this.end;
+    }
+
+    @Override
+    public boolean equals(Object move){
+        if(move instanceof Move){
+            Move other = (Move) move;
+            return this.start == other.start && this.end == other.end;
+        }
+        return false;
     }
 }

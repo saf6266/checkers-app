@@ -4,7 +4,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class PostSubmitTurn implements Route {
+public class PostSubmitTurnRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response){

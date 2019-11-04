@@ -37,6 +37,9 @@ public class Space {
         return piece;
     }
 
+    public Piece.COLOR getPieceColor(){
+        return this.piece.getColor();
+    }
     /**
      * Put a piece in a spot
      */

@@ -104,6 +104,14 @@ public class BoardView implements Iterable<Row>{
     }
 
     /**
+     * Get the 2d array of spaces
+     * @return this.model
+     */
+    public Space[][] getModel() {
+        return model;
+    }
+
+    /**
      * Flip the board in the case that the currentUser is
      * the white player.
      */
