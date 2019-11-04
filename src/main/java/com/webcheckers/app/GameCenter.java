@@ -1,9 +1,13 @@
 package com.webcheckers.app;
 
+import com.webcheckers.model.Board;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Space;
+import com.webcheckers.util.Move;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * GameCenter has a game list that determines if a player is in a game
@@ -26,9 +30,23 @@ public class GameCenter {
     /* The list of players in a game */
     private ArrayList<Player> inGameList = new ArrayList<>();
 
+    //A stack of models(Space[][])
+    private Stack<Space[][]> stackOfBoards;
+
     /* Constructor */
     public GameCenter(Player currentUser, Player opponent){
         boardView = new BoardView(currentUser, opponent);
+        this.stackOfBoards =  new Stack<>();
+    }
+
+
+    //add to stack
+    public void pushModelStack(Move move){
+        Space[][] model = getStackOfBoards().peek();
+    }
+
+    public Stack<Space[][]> getStackOfBoards() {
+        return stackOfBoards;
     }
 
     /**
