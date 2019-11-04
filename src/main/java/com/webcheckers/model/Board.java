@@ -13,6 +13,7 @@ public class Board {
     private ArrayList<Move> possibleMoves;
     private int row;
     private int col;
+    boolean turn;
 
     Board(GameCenter gameCenter){
         this.gameCenter = gameCenter;
@@ -26,6 +27,14 @@ public class Board {
         this.jumped = jumped;
     }
 
+    public boolean isTurn() {
+        return turn;
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
+
     public void setPossibleMoves(ArrayList<Move> possibleMoves) {
         this.possibleMoves = possibleMoves;
     }
@@ -35,17 +44,19 @@ public class Board {
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){
                 setPossibleMoves(null);
+                if(jumped) {
+                    setTurn(true);
+                    row = playerMove.getEnd().getRow();
+                    col = playerMove.getEnd().getCell();
+                }
+                else
+                    setTurn(false);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isJump(Move move){
-        int startRow = move.getStart().getRow();
-        int endRow = move.getEnd().getRow();
-        return (endRow - startRow == 2);
-    }
 
     private boolean outOfBounds(int row, int col){
         return row < 0 || row >= 8 || col >= 8 || col < 0;
@@ -61,27 +72,25 @@ public class Board {
             int startCell = start.getCell();
 
             if(board[startRow - 1][startCell - 1].getPieceColor() == Piece.COLOR.WHITE &&
-                    !outOfBounds(startRow - 1, startCell - 1)){
-
+                    !outOfBounds(startRow - 1, startCell - 1))
                 //(row - 2)(col - 2)
                 if(board[startRow - 2][startCell - 2].getPiece() == null
                         && !outOfBounds(startRow - 2, startCell - 2))
                     return true;
                 else
                     return false;
-            }
-
         }
         return true;
-
     }
 
+    /*
+    Checks for any possible jumps that can be made
+     */
     private void jumpable(int row, int col, Piece.COLOR color, Piece.TYPE type){
         Space[][] model = gameCenter.getBoardView().getModel();
         if(type == Piece.TYPE.SINGLE){
             if(color == Piece.COLOR.WHITE){
                 //bottom left
-
                 if(!outOfBounds(row + 2, col - 2)){
                     if(model[row + 1][col - 1].getPieceColor() == Piece.COLOR.RED){
                         if(model[row + 2][col - 2].getPiece() == null){
@@ -229,7 +238,9 @@ public class Board {
 
     }
 
-
+    /*
+    Checks for singular movability
+     */
     private void movePiece(int row, int col, Piece.COLOR color, Piece.TYPE type){
         Space[][] model = gameCenter.getBoardView().getModel();
         if(type == Piece.TYPE.SINGLE){
@@ -357,6 +368,7 @@ public class Board {
             }
         }
     }
+
     private void reset(){
         jumped = false;
         possibleMoves = null;
@@ -381,11 +393,10 @@ public class Board {
             }
         }
         else{
-            jumped = true;
+            setJumped(true);
             for(int r = 0; r < 8; r++){
                 for(int c = 0; c < 8; c++){
                     if(model[r][c].isDark()) {
-
                         piece = model[r][c].getPiece();
                         if (currentUser.getColor() == Player.Color.RED) {
                             if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
@@ -403,7 +414,7 @@ public class Board {
             }
 
             if(possibleMoves.size() == 0){
-                jumped = false;
+                setJumped(false);
                 for(int r = 0; r < 8; r++){
                     for(int c = 0; c < 8; c++){
                         if(model[r][c].isDark()) {
