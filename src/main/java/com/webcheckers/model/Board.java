@@ -17,6 +17,7 @@ public class Board {
 
     public Board(GameCenter gameCenter){
         this.gameCenter = gameCenter;
+        this.possibleMoves = new ArrayList<>();
     }
 
     public boolean isJumped() {
@@ -62,23 +63,22 @@ public class Board {
         return row < 0 || row >= 8 || col >= 8 || col < 0;
     }
 
-    public boolean canJump(Position start){
+    public boolean canJump(int row, int col){
         BoardView boardView = gameCenter.getBoardView();
         Space[][] board = boardView.getModel();
         Player currentUser = boardView.getCurrentUser();
 
         if(currentUser.getColor() == Player.Color.RED){
-            int startRow = start.getRow();
-            int startCell = start.getCell();
 
-            if(board[startRow - 1][startCell - 1].getPieceColor() == Piece.COLOR.WHITE &&
-                    !outOfBounds(startRow - 1, startCell - 1))
+            if(board[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE &&
+                    !outOfBounds(row - 1, col - 1)) {
                 //(row - 2)(col - 2)
-                if(board[startRow - 2][startCell - 2].getPiece() == null
-                        && !outOfBounds(startRow - 2, startCell - 2))
+                if (board[col - 2][col - 2].getPiece() == null
+                        && !outOfBounds(col - 2, col - 2))
                     return true;
                 else
                     return false;
+            }
         }
         return true;
     }
@@ -92,23 +92,27 @@ public class Board {
             if(color == Piece.COLOR.WHITE){
                 //bottom left
                 if(!outOfBounds(row + 2, col - 2)){
-                    if(model[row + 1][col - 1].getPieceColor() == Piece.COLOR.RED){
-                        if(model[row + 2][col - 2].getPiece() == null){
-                            Position start = new Position(row, col);
-                            Position end = new Position(row + 2, col - 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                    if(model[row + 1][col - 1].getPiece() != null) {
+                        if (model[row + 1][col - 1].getPieceColor() == Piece.COLOR.RED) {
+                            if (model[row + 2][col - 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row + 2, col - 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
                 //bottom right
                 if(!outOfBounds(row + 2, col + 2)){
-                    if(model[row + 1][col + 1].getPieceColor() == Piece.COLOR.RED){
-                        if(model[row + 2][col + 2].getPiece() == null){
-                            Position start = new Position(row, col);
-                            Position end = new Position(row + 2, col + 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                    if(model[row + 1][col + 1].getPiece() != null) {
+                        if (model[row + 1][col + 1].getPieceColor() == Piece.COLOR.RED) {
+                            if (model[row + 2][col + 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row + 2, col + 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
@@ -117,23 +121,27 @@ public class Board {
             else{
                 //top left
                 if(!outOfBounds(row - 2, col - 2)){
-                    if(model[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE){
-                        if(model[row - 2][col - 2].getPiece() == null){
-                            Position start = new Position(row, col);
-                            Position end = new Position(row - 2, col - 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                    if(model[row - 1][col - 1].getPiece() != null) {
+                        if (model[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE) {
+                            if (model[row - 2][col - 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row - 2, col - 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
                 //top right
                 if(!outOfBounds(row - 2, col + 2)){
-                    if(model[row - 1][col + 1].getPieceColor() == Piece.COLOR.WHITE){
-                        if(model[row - 2][col + 2].getPiece() == null){
-                            Position start = new Position(row, col);
-                            Position end = new Position(row - 2, col + 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                    if(model[row - 1][col + 1].getPiece() != null) {
+                        if (model[row - 1][col + 1].getPieceColor() == Piece.COLOR.WHITE) {
+                            if (model[row - 2][col + 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row - 2, col + 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
@@ -145,92 +153,109 @@ public class Board {
                 //bottom left
 
                 if(!outOfBounds(row + 2, col - 2)){
-                    if(model[row + 1][col - 1].getPieceColor() == Piece.COLOR.RED){
-                        if(model[row + 2][col - 2].getPiece() == null){
-                            Position start = new Position(row, col);
-                            Position end = new Position(row + 2, col - 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                    if(model[row + 1][col - 1].getPiece() != null) {
+                        if (model[row + 1][col - 1].getPieceColor() == Piece.COLOR.RED) {
+                            if (model[row + 2][col - 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row + 2, col - 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
                 //bottom right
                 if(!outOfBounds(row + 2, col + 2)){
-                    if(model[row + 1][col + 1].getPieceColor() == Piece.COLOR.RED){
-                        if(model[row + 2][col + 2].getPiece() == null){
-                            Position start = new Position(row, col);
-                            Position end = new Position(row + 2, col + 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                    if(model[row + 1][col + 1].getPiece() != null) {
+                        if (model[row + 1][col + 1].getPieceColor() == Piece.COLOR.RED) {
+                            if (model[row + 2][col + 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row + 2, col + 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
             }
             //top left
             if(!outOfBounds(row - 2, col - 2)){
-                if(model[row - 1][col - 1].getPieceColor() == Piece.COLOR.RED){
-                    if(model[row - 2][col - 2].getPiece() == null){
-                        Position start = new Position(row, col);
-                        Position end = new Position(row - 2, col - 2);
-                        Move move = new Move(start, end);
-                        possibleMoves.add(move);
+                if(model[row - 1][col - 1].getPiece() != null) {
+                    if (model[row - 1][col - 1].getPieceColor() == Piece.COLOR.RED) {
+                        if (model[row - 2][col - 2].getPiece() == null) {
+                            Position start = new Position(row, col);
+                            Position end = new Position(row - 2, col - 2);
+                            Move move = new Move(start, end);
+                            possibleMoves.add(move);
+                        }
                     }
                 }
             }
             //top right
             if(!outOfBounds(row - 2, col + 2)){
-                if(model[row - 1][col + 1].getPieceColor() == Piece.COLOR.RED){
-                    if(model[row - 2][col + 2].getPiece() == null){
-                        Position start = new Position(row, col);
-                        Position end = new Position(row - 2, col + 2);
-                        Move move = new Move(start, end);
-                        possibleMoves.add(move);
+                if(model[row - 1][col + 1].getPiece() != null) {
+                    if (model[row - 1][col + 1].getPieceColor() == Piece.COLOR.RED) {
+                        if (model[row - 2][col + 2].getPiece() == null) {
+                            Position start = new Position(row, col);
+                            Position end = new Position(row - 2, col + 2);
+                            Move move = new Move(start, end);
+                            possibleMoves.add(move);
+                        }
+
                     }
                 }
             }
             else{
                 //bottom left
                 if(!outOfBounds(row + 2, col - 2)){
-                    if(model[row + 1][col - 1].getPieceColor() == Piece.COLOR.WHITE){
-                        if(model[row + 2][col - 2].getPiece() == null){
-                            Position start = new Position(row, col);
-                            Position end = new Position(row + 2, col - 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                    if(model[row + 1][col - 1].getPiece() != null) {
+                        if (model[row + 1][col - 1].getPieceColor() == Piece.COLOR.WHITE) {
+                            if (model[row + 2][col - 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row + 2, col - 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
                 //bottom right
                 if(!outOfBounds(row + 2, col + 2)){
-                    if(model[row + 1][col + 1].getPieceColor() == Piece.COLOR.WHITE){
-                        if(model[row + 2][col + 2].getPiece() == null){
-                            Position start = new Position(row, col);
-                            Position end = new Position(row + 2, col + 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                    if(model[row + 1][col + 1].getPiece() != null) {
+                        if (model[row + 1][col + 1].getPieceColor() == Piece.COLOR.WHITE) {
+                            if (model[row + 2][col + 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row + 2, col + 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
             }
             //top left
             if(!outOfBounds(row - 2, col - 2)){
-                if(model[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE){
-                    if(model[row - 2][col - 2].getPiece() == null){
-                        Position start = new Position(row, col);
-                        Position end = new Position(row - 2, col - 2);
-                        Move move = new Move(start, end);
-                        possibleMoves.add(move);
+                if(model[row - 1][col - 1].getPiece() != null) {
+                    if (model[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE) {
+                        if (model[row - 2][col - 2].getPiece() == null) {
+                            Position start = new Position(row, col);
+                            Position end = new Position(row - 2, col - 2);
+                            Move move = new Move(start, end);
+                            possibleMoves.add(move);
+                        }
                     }
                 }
             }
             //top right
             if(!outOfBounds(row - 2, col + 2)){
-                if(model[row - 1][col + 1].getPieceColor() == Piece.COLOR.WHITE){
-                    if(model[row - 2][col + 2].getPiece() == null){
-                        Position start = new Position(row, col);
-                        Position end = new Position(row - 2, col + 2);
-                        Move move = new Move(start, end);
-                        possibleMoves.add(move);
+                if(model[row - 1][col + 1].getPiece() != null) {
+                    if (model[row - 1][col + 1].getPieceColor() == Piece.COLOR.WHITE) {
+                        if (model[row - 2][col + 2].getPiece() == null) {
+                            Position start = new Position(row, col);
+                            Position end = new Position(row - 2, col + 2);
+                            Move move = new Move(start, end);
+                            possibleMoves.add(move);
+                        }
                     }
                 }
             }
@@ -398,15 +423,15 @@ public class Board {
                 for(int c = 0; c < 8; c++){
                     if(model[r][c].isDark()) {
                         piece = model[r][c].getPiece();
-                        if (currentUser.getColor() == Player.Color.RED) {
-                            if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
-                                jumpable(r, c, Piece.COLOR.RED, piece.getType());
-                            }
-                        }
-
-                        else {
-                            if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
-                                jumpable(r, c, Piece.COLOR.WHITE, piece.getType());
+                        if(piece != null) {
+                            if (currentUser.getColor() == Player.Color.RED) {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
+                                    jumpable(r, c, Piece.COLOR.RED, piece.getType());
+                                }
+                            } else {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
+                                    jumpable(r, c, Piece.COLOR.WHITE, piece.getType());
+                                }
                             }
                         }
                     }
@@ -420,15 +445,15 @@ public class Board {
                         if(model[r][c].isDark()) {
 
                             piece = model[r][c].getPiece();
-                            if (currentUser.getColor() == Player.Color.RED) {
-                                if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
-                                    movePiece(r, c, Piece.COLOR.RED, piece.getType());
-                                }
-                            }
-
-                            else {
-                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
-                                    movePiece(r, c, Piece.COLOR.WHITE, piece.getType());
+                            if(piece != null) {
+                                if (currentUser.getColor() == Player.Color.RED) {
+                                    if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
+                                        movePiece(r, c, Piece.COLOR.RED, piece.getType());
+                                    }
+                                } else {
+                                    if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
+                                        movePiece(r, c, Piece.COLOR.WHITE, piece.getType());
+                                    }
                                 }
                             }
                         }

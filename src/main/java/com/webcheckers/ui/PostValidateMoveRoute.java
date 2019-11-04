@@ -18,9 +18,10 @@ public class PostValidateMoveRoute implements Route {
     private GameCenter gameCenter;
     private Gson gson;
 
-    PostValidateMoveRoute(TemplateEngine templateEngine, GameCenter gameCenter){
+    PostValidateMoveRoute(TemplateEngine templateEngine, GameCenter gameCenter, Gson gson){
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required.");
         this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required.");
+        this.gson = gson;
 
         LOG.config("PostValidateMoveRoute is initialized.");
     }
