@@ -33,7 +33,7 @@ public class PostValidateMoveRoute implements Route {
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         final Session session = request.session();
-        Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
+        Player.Color activeColor = gameCenter.getBoardView().getActivecolor();
         String query = request.queryParams("actionData");
         Move move = gson.fromJson(query, Move.class);
 

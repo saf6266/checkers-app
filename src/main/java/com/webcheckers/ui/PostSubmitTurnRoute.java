@@ -36,16 +36,15 @@ public class PostSubmitTurnRoute implements Route {
 
         //if they can submit turn
         if ( gameCenter.getBoardView().isTurnEnd() && gameCenter.getStackOfBoardView().size() > 1){
-            //Every 2 players has a boardview, that holds the actual model, while board handles movements
-            if(activeColor == Player.Color.RED){
-                session.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.WHITE);
+            if (gameCenter.getBoardView().getActivecolor() == Player.Color.RED){
+                gameCenter.getBoardView().setActivecolor(Player.Color.WHITE);
             } else {
-                    session.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.RED);
+                gameCenter.getBoardView().setActivecolor(Player.Color.RED);
             }
 
-            //reset gamecenter's stack
+            //reset game center's stack
             gameCenter.getStackOfBoardView().clear();
-            return gson.toJson(Message.info("Valid Submit"));
+            return gson.toJson(Message.info("Success"));
         } else {
             return gson.toJson(Message.error("Move still available"));
         }

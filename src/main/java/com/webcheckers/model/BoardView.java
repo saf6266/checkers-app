@@ -28,11 +28,20 @@ public class BoardView implements Iterable<Row>{
 
     private Board moveCheck;
 
+    Player.Color activecolor = Player.Color.NONE;
+
+    private Player redPlayer;
+    private Player whitePlayer;
+
+
+
 
     //Constructor
     public BoardView(Player currentUser, Player opponent) {
         this.currentUser = currentUser;
         this.opponent = opponent;
+        this.redPlayer = opponent;
+        this.whitePlayer = currentUser;
         this.rows = generateBoard(rows);
         this.model = generateBoardArray(rows);
         this.jumped = false;
@@ -48,6 +57,30 @@ public class BoardView implements Iterable<Row>{
         this.jumped = jumped;
         this.turnEnd = turnEnd;
         this.moveCheck = moveCheck;
+    }
+
+    public Player getRedPlayer() {
+        return redPlayer;
+    }
+
+    public void setRedPlayer(Player redPlayer) {
+        this.redPlayer = redPlayer;
+    }
+
+    public Player getWhitePlayer() {
+        return whitePlayer;
+    }
+
+    public void setWhitePlayer(Player whitePlayer) {
+        this.whitePlayer = whitePlayer;
+    }
+
+    public Player.Color getActivecolor() {
+        return activecolor;
+    }
+
+    public void setActivecolor(Player.Color activecolor) {
+        this.activecolor = activecolor;
     }
 
     public boolean isTurnEnd() {
@@ -86,21 +119,25 @@ public class BoardView implements Iterable<Row>{
         if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 0){
             int r = (move.getStart().getRow() + move.getEnd().getRow())/2;
             int c = (move.getStart().getCell() + move.getEnd().getCell())/2;
-
             this.model[r][c].removePiece();
+
         }
         this.model[move.getStart().getRow()][move.getStart().getCell()].removePiece();
         this.model[move.getEnd().getRow()][move.getEnd().getCell()].putPiece(p);
         Piece test = this.model[move.getEnd().getRow()][move.getEnd().getCell()].getPiece();
-        if(test.equals(rp)||test.equals(wp))//If the piece is a normal piece and reaches the other side, make it a king
-            if(test.getColor() == Piece.COLOR.WHITE)
-                if(move.getEnd().getRow() == 7)
+        if(test.equals(rp)||test.equals(wp)) {//If the piece is a normal piece and reaches the other side, make it a king
+            if (test.getColor() == Piece.COLOR.WHITE) {
+                if (move.getEnd().getRow() == 7) {
                     test.coronate();
-            if(test.getColor() == Piece.COLOR.RED)
-                if(move.getEnd().getRow() == 0)
+                }
+            }
+            if (test.getColor() == Piece.COLOR.RED) {
+                if (move.getEnd().getRow() == 0) {
                     test.coronate();
-
-
+                }
+            }
+        }
+        convertToArrayList(this.model);
     }
 
 
@@ -146,7 +183,6 @@ public class BoardView implements Iterable<Row>{
             }
             Row r = new Row(i, spaces);
             rows.add(r);
-
         }
         setRows(rows);
     }

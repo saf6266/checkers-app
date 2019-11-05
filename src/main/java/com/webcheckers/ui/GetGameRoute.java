@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
 import com.webcheckers.model.BoardView;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.Row;
 import spark.*;
@@ -11,6 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class GetGameRoute implements Route {
 
@@ -21,6 +23,7 @@ public class GetGameRoute implements Route {
     static final String RED_PLAYER = "redPlayer";
     static final String WHITE_PLAYER = "whitePlayer";
     static final String ACTIVE_COLOR = "activeColor";
+    private static final Logger LOG = Logger.getLogger(PostSubmitTurnRoute.class.getName());
 
     GetGameRoute(TemplateEngine templateEngine, PlayerLobby playerLobby, GameCenter gameCenter){
         Objects.requireNonNull(templateEngine, "templateEngine is required.");
@@ -39,10 +42,11 @@ public class GetGameRoute implements Route {
 
         final Session session = request.session();
 
+
         final Player redPlayer = session.attribute(RED_PLAYER);
         final Player whitePlayer = session.attribute(WHITE_PLAYER);
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
-        final Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
+        Player.Color activeColor = gameCenter.getBoardView().getActivecolor();
         BoardView board = gameCenter.getBoardView();
 
         whitePlayer.setWhite();
@@ -63,12 +67,13 @@ public class GetGameRoute implements Route {
         vm.put(RED_PLAYER, redPlayer);
 
 
-        //Red player goes first
-        if (activeColor != null) {
-            vm.put(ACTIVE_COLOR, activeColor);
+        if (activeColor == null){
+            vm.put(ACTIVE_COLOR, Piece.COLOR.RED);
         } else {
-            vm.put(ACTIVE_COLOR, Player.Color.RED);
+            vm.put(ACTIVE_COLOR, activeColor);
         }
+
+
         //Set the view Mode as PLAY (for now)
         vm.put("viewMode", GameCenter.Mode.PLAY);
 
