@@ -8,6 +8,7 @@ import com.webcheckers.model.Player;
 import com.webcheckers.model.Row;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.Move;
+import com.webcheckers.util.Position;
 import spark.*;
 
 import java.util.Collections;
@@ -33,13 +34,17 @@ public class PostValidateMoveRoute implements Route {
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         final Session session = request.session();
-        Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
+
+        Player.Color activeColor = gameCenter.getBoardView().getActivecolor();
         String query = request.queryParams("actionData");
         Move move = gson.fromJson(query, Move.class);
-
         //get the live board in gamecenter
         BoardView boardView = gameCenter.getBoardView();
-
+        if(gameCenter.getStackOfBoardView().size() > 1)
+            gameCenter.getStackOfBoardView().pop();
+        gameCenter.getStackOfBoardView().push(boardView);
+        boardView.setTurnEnd(false);
+        boardView.setJumped(false);
 
         //checking if moved made was valid
         if(boardView.getMoveCheck().isValidMove(move, activeColor) && !boardView.isTurnEnd()){

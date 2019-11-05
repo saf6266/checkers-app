@@ -78,8 +78,11 @@ public class PostGameRoute implements Route {
             opponent.setOpponent(currentUser);
             session.attribute(GetGameRoute.RED_PLAYER, currentUser);
             session.attribute(GetGameRoute.WHITE_PLAYER, opponent);
+            //set red color player, white color player
+            gameCenter.getBoardView().setRedPlayer(currentUser);
+            gameCenter.getBoardView().setWhitePlayer(opponent);
             //Red player goes first
-            session.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.RED);
+            gameCenter.getBoardView().setActivecolor(Player.Color.RED);
             response.redirect(WebServer.GAME_URL);
             return null;
         }
