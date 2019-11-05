@@ -13,7 +13,7 @@ public class Board {
     private ArrayList<Move> possibleMoves;
     private int row;
     private int col;
-    boolean turn;
+    private boolean turn;
 
     public Board(GameCenter gameCenter){
         this.gameCenter = gameCenter;
@@ -40,6 +40,9 @@ public class Board {
         this.possibleMoves = possibleMoves;
     }
 
+    /*
+    Creates an arraylist of valid moves and then compares the given move to a list of moves
+     */
     public boolean isValidMove(Move playerMove, Player.Color color){
         findMoves(gameCenter.getBoardView(), color);
         for(Move move : possibleMoves){
@@ -58,6 +61,18 @@ public class Board {
         return false;
     }
 
+    /*
+    Checks if the player has any remaining pieces as well as valid moves
+     */
+    public boolean isLoss(Player user){
+        findMoves(gameCenter.getBoardView(), user.getColor());
+        if(possibleMoves.size()==0) {
+            reset();
+            return true;
+        }
+        reset();
+        return false;
+    }
 
     private boolean outOfBounds(int row, int col){
         return row < 0 || row >= 8 || col >= 8 || col < 0;
@@ -264,7 +279,7 @@ public class Board {
     }
 
     /*
-    Checks for singular movability
+    Checks for singular move - ability
      */
     private void movePiece(int row, int col, Piece.COLOR color, Piece.TYPE type){
         Space[][] model = gameCenter.getBoardView().getModel();
@@ -402,7 +417,6 @@ public class Board {
     public void findMoves(BoardView board, Player.Color color){
         Space[][] model = board.getModel();
         Piece piece = model[row][col].getPiece();
-        Player currentUser = board.getCurrentUser();
         if(jumped){
             if(color == Player.Color.RED) {
                 jumpable(row, col, Piece.COLOR.RED, piece.getType());

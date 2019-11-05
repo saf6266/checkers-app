@@ -46,9 +46,9 @@ public class Player {
 
     /**
      *
-     * @return false if no more tokens, true if tokens still remaining
+     * @return true if no more tokens, false if tokens still remaining
      */
-    public boolean validGame(){
+    public boolean isLoss(){
         return this.pieces == 0;
     }
     /**
