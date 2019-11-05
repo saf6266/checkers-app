@@ -177,12 +177,17 @@ public class WebServer {
     //Get the game route
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameCenter));
 
-    //
+    //Post a VALIDATE request
     post(VALIDATE_MOVE, new PostValidateMoveRoute(templateEngine, gameCenter, gson));
 
+    //Post a SUBMIT request
     post(SUBMIT_TURN, new PostSubmitTurnRoute(templateEngine, gameCenter, gson));
 
+    //Post a CHECK_TURN request
     post(CHECK_TURN, new PostCheckTurnRoute(templateEngine, gson, gameCenter));
+
+    //Post a BACKUP request
+    post(BACKUP_MOVE, new PostBackupMoveRoute(templateEngine, gameCenter, gson));
 
 
     LOG.config("WebServer is initialized.");
