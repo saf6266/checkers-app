@@ -421,15 +421,11 @@ public class Board {
         if(jumped){
             if(color == Player.Color.RED) {
                 jumpable(row, col, Piece.COLOR.RED, piece.getType());
-                if(possibleMoves.size() == 0){
 
-                }
             }
             else{
                 jumpable(row, col, Piece.COLOR.WHITE, piece.getType());
-                if(possibleMoves.size() == 0){
-                   ;
-                }
+
             }
         }
         else{

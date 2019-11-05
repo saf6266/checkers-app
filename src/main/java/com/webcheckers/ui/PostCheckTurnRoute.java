@@ -36,8 +36,10 @@ public class PostCheckTurnRoute implements Route {
             text = Message.info("false");
             session.attribute(TEXT, text);
         }
-        text = Message.info("true");
-        session.attribute(TEXT, text);
+        else{
+            text = Message.info("true");
+            session.attribute(TEXT, text);
+        }
         return gson.toJson(text);
     }
 }

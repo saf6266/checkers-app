@@ -39,25 +39,27 @@ public class PostValidateMoveRoute implements Route {
 
         //get the live board in gamecenter
         BoardView boardView = gameCenter.getBoardView();
+
+
         //checking if moved made was valid
-        if(boardView.getMoveCheck().isValidMove(move, activeColor)){
+        if(boardView.getMoveCheck().isValidMove(move, activeColor) && !boardView.isTurnEnd()){
              //moving the piece aka update the live model in boardVIew
-             boardView.updateModel(move);
+            boardView.updateModel(move);
              //if last move is a jumped
-             if (gameCenter.getBoardView().isJumped()){
+             if (boardView.isJumped()){
                  //update moves made array
-                 gameCenter.getBoardView().getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
+                 boardView.getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
                          boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
                          boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
 
-                if(gameCenter.getBoardView().getMoveCheck().getPossibleMoves().size() > 0) {
-                    gameCenter.getBoardView().setTurnEnd(false);
+                if(boardView.getMoveCheck().getPossibleMoves().size() > 0) {
+                    boardView.setTurnEnd(false);
                 } else {
-                    gameCenter.getBoardView().setTurnEnd(true);
+                    boardView.setTurnEnd(true);
                 }
 
              } else {
-                 gameCenter.getBoardView().setTurnEnd(true);
+                 boardView.setTurnEnd(true);
              }
 
              BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
