@@ -30,7 +30,9 @@ public class PostBackupMoveRoute implements Route {
     public Object handle(Request request, Response response){
 
         if (gameCenter.getStackOfBoardView().size() > 1){
-            gameCenter.setBoardView(gameCenter.getStackOfBoardView().pop());
+            gameCenter.getStackOfBoardView().pop();
+            gameCenter.setBoardView(gameCenter.getStackOfBoardView().peek());
+
             return gson.toJson(Message.info("Returned to previous move"));
         } else {
             return gson.toJson(Message.error("Backup not possible"));

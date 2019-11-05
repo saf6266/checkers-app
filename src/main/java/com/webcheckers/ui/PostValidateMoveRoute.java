@@ -40,7 +40,11 @@ public class PostValidateMoveRoute implements Route {
         Move move = gson.fromJson(query, Move.class);
         //get the live board in gamecenter
         BoardView boardView = gameCenter.getBoardView();
+        if(gameCenter.getStackOfBoardView().size() > 1)
+            gameCenter.getStackOfBoardView().pop();
+        gameCenter.getStackOfBoardView().push(boardView);
         boardView.setTurnEnd(false);
+        boardView.setJumped(false);
 
         //checking if moved made was valid
         if(boardView.getMoveCheck().isValidMove(move, activeColor) && !boardView.isTurnEnd()){

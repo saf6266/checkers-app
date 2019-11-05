@@ -73,7 +73,11 @@ public class GetGameRoute implements Route {
             vm.put(ACTIVE_COLOR, activeColor);
         }
 
-
+        if (activeColor == Player.Color.RED){
+            vm.put(ACTIVE_COLOR, Piece.COLOR.RED);
+        } else {
+            vm.put(ACTIVE_COLOR, Piece.COLOR.WHITE);
+        }
         //Set the view Mode as PLAY (for now)
         vm.put("viewMode", GameCenter.Mode.PLAY);
 

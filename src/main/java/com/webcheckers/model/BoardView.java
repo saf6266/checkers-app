@@ -28,7 +28,7 @@ public class BoardView implements Iterable<Row>{
 
     private Board moveCheck;
 
-    Player.Color activecolor = Player.Color.NONE;
+    private Player.Color activecolor = Player.Color.NONE;
 
     private Player redPlayer;
     private Player whitePlayer;
@@ -95,6 +95,10 @@ public class BoardView implements Iterable<Row>{
         return jumped;
     }
 
+    public void setJumped(Boolean b){
+        this.jumped = b;
+    }
+
     public void setTurnEnd(boolean turnEnd) {
         this.turnEnd = turnEnd;
     }
@@ -116,7 +120,7 @@ public class BoardView implements Iterable<Row>{
         Piece p = this.model[move.getStart().getRow()][move.getStart().getCell()].getPiece();
         Piece wp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE);     //White Normal Piece
         Piece rp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED);       //Red Normal Piece
-        if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 0){
+        if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 1){
             int r = (move.getStart().getRow() + move.getEnd().getRow())/2;
             int c = (move.getStart().getCell() + move.getEnd().getCell())/2;
             this.model[r][c].removePiece();
