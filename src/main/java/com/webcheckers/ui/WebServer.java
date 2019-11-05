@@ -180,6 +180,7 @@ public class WebServer {
     //
     post(VALIDATE_MOVE, new PostValidateMoveRoute(templateEngine, gameCenter, gson));
 
+    post(CHECK_TURN, new PostCheckTurnRoute(templateEngine));
 
     LOG.config("WebServer is initialized.");
   }

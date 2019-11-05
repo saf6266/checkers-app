@@ -52,8 +52,8 @@ public class BoardView implements Iterable<Row>{
         Piece wp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE);     //White Normal Piece
         Piece rp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED);       //Red Normal Piece
         if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 0){
-            int r = move.getStart().getRow() + move.getEnd().getRow()/2;
-            int c = move.getStart().getCell() + move.getEnd().getCell()/2;
+            int r = (move.getStart().getRow() + move.getEnd().getRow())/2;
+            int c = (move.getStart().getCell() + move.getEnd().getCell())/2;
             this.model[r][c].removePiece();
         }
         this.model[move.getStart().getRow()][move.getStart().getCell()].removePiece();
