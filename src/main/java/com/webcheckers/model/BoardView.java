@@ -49,7 +49,15 @@ public class BoardView implements Iterable<Row>{
         this.turnEnd = turnEnd;
         this.moveCheck = moveCheck;
     }
-
+    public void transform(BoardView b) {
+        this.currentUser = b.currentUser;
+        this.opponent = b.opponent;
+        this.rows = b.getRows();
+        this.model = b.getModel();
+        this.jumped = b.isJumped();
+        this.moveCheck = b.moveCheck;
+        this.turnEnd = b.turnEnd;
+    }
     public boolean isTurnEnd() {
         return turnEnd;
     }
@@ -86,7 +94,6 @@ public class BoardView implements Iterable<Row>{
         if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 0){
             int r = (move.getStart().getRow() + move.getEnd().getRow())/2;
             int c = (move.getStart().getCell() + move.getEnd().getCell())/2;
-
             this.model[r][c].removePiece();
         }
         this.model[move.getStart().getRow()][move.getStart().getCell()].removePiece();

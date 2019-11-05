@@ -33,14 +33,13 @@ public class PostSubmitTurnRoute implements Route {
 
         final Session session = request.session();
         Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
-
         //if they can submit turn
         if ( gameCenter.getBoardView().isTurnEnd() && gameCenter.getStackOfBoardView().size() > 1){
             //Every 2 players has a boardview, that holds the actual model, while board handles movements
             if(activeColor == Player.Color.RED){
                 session.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.WHITE);
             } else {
-                    session.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.RED);
+                session.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.RED);
             }
 
             //reset gamecenter's stack
