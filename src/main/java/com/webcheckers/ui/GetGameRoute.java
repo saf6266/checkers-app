@@ -42,6 +42,7 @@ public class GetGameRoute implements Route {
         final Player redPlayer = session.attribute(RED_PLAYER);
         final Player whitePlayer = session.attribute(WHITE_PLAYER);
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
+        final Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
         BoardView board = gameCenter.getBoardView();
 
         whitePlayer.setWhite();
@@ -63,8 +64,11 @@ public class GetGameRoute implements Route {
 
 
         //Red player goes first
-        vm.put(ACTIVE_COLOR, Player.Color.RED);
-
+        if (activeColor != null) {
+            vm.put(ACTIVE_COLOR, activeColor);
+        } else {
+            vm.put(ACTIVE_COLOR, Player.Color.RED);
+        }
         //Set the view Mode as PLAY (for now)
         vm.put("viewMode", GameCenter.Mode.PLAY);
 
