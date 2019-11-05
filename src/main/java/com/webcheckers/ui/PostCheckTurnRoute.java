@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
+import com.webcheckers.app.GameCenter;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
@@ -15,17 +16,19 @@ public class PostCheckTurnRoute implements Route {
 
     private TemplateEngine templateEngine;
     private Gson gson;
+    private GameCenter gameCenter;
 
-    PostCheckTurnRoute(TemplateEngine templateEngine, Gson gson){
+    PostCheckTurnRoute(TemplateEngine templateEngine, Gson gson, GameCenter gameCenter){
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required.");
         this.gson = gson;
+        this.gameCenter = gameCenter;
     }
 
     @Override
     public Object handle(Request request, Response response) {
         final Session session = request.session();
         //Get the active color
-        Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
+        Player.Color activeColor = this.gameCenter.getBoardView().getActivecolor();
         //Get the current User
         Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
         //Create the text message

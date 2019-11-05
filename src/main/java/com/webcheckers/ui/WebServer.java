@@ -182,7 +182,7 @@ public class WebServer {
 
     post(SUBMIT_TURN, new PostSubmitTurnRoute(templateEngine, gameCenter, gson));
 
-    post(CHECK_TURN, new PostCheckTurnRoute(templateEngine, gson));
+    post(CHECK_TURN, new PostCheckTurnRoute(templateEngine, gson, gameCenter));
 
 
     LOG.config("WebServer is initialized.");
