@@ -26,7 +26,6 @@ public class GetGameRoute implements Route {
         Objects.requireNonNull(templateEngine, "templateEngine is required.");
         Objects.requireNonNull(playerLobby, "playerLobby is required.");
         this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required.");
-
         this.templateEngine = templateEngine;
         this.playerLobby = playerLobby;
 
@@ -43,7 +42,7 @@ public class GetGameRoute implements Route {
         final Player redPlayer = session.attribute(RED_PLAYER);
         final Player whitePlayer = session.attribute(WHITE_PLAYER);
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
-        BoardView board = gameCenter.getBoard();
+        BoardView board = gameCenter.getBoardView();
 
         whitePlayer.setWhite();
         redPlayer.setRed();

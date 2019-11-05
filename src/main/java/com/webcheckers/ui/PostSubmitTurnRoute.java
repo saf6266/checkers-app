@@ -3,7 +3,9 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.app.GameCenter;
 import com.webcheckers.model.Board;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import spark.*;
 
 import java.util.HashMap;
@@ -28,26 +30,24 @@ public class PostSubmitTurnRoute implements Route {
     @Override
     public Object handle(Request request, Response response){
         LOG.finer("PostSubmitTurnRoute is invoked.");
-        final Session httpSession = request.session();
+
         final Session session = request.session();
         Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
 
-        Board b = new Board(gameCenter);
-
-        //Every 2 players has a boardview, that holds the actual model, while board handles movements
-
-//        if (b.)
-        if(activeColor == Player.Color.RED){
-            httpSession.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.WHITE);
-        } else {
-            if(activeColor == Player.Color.WHITE){
-                httpSession.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.RED);
+        //if they can submit turn
+        if ( gameCenter.getBoardView().isTurnEnd() && gameCenter.getStackOfBoardView().size() > 1){
+            //Every 2 players has a boardview, that holds the actual model, while board handles movements
+            if(activeColor == Player.Color.RED){
+                session.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.WHITE);
+            } else {
+                    session.attribute(GetGameRoute.ACTIVE_COLOR, Player.Color.RED);
             }
+
+            //reset gamecenter's stack
+            gameCenter.getStackOfBoardView().clear();
+            return gson.toJson(Message.info("Valid Submit"));
+        } else {
+            return gson.toJson(Message.error("Move still available"));
         }
-
-
-
-
-    return null;
     }
 }

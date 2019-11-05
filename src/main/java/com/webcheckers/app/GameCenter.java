@@ -29,20 +29,28 @@ public class GameCenter {
     private BoardView boardView;
     /* The list of players in a game */
     private ArrayList<Player> inGameList = new ArrayList<>();
+    // The stack of BoardView states
+    private Stack<BoardView> stackOfBoardView;
 
 
 
     /* Constructor */
     public GameCenter(Player currentUser, Player opponent){
         boardView = new BoardView(currentUser, opponent);
-
+        stackOfBoardView = new Stack<>();
+        stackOfBoardView.push(boardView);
     }
 
 
-    public BoardView getBoard() {
-        return boardView;
+
+
+    public Stack<BoardView> getStackOfBoardView() {
+        return stackOfBoardView;
     }
 
+    public void setBoardView(BoardView boardView) {
+        this.boardView = boardView;
+    }
 
     /**
      * Gets the board for the two players

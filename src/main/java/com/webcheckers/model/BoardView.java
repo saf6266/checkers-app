@@ -21,18 +21,49 @@ public class BoardView implements Iterable<Row>{
     private Player opponent;
     //2d array copy of the rows board
     private Space[][] model;
-    //A stack of models(Space[][])
-    private Stack<Space[][]> stackOfBoards;
 
+    private boolean jumped;
+
+    private boolean turnEnd;
+
+    private Board moveCheck;
 
 
     //Constructor
     public BoardView(Player currentUser, Player opponent) {
         this.currentUser = currentUser;
         this.opponent = opponent;
-        this.stackOfBoards =  new Stack<>();
-        rows = generateBoard(rows);
+        this.rows = generateBoard(rows);
         this.model = generateBoardArray(rows);
+        this.jumped = false;
+        this.moveCheck = new Board(model);
+        this.turnEnd = false;
+    }
+
+    public BoardView(Player currentUser, Player opponent, ArrayList<Row> rows, Space[][] model, boolean jumped, boolean turnEnd, Board moveCheck  ){
+        this.currentUser = currentUser;
+        this.opponent = opponent;
+        this.rows = rows;
+        this.model = model;
+        this.jumped = jumped;
+        this.turnEnd = turnEnd;
+        this.moveCheck = moveCheck;
+    }
+
+    public boolean isTurnEnd() {
+        return turnEnd;
+    }
+
+    public Board getMoveCheck() {
+        return moveCheck;
+    }
+
+    public boolean isJumped() {
+        return jumped;
+    }
+
+    public void setTurnEnd(boolean turnEnd) {
+        this.turnEnd = turnEnd;
     }
 
     /**
@@ -55,6 +86,7 @@ public class BoardView implements Iterable<Row>{
         if (Math.abs(move.getStart().getRow()-move.getEnd().getRow())/ 2 == 0){
             int r = (move.getStart().getRow() + move.getEnd().getRow())/2;
             int c = (move.getStart().getCell() + move.getEnd().getCell())/2;
+
             this.model[r][c].removePiece();
         }
         this.model[move.getStart().getRow()][move.getStart().getCell()].removePiece();
@@ -67,19 +99,11 @@ public class BoardView implements Iterable<Row>{
             if(test.getColor() == Piece.COLOR.RED)
                 if(move.getEnd().getRow() == 0)
                     test.coronate();
-        pushModelStack(getModel());
+
 
     }
 
-    //add to stack
-    public void pushModelStack(Space[][] model){
-        getStackOfBoards().push(model);
-        convertToArrayList(model);
-    }
 
-    public Stack<Space[][]> getStackOfBoards() {
-        return stackOfBoards;
-    }
 
     /**
      * Generate a copy of arraylist rows to 2d array for easier manipulation

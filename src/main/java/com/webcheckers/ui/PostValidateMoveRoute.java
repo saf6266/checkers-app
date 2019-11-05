@@ -25,7 +25,6 @@ public class PostValidateMoveRoute implements Route {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required.");
         this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required.");
         this.gson = gson;
-
         LOG.config("PostValidateMoveRoute is initialized.");
     }
 
@@ -37,12 +36,33 @@ public class PostValidateMoveRoute implements Route {
         Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
         String query = request.queryParams("actionData");
         Move move = gson.fromJson(query, Move.class);
-        BoardView boardView = gameCenter.getBoardView();
 
-        Board b = new Board(gameCenter);
-        if(b.isValidMove(move, activeColor)){
-             boardView.setModel(gameCenter.getBoardView().getModel());
+        //get the live board in gamecenter
+        BoardView boardView = gameCenter.getBoardView();
+        //checking if moved made was valid
+        if(boardView.getMoveCheck().isValidMove(move, activeColor)){
+             //moving the piece aka update the live model in boardVIew
              boardView.updateModel(move);
+             //if last move is a jumped
+             if (gameCenter.getBoardView().isJumped()){
+                 //update moves made array
+                 gameCenter.getBoardView().getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
+                         boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
+                         boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
+
+                if(gameCenter.getBoardView().getMoveCheck().getPossibleMoves().size() > 0) {
+                    gameCenter.getBoardView().setTurnEnd(false);
+                } else {
+                    gameCenter.getBoardView().setTurnEnd(true);
+                }
+
+             } else {
+                 gameCenter.getBoardView().setTurnEnd(true);
+             }
+
+             BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
+                     boardView.getModel(), boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck() );
+             gameCenter.getStackOfBoardView().push(newBoard);
              return gson.toJson(Message.info("Valid move"));
         }else{
              return gson.toJson(Message.error("Invalid move"));

@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private BoardView bw;
     private boolean jumped = false;
     private ArrayList<Move> possibleMoves;
     private int row;
     private int col;
     private boolean turn;
+    private Space[][] model;
 
-    public Board(BoardView bw){
-        this.bw = bw;
+    public Board(Space[][] bbc){
+        this.model = bbc;
         this.possibleMoves = new ArrayList<>();
     }
 
@@ -44,10 +44,11 @@ public class Board {
     Creates an arraylist of valid moves and then compares the given move to a list of moves
      */
     public boolean isValidMove(Move playerMove, Player.Color color){
-        findMoves(bw, color);
+        reset();
+        findMoves(color);
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){
-                setPossibleMoves(new ArrayList<>());
+                possibleMoves.clear();
                 if(jumped) {
                     setTurn(true);
                     row = playerMove.getEnd().getRow();
@@ -61,16 +62,20 @@ public class Board {
         return false;
     }
 
+    public ArrayList<Move> getPossibleMoves() {
+        return possibleMoves;
+    }
+
     /*
-    Checks if the player has any remaining pieces as well as valid moves
-     */
+        Checks if the player has any remaining pieces as well as valid moves
+         */
     public boolean isLoss(Player user){
-        findMoves(gameCenter.getBoardView(), user.getColor());
+        findMoves(user.getColor());
         if(possibleMoves.size()==0) {
-            reset();
+
             return true;
         }
-        reset();
+
         return false;
     }
 
@@ -78,31 +83,30 @@ public class Board {
         return row < 0 || row >= 8 || col >= 8 || col < 0;
     }
 
-    public boolean canJump(int row, int col){
-        BoardView boardView = bw;
-        Space[][] board = boardView.getModel();
-        Player currentUser = boardView.getCurrentUser();
-
-        if(currentUser.getColor() == Player.Color.RED){
-
-            if(board[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE &&
-                    !outOfBounds(row - 1, col - 1)) {
-                //(row - 2)(col - 2)
-                if (board[col - 2][col - 2].getPiece() == null
-                        && !outOfBounds(col - 2, col - 2))
-                    return true;
-                else
-                    return false;
-            }
-        }
-        return true;
-    }
+//    public boolean canJump(int row, int col){
+//        BoardView boardView = boardV;
+//        Space[][] board = boardView.getModel();
+//        Player currentUser = boardView.getCurrentUser();
+//
+//        if(currentUser.getColor() == Player.Color.RED){
+//
+//            if(board[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE &&
+//                    !outOfBounds(row - 1, col - 1)) {
+//                //(row - 2)(col - 2)
+//                if (board[col - 2][col - 2].getPiece() == null
+//                        && !outOfBounds(col - 2, col - 2))
+//                    return true;
+//                else
+//                    return false;
+//            }
+//        }
+//        return true;
+//    }
 
     /*
     Checks for any possible jumps that can be made
      */
-    private void jumpable(int row, int col, Piece.COLOR color, Piece.TYPE type){
-        Space[][] model = bw.getModel();
+    public void jumpable(int row, int col, Piece.COLOR color, Piece.TYPE type){
         if(type == Piece.TYPE.SINGLE){
             if(color == Piece.COLOR.WHITE){
                 //bottom left
@@ -282,7 +286,6 @@ public class Board {
     Checks for singular move - ability
      */
     private void movePiece(int row, int col, Piece.COLOR color, Piece.TYPE type){
-        Space[][] model = bw.getModel();
         if(type == Piece.TYPE.SINGLE){
             if(color == Piece.COLOR.WHITE){
                 //bottom left
@@ -410,24 +413,22 @@ public class Board {
     }
 
     private void reset(){
-        jumped = false;
-        possibleMoves = null;
+        possibleMoves.clear();
     }
 
-    public void findMoves(BoardView board, Player.Color color){
-        Space[][] model = board.getModel();
-        Piece piece = model[row][col].getPiece();
+    public void findMoves(Player.Color color){
+        Piece piece = this.model[row][col].getPiece();
         if(jumped){
             if(color == Player.Color.RED) {
                 jumpable(row, col, Piece.COLOR.RED, piece.getType());
                 if(possibleMoves.size() == 0){
-                    reset();
+
                 }
             }
             else{
                 jumpable(row, col, Piece.COLOR.WHITE, piece.getType());
                 if(possibleMoves.size() == 0){
-                    reset();
+                   ;
                 }
             }
         }
