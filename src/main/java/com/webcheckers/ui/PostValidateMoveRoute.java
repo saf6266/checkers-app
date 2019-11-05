@@ -43,9 +43,9 @@ public class PostValidateMoveRoute implements Route {
         if(b.isValidMove(move, activeColor)){
              boardView.setModel(gameCenter.getBoardView().getModel());
              boardView.updateModel(move);
-             return gson.toJson(Message.info("the move is valid"));
+             return gson.toJson(Message.info("Valid move"));
         }else{
-             return gson.toJson(Message.error("the move is invalid"));
+             return gson.toJson(Message.error("Invalid move"));
         }
     }
 }

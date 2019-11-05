@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
@@ -13,13 +14,15 @@ public class PostCheckTurnRoute implements Route {
     final static String TEXT = "text";
 
     private TemplateEngine templateEngine;
+    private Gson gson;
 
-    PostCheckTurnRoute(TemplateEngine templateEngine){
+    PostCheckTurnRoute(TemplateEngine templateEngine, Gson gson){
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required.");
+        this.gson = gson;
     }
 
     @Override
-    public Object handle(Request request, Response response){
+    public Object handle(Request request, Response response) {
         final Session session = request.session();
         //Get the active color
         Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
@@ -29,13 +32,12 @@ public class PostCheckTurnRoute implements Route {
         Message text;
 
         //Determine if it is the current User's turn or not
-        while(activeColor != currentUser.getColor()){
+        if (activeColor != currentUser.getColor()) {
             text = Message.info("false");
             session.attribute(TEXT, text);
         }
         text = Message.info("true");
         session.attribute(TEXT, text);
-        response.redirect(WebServer.GAME_URL);
-        return null;
+        return gson.toJson(text);
     }
 }

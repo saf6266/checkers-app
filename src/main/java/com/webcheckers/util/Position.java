@@ -17,4 +17,13 @@ public class Position {
     public int getCell() {
         return cell;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if(object instanceof Position){
+            Position other = (Position) object;
+            return this.row == other.row && this.cell == other.cell;
+        }
+        return false;
+    }
 }

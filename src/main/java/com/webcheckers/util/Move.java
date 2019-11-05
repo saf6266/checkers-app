@@ -19,9 +19,11 @@ public class Move {
     }
 
 
-    public boolean equals(Move move){
-
-        return this.start.getRow() == move.start.getRow() && this.end.getRow() == move.end.getRow()
-                && this.end.getCell() == move.end.getCell() && this.start.getCell() == move.start.getCell();
+    public boolean equals(Object object){
+        if(object instanceof Move){
+            Move other = (Move) object;
+            return start.equals(other.getStart()) && end.equals(other.getEnd());
+        }
+        return false;
     }
 }
