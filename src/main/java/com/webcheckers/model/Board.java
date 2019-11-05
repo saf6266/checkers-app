@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private GameCenter gameCenter;
+    private BoardView bw;
     private boolean jumped = false;
     private ArrayList<Move> possibleMoves;
     private int row;
     private int col;
     private boolean turn;
 
-    public Board(GameCenter gameCenter){
-        this.gameCenter = gameCenter;
+    public Board(BoardView bw){
+        this.bw = bw;
         this.possibleMoves = new ArrayList<>();
     }
 
@@ -44,7 +44,7 @@ public class Board {
     Creates an arraylist of valid moves and then compares the given move to a list of moves
      */
     public boolean isValidMove(Move playerMove, Player.Color color){
-        findMoves(gameCenter.getBoardView(), color);
+        findMoves(bw, color);
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){
                 setPossibleMoves(new ArrayList<>());
@@ -79,7 +79,7 @@ public class Board {
     }
 
     public boolean canJump(int row, int col){
-        BoardView boardView = gameCenter.getBoardView();
+        BoardView boardView = bw;
         Space[][] board = boardView.getModel();
         Player currentUser = boardView.getCurrentUser();
 
@@ -102,7 +102,7 @@ public class Board {
     Checks for any possible jumps that can be made
      */
     private void jumpable(int row, int col, Piece.COLOR color, Piece.TYPE type){
-        Space[][] model = gameCenter.getBoardView().getModel();
+        Space[][] model = bw.getModel();
         if(type == Piece.TYPE.SINGLE){
             if(color == Piece.COLOR.WHITE){
                 //bottom left
@@ -282,7 +282,7 @@ public class Board {
     Checks for singular move - ability
      */
     private void movePiece(int row, int col, Piece.COLOR color, Piece.TYPE type){
-        Space[][] model = gameCenter.getBoardView().getModel();
+        Space[][] model = bw.getModel();
         if(type == Piece.TYPE.SINGLE){
             if(color == Piece.COLOR.WHITE){
                 //bottom left

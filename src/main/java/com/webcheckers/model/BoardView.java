@@ -25,6 +25,7 @@ public class BoardView implements Iterable<Row>{
     private Stack<Space[][]> stackOfBoards;
 
 
+
     //Constructor
     public BoardView(Player currentUser, Player opponent) {
         this.currentUser = currentUser;
