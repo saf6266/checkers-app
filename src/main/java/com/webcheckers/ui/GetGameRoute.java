@@ -61,8 +61,7 @@ public class GetGameRoute implements Route {
 
         vm.put(WHITE_PLAYER, whitePlayer);
         vm.put(RED_PLAYER, redPlayer);
-
-
+        
         //Red player goes first
         if (activeColor != null) {
             vm.put(ACTIVE_COLOR, activeColor);
