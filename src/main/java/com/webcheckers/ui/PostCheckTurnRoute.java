@@ -37,11 +37,11 @@ public class PostCheckTurnRoute implements Route {
         //Determine if it is the current User's turn or not
         if (activeColor != currentUser.getColor()) {
             text = Message.info("false");
-            session.attribute(TEXT, text);
+            session.attribute("INFO", text);
         }
         else{
             text = Message.info("true");
-            session.attribute(TEXT, text);
+            session.attribute("INFO", text);
         }
         return gson.toJson(text);
     }
