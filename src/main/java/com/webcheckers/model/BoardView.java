@@ -58,13 +58,13 @@ public class BoardView implements Iterable<Row>{
     public BoardView(Player currentUser, Player opponent, ArrayList<Row> rows, Space[][] model, boolean jumped, boolean turnEnd, Board moveCheck, Player.Color activecolor  ){
         this.currentUser = currentUser;
         this.opponent = opponent;
+        this.redPlayer = currentUser;
+        this.whitePlayer = opponent;
         this.rows = rows;
         this.model = model;
         this.jumped = jumped;
         this.turnEnd = turnEnd;
         this.moveCheck = moveCheck;
-        this.redPlayer = currentUser;
-        this.whitePlayer = opponent;
         this.activecolor = activecolor;
     }
 
@@ -272,6 +272,9 @@ public class BoardView implements Iterable<Row>{
         this.currentUser = currentUser;
     }
 
+    public void setOpponent(Player opponent){
+        this.opponent = opponent;
+    }
     /**
      * Create an iterator of the rows of the board
      * @return iterator

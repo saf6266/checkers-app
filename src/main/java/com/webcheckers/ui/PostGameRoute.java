@@ -83,6 +83,8 @@ public class PostGameRoute implements Route {
             gameCenter.getBoardView().setWhitePlayer(opponent);
             //Red player goes first
             gameCenter.getBoardView().setActivecolor(Player.Color.RED);
+            gameCenter.getBoardView().setCurrentUser(currentUser);
+            gameCenter.getBoardView().setOpponent(opponent);
             response.redirect(WebServer.GAME_URL);
             return null;
         }

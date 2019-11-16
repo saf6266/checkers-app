@@ -43,10 +43,16 @@ public class PostSubmitTurnRoute implements Route {
             gameCenter.setBoardView(mostRecent);
 
             gameCenter.getBoardView().setTurnEnd(false);
+            Player redPlayer = gameCenter.getBoardView().getRedPlayer();
+            Player whitePlayer = gameCenter.getBoardView().getWhitePlayer();
             if (gameCenter.getBoardView().getActivecolor() == Player.Color.RED){
                 gameCenter.getBoardView().setActivecolor(Player.Color.WHITE);
+                gameCenter.getBoardView().setCurrentUser(whitePlayer);
+                gameCenter.getBoardView().setOpponent(redPlayer);
             } else {
                 gameCenter.getBoardView().setActivecolor(Player.Color.RED);
+                gameCenter.getBoardView().setCurrentUser(whitePlayer);
+                gameCenter.getBoardView().setOpponent(redPlayer);
 
             }
             return gson.toJson(Message.info("Success"));
