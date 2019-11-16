@@ -41,6 +41,7 @@ public class PostSignOutRouteTest {
         CuT = new PostSignOutRoute(engine, playerLobby, gameCenter);
     }
 
+
     @Test
     public void test_remove_player(){
         when(session.attribute(PostSignInRoute.CURR_USER_ATTR)).thenReturn(null);
