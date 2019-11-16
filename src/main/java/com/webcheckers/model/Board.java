@@ -45,6 +45,8 @@ public class Board {
      */
     public boolean isValidMove(Move playerMove, Player.Color color){
         reset();
+        row = playerMove.getStart().getRow();
+        col = playerMove.getStart().getCell();
         findMoves(color);
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){

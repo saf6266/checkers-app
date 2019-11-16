@@ -2,10 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.app.GameCenter;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.Row;
+import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.Move;
 import com.webcheckers.util.Position;
@@ -40,38 +37,41 @@ public class PostValidateMoveRoute implements Route {
         Move move = gson.fromJson(query, Move.class);
         //get the live board in gamecenter
         BoardView boardView = gameCenter.getBoardView();
-        if(gameCenter.getStackOfBoardView().size() > 1)
-            gameCenter.getStackOfBoardView().pop();
-        gameCenter.getStackOfBoardView().push(boardView);
-
+//        if(gameCenter.getStackOfBoardView().size() > 1)
+//            gameCenter.getStackOfBoardView().pop();
+//        gameCenter.getStackOfBoardView().push(boardView);
+        boardView.setTurnEnd(false);
+        boardView.setJumped(false);
 
         //checking if moved made was valid
-        if(!boardView.isTurnEnd() && boardView.getMoveCheck().isValidMove(move, activeColor)){
-             //moving the piece aka update the live model in boardVIew
-            boardView.updateModel(move);
-             //if last move is a jumped
-             //if (boardView.isJumped()){
-             //    //update moves made array
-             //    boardView.getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
-             //            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
-             //            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
-//
-             //   if(boardView.getMoveCheck().getPossibleMoves().size() > 0) {
-             //       boardView.setTurnEnd(false);
-             //   } else {
-             //       boardView.setTurnEnd(true);
-             //   }
-//
-             //} else {
-             //    boardView.setTurnEnd(true);
-             //}
+        if(boardView.getMoveCheck().isValidMove(move, activeColor) && !boardView.isTurnEnd()){
 
+             //if last move is a jumped
+             if (boardView.isJumped()){
+                 //update moves made array
+                 boardView.getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
+                         boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
+                         boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
+
+                if(boardView.getMoveCheck().getPossibleMoves().size() > 0) {
+                    boardView.setTurnEnd(false);
+                } else {
+                    boardView.setTurnEnd(true);
+                }
+
+             } else {
+                 boardView.setTurnEnd(true);
+             }
+
+             Space[][] newModel = boardView.generateCopyBoard(boardView.getModel(), move);
              BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
-                     boardView.getModel(), boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck() );
+                     newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck() );
+            //moving the piece aka update the live model in boardVIew
+            newBoard.updateModel(move);
              gameCenter.getStackOfBoardView().push(newBoard);
-             return gson.toJson(Message.info("Great job, you made a good move! Want a cookie?"));
+             return gson.toJson(Message.info("Valid move"));
         }else{
-             return gson.toJson(Message.error("You already moved asshole, sit down. Be humble. "));
+             return gson.toJson(Message.error("Invalid move"));
         }
     }
 }

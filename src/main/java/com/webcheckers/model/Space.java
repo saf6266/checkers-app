@@ -21,6 +21,8 @@ public class Space {
         this.isDark = isDark;
     }
 
+
+
     /**
      * Get the cell index of this space
      * @return this.cellIdx
