@@ -34,14 +34,30 @@ public class GetGameRoute implements Route {
 
     }
 
+    /**
+     * Creates a string for the case that a player has captured all of your pieces
+     * @param player The player that captured all your pieces
+     * @return The string corresponding to this case
+     */
     private String piecesCaptured(Player player){
         return player.getName() + " has captured all of your pieces.";
     }
 
+    /**
+     * Creates a string for the case that a player resigned
+     * @param player The player that resigned
+     * @return The string corresponding to the player resigning
+     */
     private String playerResigned(Player player){
         return player.getName() + " has decided to resign because you are just too good.";
     }
 
+    /**
+     * Creates the modeOptions map for game end. Takes in a string for the reason
+     * why the game ended.
+     * @param gameEndMessage Game end string
+     * @return modeOptions map
+     */
     private Map<String, Object> gameEnd(String gameEndMessage){
         final Map<String, Object> modeOptions = new HashMap<>(2);
         modeOptions.put("isGameOver", true);
