@@ -87,25 +87,93 @@ public class Board {
         return row < 0 || row >= 8 || col >= 8 || col < 0;
     }
 
-//    public boolean canJump(int row, int col){
-//        BoardView boardView = boardV;
-//        Space[][] board = boardView.getModel();
-//        Player currentUser = boardView.getCurrentUser();
-//
-//        if(currentUser.getColor() == Player.Color.RED){
-//
-//            if(board[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE &&
-//                    !outOfBounds(row - 1, col - 1)) {
-//                //(row - 2)(col - 2)
-//                if (board[col - 2][col - 2].getPiece() == null
-//                        && !outOfBounds(col - 2, col - 2))
-//                    return true;
-//                else
-//                    return false;
-//            }
-//        }
-//        return true;
-//    }
+    private boolean isSingleMove(Position start, Position end){
+        return Math.abs(end.getRow() - start.getRow()) == 1;
+    }
+
+    private boolean isValidSingleMove(Space[][] model, Position end){
+        int endRow = end.getRow();
+        int endCell = end.getCell();
+        Space endSpace = model[endRow][endCell];
+        return endSpace.isValid();
+    }
+
+    private boolean isJump(Position start, Position end){
+        return Math.abs(end.getRow() - start.getRow()) == 2;
+    }
+
+    public ArrayList<Move> canJump(int row, int col, Player.Color activeColor){
+        ArrayList<Move> jumps;
+
+        if(activeColor == Player.Color.RED){
+            jumps = canJumpHelper(row, col, Piece.COLOR.WHITE);
+        }
+        else{
+            jumps = canJumpHelper(row, col, Piece.COLOR.RED);
+        }
+        return jumps;
+    }
+
+    private ArrayList<Move> canJumpHelper(int row, int col, Piece.COLOR color){
+
+        ArrayList<Move> jumps = new ArrayList<>();
+
+        Position start = new Position(row, col);
+        Position end;
+        //top left
+        if(model[row - 1][col - 1].getPiece() != null) {
+            if (model[row - 1][col - 1].getPieceColor() == color &&
+                    !outOfBounds(row - 1, col - 1)) {
+                if(model[row - 2][col - 2].getPiece() == null
+                        && !outOfBounds(row - 2, col - 2)){
+                    end = new Position(row - 2, col - 2);
+                    Move move = new Move(start, end);
+                    jumps.add(move);
+                }
+            }
+        }
+
+        //top right
+        if(model[row - 1][col + 1].getPiece() != null) {
+            if (model[row - 1][col + 1].getPieceColor() == color &&
+                    !outOfBounds(row - 1, col + 1)) {
+                if(model[row - 2][col + 2].getPiece() == null
+                        && !outOfBounds(row - 2, col + 2)){
+                    end = new Position(row - 2, col + 2);
+                    Move move = new Move(start, end);
+                    jumps.add(move);
+                }
+            }
+        }
+
+        //bottom left
+        if(model[row + 1][col - 1].getPiece() != null) {
+            if (model[row + 1][col - 1].getPieceColor() == color &&
+                    !outOfBounds(row + 1, col - 1)) {
+                if(model[row + 2][col - 2].getPiece() == null
+                        && !outOfBounds(row + 2, col - 2)){
+                    end = new Position(row + 2, col - 2);
+                    Move move = new Move(start, end);
+                    jumps.add(move);
+                }
+            }
+        }
+
+        //bottom right
+        if(model[row + 1][col + 1].getPiece() != null) {
+            if (model[row + 1][col + 1].getPieceColor() == color &&
+                    !outOfBounds(row + 1, col + 1)) {
+                if(model[row + 2][col + 2].getPiece() == null
+                        && !outOfBounds(row + 2, col + 2)){
+                    end = new Position(row + 2, col + 2);
+                    Move move = new Move(start, end);
+                    jumps.add(move);
+                }
+            }
+        }
+
+        return jumps;
+    }
 
     /*
     Checks for any possible jumps that can be made
