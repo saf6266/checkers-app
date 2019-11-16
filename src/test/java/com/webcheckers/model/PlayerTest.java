@@ -58,6 +58,7 @@ public class PlayerTest {
         assertFalse(CuT.isRed());
         assertFalse(CuT.isWhite());
     }
+
     /*
     Test the ba
      */

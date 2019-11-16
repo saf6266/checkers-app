@@ -23,6 +23,7 @@ public class SpaceTest {
         assertFalse(CuT.isValid());
     }
 
+
     @Test
     public void testSpace_is_dark(){
         final Space CuT = new Space(piece, cellIdx, isDark);

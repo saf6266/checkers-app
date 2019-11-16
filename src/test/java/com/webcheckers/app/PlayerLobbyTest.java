@@ -34,6 +34,7 @@ public class PlayerLobbyTest {
         assertTrue(lobby.getNumPlayers() == 3);
     }
 
+
     @Test
     public void test_Removing(){
         final Player CuT = new Player("test");
