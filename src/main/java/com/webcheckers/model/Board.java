@@ -54,9 +54,10 @@ public class Board {
                     row = playerMove.getEnd().getRow();
                     col = playerMove.getEnd().getCell();
                 }
-                else
+                else {
                     setTurn(false);
-                setJumped(false);
+                    setJumped(false);
+                }
                 return true;
             }
         }
