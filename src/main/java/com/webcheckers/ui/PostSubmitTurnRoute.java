@@ -38,13 +38,11 @@ public class PostSubmitTurnRoute implements Route {
         if ( gameCenter.getBoardView().isTurnEnd() && gameCenter.getStackOfBoardView().size() > 1){
             if (gameCenter.getBoardView().getActivecolor() == Player.Color.RED){
                 gameCenter.getBoardView().setActivecolor(Player.Color.WHITE);
-                gameCenter.getBoardView().setTurnEnd(false);
-
             } else {
-                gameCenter.getBoardView().setTurnEnd(false);
                 gameCenter.getBoardView().setActivecolor(Player.Color.RED);
 
             }
+            gameCenter.getBoardView().setTurnEnd(false);
 
             BoardView mostRecent = gameCenter.getStackOfBoardView().peek();
             //reset game center's stack

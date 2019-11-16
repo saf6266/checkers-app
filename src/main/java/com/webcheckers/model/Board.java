@@ -14,10 +14,13 @@ public class Board {
     private int col;
     private boolean turn;
     private Space[][] model;
+    private BoardView boardview;
 
-    public Board(Space[][] bbc){
+    public Board(Space[][] bbc, BoardView b){
         this.model = bbc;
         this.possibleMoves = new ArrayList<>();
+        boardview = b;
+
     }
 
     public boolean isJumped() {
@@ -53,18 +56,20 @@ public class Board {
                 possibleMoves.clear();
                 if(jumped) {
                     setTurn(true);
+                    boardview.setTurnEnd(false);
                     row = playerMove.getEnd().getRow();
                     col = playerMove.getEnd().getCell();
                 }
                 else {
-                    setTurn(false);
-                    setJumped(false);
+                    boardview.setTurnEnd(true);
+
                 }
+                boardview.setJumped(false);
                 return true;
             }
         }
-        setTurn(false);
-        setJumped(false);
+        boardview.setTurnEnd(true);
+        boardview.setJumped(false);
         return false;
     }
 
