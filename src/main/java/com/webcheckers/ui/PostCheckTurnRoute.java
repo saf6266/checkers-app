@@ -30,7 +30,7 @@ public class PostCheckTurnRoute implements Route {
         //Get the active color
         Player.Color activeColor = this.gameCenter.getBoardView().getActivecolor();
         //Get the current User
-        Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
+        Player currentUser = this.gameCenter.getBoardView().getCurrentUser();
         //Create the text message
         Message text;
 

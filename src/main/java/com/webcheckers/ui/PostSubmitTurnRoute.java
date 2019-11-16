@@ -36,19 +36,19 @@ public class PostSubmitTurnRoute implements Route {
 
         //if they can submit turn
         if ( gameCenter.getBoardView().isTurnEnd() && gameCenter.getStackOfBoardView().size() > 1){
+            BoardView mostRecent = gameCenter.getStackOfBoardView().peek();
+            //reset game center's stack
+            gameCenter.getStackOfBoardView().clear();
+            gameCenter.getStackOfBoardView().push(mostRecent);
+            gameCenter.setBoardView(mostRecent);
+
+            gameCenter.getBoardView().setTurnEnd(false);
             if (gameCenter.getBoardView().getActivecolor() == Player.Color.RED){
                 gameCenter.getBoardView().setActivecolor(Player.Color.WHITE);
             } else {
                 gameCenter.getBoardView().setActivecolor(Player.Color.RED);
 
             }
-            gameCenter.getBoardView().setTurnEnd(false);
-
-            BoardView mostRecent = gameCenter.getStackOfBoardView().peek();
-            //reset game center's stack
-            gameCenter.getStackOfBoardView().clear();
-            gameCenter.getStackOfBoardView().push(mostRecent);
-            gameCenter.setBoardView(mostRecent);
             return gson.toJson(Message.info("Success"));
         } else {
             if(gameCenter.getBoardView().isJumped())
