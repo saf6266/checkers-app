@@ -22,6 +22,7 @@ public class PieceTest {
         assertSame(CuT.getType(), Piece.TYPE.KING);
     }
 
+
     @Test
     public void get_color(){
 

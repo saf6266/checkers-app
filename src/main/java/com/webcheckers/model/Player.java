@@ -157,7 +157,7 @@ public class Player {
         }
         //check length, if the input is 0
         char letter;
-        for(int i = 1; i < len; i++){
+        for(int i = 0; i < len; i++){
             letter = TempName.charAt(i);
             if(letter <= 31) //Check if has an ascii code under 31(Space)
                 return false;

@@ -14,10 +14,13 @@ public class Board {
     private int col;
     private boolean turn;
     private Space[][] model;
+    private BoardView boardview;
 
-    public Board(Space[][] bbc){
+    public Board(Space[][] bbc, BoardView b){
         this.model = bbc;
         this.possibleMoves = new ArrayList<>();
+        boardview = b;
+
     }
 
     public boolean isJumped() {
@@ -45,24 +48,27 @@ public class Board {
      */
     public boolean isValidMove(Move playerMove, Player.Color color){
         reset();
+        row = playerMove.getStart().getRow();
+        col = playerMove.getStart().getCell();
         findMoves(color);
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){
                 possibleMoves.clear();
-                if(jumped) {
-                    setTurn(true);
+                if(boardview.isJumped()) {
+                    boardview.setTurnEnd(false);
                     row = playerMove.getEnd().getRow();
                     col = playerMove.getEnd().getCell();
                 }
                 else {
-                    setTurn(false);
-                    setJumped(false);
+                    boardview.setTurnEnd(true);
                 }
+                boardview.setJumped(false);
                 return true;
+
             }
         }
-        setTurn(false);
-        setJumped(false);
+        boardview.setTurnEnd(true);
+        boardview.setJumped(false);
         return false;
     }
 
@@ -73,8 +79,8 @@ public class Board {
     /*
         Checks if the player has any remaining pieces as well as valid moves
          */
-    public boolean isLoss(Player user){
-        findMoves(user.getColor());
+    public boolean isLoss(Player.Color user){
+        findMoves(user);
         if(possibleMoves.size()==0) {
 
             return true;
@@ -422,7 +428,7 @@ public class Board {
 
     public void findMoves(Player.Color color){
         Piece piece = this.model[row][col].getPiece();
-        if(jumped){
+        if(boardview.isJumped()){
             if(color == Player.Color.RED) {
                 jumpable(row, col, Piece.COLOR.RED, piece.getType());
 
@@ -433,7 +439,7 @@ public class Board {
             }
         }
         else{
-            setJumped(true);
+            boardview.setJumped(true);
             for(int r = 0; r < 8; r++){
                 for(int c = 0; c < 8; c++){
                     if(model[r][c].isDark()) {
@@ -454,7 +460,7 @@ public class Board {
             }
 
             if(possibleMoves.size() == 0){
-                setJumped(false);
+                boardview.setJumped(false);
                 for(int r = 0; r < 8; r++){
                     for(int c = 0; c < 8; c++){
                         if(model[r][c].isDark()) {
