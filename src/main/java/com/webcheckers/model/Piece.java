@@ -49,6 +49,12 @@ public class Piece {
         return pieceColor;
     }
 
+    public boolean equals(Piece p){
+        if(this.getColor() == p.getColor())
+            return this.getType() == p.getType();
+        return false;
+    }
+
     public void coronate(){
         this.pieceType = TYPE.KING;
     }
