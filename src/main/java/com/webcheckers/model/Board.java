@@ -57,11 +57,11 @@ public class Board {
                 else {
                     setTurn(false);
                     setJumped(false);
-
                 }
                 return true;
             }
         }
+        setTurn(false);
         setJumped(false);
         return false;
     }
