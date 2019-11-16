@@ -42,8 +42,6 @@ public class PostSubmitTurnRoute implements Route {
             } else {
                 gameCenter.getBoardView().setActivecolor(Player.Color.RED);
 
-
-
             }
 
             BoardView mostRecent = gameCenter.getStackOfBoardView().peek();
