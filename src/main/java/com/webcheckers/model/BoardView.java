@@ -137,13 +137,13 @@ public class BoardView implements Iterable<Row>{
         Piece test = this.model[move.getEnd().getRow()][move.getEnd().getCell()].getPiece();
         if(test.equals(rp)||test.equals(wp)) {//If the piece is a normal piece and reaches the other side, make it a king
             if (test.getColor() == Piece.COLOR.WHITE) {
-                if (move.getEnd().getRow() == 0) {
-                    test.coronate();
+                if (move.getEnd().getRow() == 7) {
+                    this.model[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().coronate();
                 }
             }
             if (test.getColor() == Piece.COLOR.RED) {
-                if (move.getEnd().getRow() == 7) {
-                    test.coronate();
+                if (move.getEnd().getRow() == 0) {
+                    this.model[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().coronate();
                 }
             }
         }
@@ -219,18 +219,6 @@ public class BoardView implements Iterable<Row>{
 
     public void setModel(Space[][] m){
         this.model = m;
-    }
-
-    /**
-     * Flip the board in the case that the currentUser is
-     * the white player.
-     */
-    public void flipBoard(){
-
-        for(Row row : getRows()){
-            Collections.reverse(row.getSpaces());
-        }
-        Collections.reverse(getRows());
     }
 
 
