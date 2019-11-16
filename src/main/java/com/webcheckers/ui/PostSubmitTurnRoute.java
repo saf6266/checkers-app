@@ -46,12 +46,11 @@ public class PostSubmitTurnRoute implements Route {
 
             }
 
+            BoardView mostRecent = gameCenter.getStackOfBoardView().peek();
             //reset game center's stack
             gameCenter.getStackOfBoardView().clear();
-            BoardView boardView = gameCenter.getBoardView();
-            BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
-                    boardView.getModel(), boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck() );
-            gameCenter.getStackOfBoardView().push(newBoard);
+            gameCenter.getStackOfBoardView().push(mostRecent);
+            gameCenter.setBoardView(mostRecent);
             return gson.toJson(Message.info("Success"));
         } else {
             return gson.toJson(Message.error("Move still available"));
