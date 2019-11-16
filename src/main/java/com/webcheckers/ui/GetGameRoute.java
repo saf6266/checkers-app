@@ -67,16 +67,24 @@ public class GetGameRoute implements Route {
         vm.put(RED_PLAYER, redPlayer);
 
 
-        if (activeColor == null){
-            vm.put(ACTIVE_COLOR, Piece.COLOR.RED);
-        } else {
-            vm.put(ACTIVE_COLOR, activeColor);
-        }
+        if (activeColor == Player.Color.RED && !board.b){
 
-        if (activeColor == Player.Color.RED){
             vm.put(ACTIVE_COLOR, Piece.COLOR.RED);
-        } else {
+        }
+        else if(activeColor == Player.Color.RED &&board.b){
+            for(Row row : board.getRows()){
+                Collections.reverse(row.getSpaces());
+            }
+            Collections.reverse(board.getRows());
+            vm.put(ACTIVE_COLOR, Piece.COLOR.RED);
+        }
+        else {
+            for(Row row : board.getRows()){
+                Collections.reverse(row.getSpaces());
+            }
+            Collections.reverse(board.getRows());
             vm.put(ACTIVE_COLOR, Piece.COLOR.WHITE);
+            board.b = true;
         }
         //Set the view Mode as PLAY (for now)
         vm.put("viewMode", GameCenter.Mode.PLAY);

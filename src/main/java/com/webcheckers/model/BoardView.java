@@ -28,10 +28,13 @@ public class BoardView implements Iterable<Row>{
 
     private Board moveCheck;
 
-    private Player.Color activecolor = Player.Color.NONE;
+    private Player.Color activecolor ;
 
     private Player redPlayer;
     private Player whitePlayer;
+    public boolean b;
+
+
 
 
 
@@ -40,13 +43,16 @@ public class BoardView implements Iterable<Row>{
     public BoardView(Player currentUser, Player opponent) {
         this.currentUser = currentUser;
         this.opponent = opponent;
-        this.redPlayer = opponent;
-        this.whitePlayer = currentUser;
+        this.redPlayer = currentUser;
+        this.whitePlayer = opponent;
         this.rows = generateBoard(rows);
         this.model = generateBoardArray(rows);
         this.jumped = false;
         this.moveCheck = new Board(model);
+        this.activecolor = Player.Color.NONE;
         this.turnEnd = false;
+        b = false;
+
     }
 
     public BoardView(Player currentUser, Player opponent, ArrayList<Row> rows, Space[][] model, boolean jumped, boolean turnEnd, Board moveCheck  ){
@@ -131,12 +137,12 @@ public class BoardView implements Iterable<Row>{
         Piece test = this.model[move.getEnd().getRow()][move.getEnd().getCell()].getPiece();
         if(test.equals(rp)||test.equals(wp)) {//If the piece is a normal piece and reaches the other side, make it a king
             if (test.getColor() == Piece.COLOR.WHITE) {
-                if (move.getEnd().getRow() == 7) {
+                if (move.getEnd().getRow() == 0) {
                     test.coronate();
                 }
             }
             if (test.getColor() == Piece.COLOR.RED) {
-                if (move.getEnd().getRow() == 0) {
+                if (move.getEnd().getRow() == 7) {
                     test.coronate();
                 }
             }

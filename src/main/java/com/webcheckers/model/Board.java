@@ -59,6 +59,7 @@ public class Board {
                 return true;
             }
         }
+        setJumped(false);
         return false;
     }
 
