@@ -27,7 +27,7 @@ public class PostValidateMoveRoute implements Route {
     }
 
     @Override
-    public Object handle(Request request, Response response){
+    public Object handle(Request request, Response response) {
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         final Session session = request.session();
@@ -43,35 +43,38 @@ public class PostValidateMoveRoute implements Route {
         boardView.setTurnEnd(false);
         boardView.setJumped(false);
 
-        //checking if moved made was valid
-        if(!boardView.isTurnEnd() && boardView.getMoveCheck().isValidMove(move, activeColor)){
+        if (!boardView.isTurnEnd()) {
+            //checking if moved made was valid
+            if (boardView.getMoveCheck().isValidMove(move, activeColor)) {
 
-             //if last move is a jumped
-             if (boardView.isJumped()){
-                 //update moves made array
-                 boardView.getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
-                         boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
-                         boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
+                //if last move is a jumped
+                if (boardView.isJumped()) {
+                    //update moves made array
+                    boardView.getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
+                            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
+                            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
 
-                if(boardView.getMoveCheck().getPossibleMoves().size() > 0) {
-                    boardView.setTurnEnd(false);
+                    if (boardView.getMoveCheck().getPossibleMoves().size() > 0) {
+                        boardView.setTurnEnd(false);
+                    } else {
+                        boardView.setTurnEnd(true);
+                    }
+
                 } else {
                     boardView.setTurnEnd(true);
                 }
 
-             } else {
-                 boardView.setTurnEnd(true);
-             }
-
-             Space[][] newModel = boardView.generateCopyBoard(boardView.getModel(), move);
-             BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
-                     newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck() );
-            //moving the piece aka update the live model in boardVIew
-            newBoard.updateModel(move);
-             gameCenter.getStackOfBoardView().push(newBoard);
-             return gson.toJson(Message.info("Valid move"));
-        }else{
-             return gson.toJson(Message.error("Invalid move"));
+                Space[][] newModel = boardView.generateCopyBoard(boardView.getModel(), move);
+                BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
+                        newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(), boardView.getActivecolor());
+                //moving the piece aka update the live model in boardVIew
+                newBoard.updateModel(move);
+                gameCenter.getStackOfBoardView().push(newBoard);
+                return gson.toJson(Message.info("Valid move"));
+            } else {
+                return gson.toJson(Message.error("Invalid move"));
+            }
         }
+        return gson.toJson(Message.error("Not your turn to make  a move"));
     }
 }

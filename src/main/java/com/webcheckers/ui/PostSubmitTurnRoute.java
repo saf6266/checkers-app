@@ -32,28 +32,30 @@ public class PostSubmitTurnRoute implements Route {
         LOG.finer("PostSubmitTurnRoute is invoked.");
 
         final Session session = request.session();
-
+        Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
 
         //if they can submit turn
-        if ( gameCenter.getBoardView().isTurnEnd() ){
-            if (gameCenter.getBoardView().getActivecolor() == Player.Color.RED){
-                gameCenter.getBoardView().setActivecolor(Player.Color.WHITE);
-            } else {
-                gameCenter.getBoardView().setActivecolor(Player.Color.RED);
-            }
+        if ( gameCenter.getBoardView().isTurnEnd() && gameCenter.getStackOfBoardView().size() > 1){
             BoardView mostRecent = gameCenter.getStackOfBoardView().peek();
             //reset game center's stack
             gameCenter.getStackOfBoardView().clear();
             gameCenter.getStackOfBoardView().push(mostRecent);
             gameCenter.setBoardView(mostRecent);
 
+            gameCenter.getBoardView().setTurnEnd(false);
+            if (gameCenter.getBoardView().getActivecolor() == Player.Color.RED){
+                gameCenter.getBoardView().setActivecolor(Player.Color.WHITE);
+            } else {
+                gameCenter.getBoardView().setActivecolor(Player.Color.RED);
+
+            }
+            return gson.toJson(Message.info("Success"));
         } else {
             if(gameCenter.getBoardView().isJumped())
                 return gson.toJson(Message.error("A jump exists"));
             else if(gameCenter.getBoardView().isTurnEnd())
                 return gson.toJson(Message.error("Move still available"));
         }
-        gameCenter.getBoardView().setTurnEnd(false);
-        return gson.toJson(Message.info("Success"));
+        return null;
     }
 }
