@@ -14,10 +14,12 @@ public class Board {
     private int col;
     private boolean turn;
     private Space[][] model;
+    private BoardView boardView;
 
-    public Board(Space[][] bbc){
+    public Board(Space[][] bbc, BoardView bb){
         this.model = bbc;
         this.possibleMoves = new ArrayList<>();
+        boardView = bb;
     }
 
     public boolean isJumped() {
@@ -49,20 +51,21 @@ public class Board {
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){
                 possibleMoves.clear();
-                if(jumped) {
+                if(boardView.isJumped()) {
                     setTurn(true);
+                    boardView.setTurnEnd(false);
                     row = playerMove.getEnd().getRow();
                     col = playerMove.getEnd().getCell();
                 }
                 else {
-                    setTurn(false);
-                    setJumped(false);
+                    boardView.setTurnEnd(true);
                 }
+                boardView.setJumped(false);
                 return true;
             }
         }
-        setTurn(false);
-        setJumped(false);
+        boardView.setTurnEnd(true);
+        boardView.setJumped(false);
         return false;
     }
 
@@ -433,7 +436,7 @@ public class Board {
             }
         }
         else{
-            setJumped(true);
+            boardView.setJumped(true);
             for(int r = 0; r < 8; r++){
                 for(int c = 0; c < 8; c++){
                     if(model[r][c].isDark()) {
@@ -454,11 +457,10 @@ public class Board {
             }
 
             if(possibleMoves.size() == 0){
-                setJumped(false);
+                boardView.setJumped(false);
                 for(int r = 0; r < 8; r++){
                     for(int c = 0; c < 8; c++){
                         if(model[r][c].isDark()) {
-
                             piece = model[r][c].getPiece();
                             if(piece != null) {
                                 if (color == Player.Color.RED) {

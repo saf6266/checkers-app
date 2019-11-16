@@ -43,36 +43,35 @@ public class PostValidateMoveRoute implements Route {
         if(gameCenter.getStackOfBoardView().size() > 1)
             gameCenter.getStackOfBoardView().pop();
         gameCenter.getStackOfBoardView().push(boardView);
-        boardView.setTurnEnd(false);
-        boardView.setJumped(false);
+
 
         //checking if moved made was valid
-        if(boardView.getMoveCheck().isValidMove(move, activeColor) && !boardView.isTurnEnd()){
+        if(!boardView.isTurnEnd() && boardView.getMoveCheck().isValidMove(move, activeColor)){
              //moving the piece aka update the live model in boardVIew
             boardView.updateModel(move);
              //if last move is a jumped
-             if (boardView.isJumped()){
-                 //update moves made array
-                 boardView.getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
-                         boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
-                         boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
-
-                if(boardView.getMoveCheck().getPossibleMoves().size() > 0) {
-                    boardView.setTurnEnd(false);
-                } else {
-                    boardView.setTurnEnd(true);
-                }
-
-             } else {
-                 boardView.setTurnEnd(true);
-             }
+             //if (boardView.isJumped()){
+             //    //update moves made array
+             //    boardView.getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
+             //            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
+             //            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
+//
+             //   if(boardView.getMoveCheck().getPossibleMoves().size() > 0) {
+             //       boardView.setTurnEnd(false);
+             //   } else {
+             //       boardView.setTurnEnd(true);
+             //   }
+//
+             //} else {
+             //    boardView.setTurnEnd(true);
+             //}
 
              BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
                      boardView.getModel(), boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck() );
              gameCenter.getStackOfBoardView().push(newBoard);
-             return gson.toJson(Message.info("Valid move"));
+             return gson.toJson(Message.info("Great job, you made a good move! Want a cookie?"));
         }else{
-             return gson.toJson(Message.error("Invalid move"));
+             return gson.toJson(Message.error("You already moved asshole, sit down. Be humble. "));
         }
     }
 }

@@ -38,11 +38,11 @@ public class PostSubmitTurnRoute implements Route {
         if ( gameCenter.getBoardView().isTurnEnd() && gameCenter.getStackOfBoardView().size() > 1){
             if (gameCenter.getBoardView().getActivecolor() == Player.Color.RED){
                 gameCenter.getBoardView().setActivecolor(Player.Color.WHITE);
+                gameCenter.getBoardView().setTurnEnd(false);
 
             } else {
+                gameCenter.getBoardView().setTurnEnd(false);
                 gameCenter.getBoardView().setActivecolor(Player.Color.RED);
-
-
 
             }
 
@@ -54,7 +54,11 @@ public class PostSubmitTurnRoute implements Route {
             gameCenter.getStackOfBoardView().push(newBoard);
             return gson.toJson(Message.info("Success"));
         } else {
-            return gson.toJson(Message.error("Move still available"));
+            if(gameCenter.getBoardView().isJumped())
+                return gson.toJson(Message.error("A jump exists"));
+            else if(gameCenter.getBoardView().isTurnEnd())
+                return gson.toJson(Message.error("Move still available"));
         }
+        return null;
     }
 }

@@ -48,7 +48,7 @@ public class BoardView implements Iterable<Row>{
         this.rows = generateBoard(rows);
         this.model = generateBoardArray(rows);
         this.jumped = false;
-        this.moveCheck = new Board(model);
+        this.moveCheck = new Board(model, this);
         this.activecolor = Player.Color.NONE;
         this.turnEnd = false;
         b = false;
