@@ -49,7 +49,7 @@ public class BoardView implements Iterable<Row>{
         this.model = generateBoardArray(rows);
         this.jumped = false;
         this.moveCheck = new Board(model);
-        this.activecolor = Player.Color.NONE;
+        this.activecolor = Player.Color.RED;
         this.turnEnd = false;
         b = false;
 
@@ -150,7 +150,31 @@ public class BoardView implements Iterable<Row>{
         convertToArrayList(this.model);
     }
 
+    public Space[][] generateCopyBoard(Space[][] model, Move move){
+        int endRow = move.getEnd().getRow();
+        int endCol = move.getEnd().getCell();
+        int startRow = move.getStart().getRow();
+        int startCol = move.getStart().getCell();
+        Space[][] newModel = new Space[8][8];
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                if (i == startRow && j == startCol) {
+                    Piece piece = model[startRow][startCol].getPiece();
+                    Space newSpace = new Space(piece, startCol, true);
+                    newModel[i][j] = newSpace;
 
+                } else if (i == endRow && j == endCol){
+                    Piece piece = model[endRow][endCol].getPiece();
+                    Space newSpace = new Space(piece, endCol, true);
+                    newModel[i][j] = newSpace;
+                }
+                else {
+                    newModel[i][j] = model[i][j];
+                }
+            }
+        }
+        return newModel;
+    }
 
     /**
      * Generate a copy of arraylist rows to 2d array for easier manipulation

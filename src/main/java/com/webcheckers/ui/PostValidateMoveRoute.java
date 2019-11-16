@@ -2,10 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.app.GameCenter;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.Row;
+import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import com.webcheckers.util.Move;
 import com.webcheckers.util.Position;
@@ -40,16 +37,15 @@ public class PostValidateMoveRoute implements Route {
         Move move = gson.fromJson(query, Move.class);
         //get the live board in gamecenter
         BoardView boardView = gameCenter.getBoardView();
-        if(gameCenter.getStackOfBoardView().size() > 1)
-            gameCenter.getStackOfBoardView().pop();
-        gameCenter.getStackOfBoardView().push(boardView);
+//        if(gameCenter.getStackOfBoardView().size() > 1)
+//            gameCenter.getStackOfBoardView().pop();
+//        gameCenter.getStackOfBoardView().push(boardView);
         boardView.setTurnEnd(false);
         boardView.setJumped(false);
 
         //checking if moved made was valid
         if(boardView.getMoveCheck().isValidMove(move, activeColor) && !boardView.isTurnEnd()){
-             //moving the piece aka update the live model in boardVIew
-            boardView.updateModel(move);
+
              //if last move is a jumped
              if (boardView.isJumped()){
                  //update moves made array
@@ -67,8 +63,11 @@ public class PostValidateMoveRoute implements Route {
                  boardView.setTurnEnd(true);
              }
 
+             Space[][] newModel = boardView.generateCopyBoard(boardView.getModel(), move);
              BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
-                     boardView.getModel(), boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck() );
+                     newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck() );
+            //moving the piece aka update the live model in boardVIew
+            newBoard.updateModel(move);
              gameCenter.getStackOfBoardView().push(newBoard);
              return gson.toJson(Message.info("Valid move"));
         }else{
