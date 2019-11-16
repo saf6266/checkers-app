@@ -48,7 +48,7 @@ public class BoardView implements Iterable<Row>{
         this.rows = generateBoard(rows);
         this.model = generateBoardArray(rows);
         this.jumped = false;
-        this.moveCheck = new Board(model);
+        this.moveCheck = new Board(model, this);
         this.activecolor = Player.Color.RED;
         this.turnEnd = false;
         b = false;
@@ -99,6 +99,9 @@ public class BoardView implements Iterable<Row>{
 
     public boolean isJumped() {
         return jumped;
+    }
+    public boolean isLoss(Player.Color color){
+        return moveCheck.isLoss(color);
     }
 
     public void setJumped(Boolean b){

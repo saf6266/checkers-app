@@ -44,7 +44,7 @@ public class PostValidateMoveRoute implements Route {
         boardView.setJumped(false);
 
         //checking if moved made was valid
-        if(boardView.getMoveCheck().isValidMove(move, activeColor) && !boardView.isTurnEnd()){
+        if(!boardView.isTurnEnd() && boardView.getMoveCheck().isValidMove(move, activeColor)){
 
              //if last move is a jumped
              if (boardView.isJumped()){
