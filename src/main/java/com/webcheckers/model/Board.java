@@ -76,8 +76,6 @@ public class Board {
 
             }
         }
-        boardview.setTurnEnd(true);
-        boardview.setJumped(false);
         return false;
     }
 
