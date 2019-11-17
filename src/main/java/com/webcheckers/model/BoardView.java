@@ -132,7 +132,7 @@ public class BoardView implements Iterable<Row>{
         return row;
     }
 
-    public void updateModel(Move move){
+    public void updateModel(Move move, BoardView old){
         Piece p = this.model[move.getStart().getRow()][move.getStart().getCell()].getPiece();
         Piece wp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE);     //White Normal Piece
         Piece rp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.RED);       //Red Normal Piece
@@ -168,15 +168,15 @@ public class BoardView implements Iterable<Row>{
         Space[][] newModel = new Space[8][8];
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
-                if (i == startRow && j == startCol) {
-                    Piece piece = model[startRow][startCol].getPiece();
-                    Space newSpace = new Space(piece, startCol, true);
-                    newModel[i][j] = newSpace;
-
-                } else if (i == endRow && j == endCol){
-                    Piece piece = model[endRow][endCol].getPiece();
-                    Space newSpace = new Space(piece, endCol, true);
-                    newModel[i][j] = newSpace;
+                Piece piece = model[i][j].getPiece();
+                if (piece != null && model[i][j].isDark()) {
+                    Piece.COLOR color = piece.getColor();
+                    Piece.TYPE type = piece.getType();
+                    Piece newPiece = new Piece(type, color);
+                    newModel[i][j] = new Space(newPiece, j, true);
+                }
+                else if(piece == null && model[i][j].isDark()){
+                    newModel[i][j] = new Space(null, j, true);
                 }
                 else {
                     newModel[i][j] = model[i][j];
