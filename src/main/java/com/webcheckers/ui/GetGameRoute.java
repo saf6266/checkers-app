@@ -132,6 +132,9 @@ public class GetGameRoute implements Route {
         //Set the view Mode as PLAY (for now)
         vm.put("viewMode", GameCenter.Mode.PLAY);
 
+        //add the board
+        vm.put("board", board);
+
         //Check Game End
             //Check to see if there aren't any pieces left for red player
         if(!piecesLeft(board, redPlayer)){
@@ -152,11 +155,9 @@ public class GetGameRoute implements Route {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", "Your opponent has resigned. You WIN!");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+            gameCenter.removePlayer(redPlayer);
+            gameCenter.removePlayer(whitePlayer);
         }
-
-
-        //add the board
-        vm.put("board", board);
 
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));
 
