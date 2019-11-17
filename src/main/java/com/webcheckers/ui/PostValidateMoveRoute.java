@@ -70,6 +70,7 @@ public class PostValidateMoveRoute implements Route {
                 //moving the piece aka update the live model in boardVIew
                 newBoard.updateModel(move);
                 gameCenter.getStackOfBoardView().push(newBoard);
+                gameCenter.setBoardView(newBoard);
                 return gson.toJson(Message.info("Valid move"));
             } else {
                 return gson.toJson(Message.error("Invalid move"));
