@@ -1,9 +1,17 @@
 package com.webcheckers.model;
 
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 @Tag("model-Tier")
 public class RowTest {
-    private final static Row row = new Row (1);
-    //private final static Row row
+
+    @Test
+    public void test_GenerateSpaces(){
+        final ArrayList<Space> ExpectedList = new ArrayList<Space>() ;
+        final Row Cut = new Row(1);
+        //assertSame(ExpectedList, Cut.generateSpaces(spaceList, 1));
+    }
 }

@@ -54,7 +54,7 @@ public class Row implements Iterable<Space> {
      * @param i The specific row index
      * @return The updated space list
      */
-    private ArrayList<Space> generateSpaces(ArrayList<Space> spaceList, int i){
+    public ArrayList<Space> generateSpaces(ArrayList<Space> spaceList, int i){
             for ( int j = 0; j < 8; j++){
                 if( i < 3) { // Generate the WHITE side of the board
                     if (i % 2 == 0) {

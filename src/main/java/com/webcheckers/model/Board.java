@@ -20,7 +20,6 @@ public class Board {
         this.model = bbc;
         this.possibleMoves = new ArrayList<>();
         boardview = b;
-
     }
 
     public boolean isJumped() {
@@ -70,6 +69,7 @@ public class Board {
                 }
                 else {
                     boardview.setTurnEnd(true);
+                    boardview.setJumped(false);
                 }
 
                 return true;

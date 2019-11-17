@@ -106,7 +106,9 @@ public class GetGameRoute implements Route {
         final Player redPlayer = session.attribute(RED_PLAYER);
         final Player whitePlayer = session.attribute(WHITE_PLAYER);
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
+        Player.Color player = session.attribute(ACTIVE_COLOR);
         Player.Color activeColor = gameCenter.getBoardView().getActivecolor();
+        player = activeColor;
         BoardView board = gameCenter.getBoardView();
 
         whitePlayer.setWhite();
@@ -135,12 +137,17 @@ public class GetGameRoute implements Route {
         //Check Game End
             //Check to see if there aren't any pieces left for red player
         if(!piecesLeft(board, redPlayer)){
-            final Map<String, Object> modeOptions = gameEnd(piecesCaptured(whitePlayer));
+            final Map<String, Object> modeOptions = new HashMap<>(2);
+            modeOptions.put("isGameOver", true);
+            modeOptions.put("gameOverMessage", "Red player has no more pieces!");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+
         }
         //Check to see if there aren't any pieces left for white player
         else if(!piecesLeft(board, whitePlayer)){
-            final Map<String, Object> modeOptions = gameEnd(piecesCaptured(redPlayer));
+            final Map<String, Object> modeOptions = new HashMap<>(2);
+            modeOptions.put("isGameOver", true);
+            modeOptions.put("gameOverMessage", "White player has no more pieces!");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
         }
 

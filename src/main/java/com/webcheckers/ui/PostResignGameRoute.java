@@ -36,10 +36,9 @@ public class PostResignGameRoute implements Route {
 
         gameCenter.removePlayer(currentUser);
 
-        final Map<String, Object> modeOptions = new HashMap<>(2);
-        modeOptions.put("isGameOver", true);
-        modeOptions.put("gameOverMessage", currentUser.getName() + " has resigned.");
-        gson.toJson(modeOptions);
-        return gson.toJson(Message.info( (String) modeOptions.get("gameOverMessage")));
+        Message text = Message.info(currentUser.getName() + " has resigned! ");
+        session.attribute("INFO", text);
+        return gson.toJson(text);
+
     }
 }
