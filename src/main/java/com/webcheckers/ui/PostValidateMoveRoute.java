@@ -45,16 +45,16 @@ public class PostValidateMoveRoute implements Route {
 
         if (!boardView.isTurnEnd()) {
             //checking if moved made was valid
-            if (boardView.getMoveCheck().isValidMove(move, activeColor)) {
+            if (gameCenter.getBoardView().getMoveCheck(boardView.getModel()).isValidMove(move, activeColor)) {
 
                 //if last move is a jumped
                 if (boardView.isJumped()) {
                     //update moves made array
-                    boardView.getMoveCheck().jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
+                    boardView.getMoveCheck(boardView.getModel()).jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
                             boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
                             boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
 
-                    if (boardView.getMoveCheck().getPossibleMoves().size() > 0) {
+                    if (boardView.getMoveCheck(boardView.getModel()).getPossibleMoves().size() > 0) {
                         boardView.setTurnEnd(false);
                     } else {
                         boardView.setTurnEnd(true);
@@ -66,7 +66,7 @@ public class PostValidateMoveRoute implements Route {
 
                 Space[][] newModel = boardView.generateCopyBoard(boardView.getModel(), move);
                 BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
-                        newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(), boardView.getActivecolor());
+                        newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(newModel), boardView.getActivecolor());
                 //moving the piece aka update the live model in boardVIew
                 newBoard.updateModel(move);
                 gameCenter.getStackOfBoardView().push(newBoard);

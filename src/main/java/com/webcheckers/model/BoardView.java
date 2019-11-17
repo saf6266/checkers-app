@@ -96,7 +96,8 @@ public class BoardView implements Iterable<Row>{
         return turnEnd;
     }
 
-    public Board getMoveCheck() {
+    public Board getMoveCheck(Space[][] m) {
+        moveCheck = new Board(m, this);
         return moveCheck;
     }
 
