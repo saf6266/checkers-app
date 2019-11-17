@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.app.GameCenter;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
@@ -31,9 +32,15 @@ public class PostCheckTurnRoute implements Route {
         Player.Color activeColor = this.gameCenter.getBoardView().getActivecolor();
         //Get the current User
         Player currentUser = this.gameCenter.getBoardView().getCurrentUser();
+        BoardView board = this.gameCenter.getBoardView();
         //Create the text message
         Message text;
 
+        if(board.getOpponent() == null || board.getCurrentUser() == null){
+            text = Message.info("true");
+            session.attribute("INFO", text);
+            return gson.toJson(text);
+        }
         //Determine if it is the current User's turn or not
         if (activeColor != currentUser.getColor()) {
             text = Message.info("false");

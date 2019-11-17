@@ -84,11 +84,9 @@ public class GetGameRoute implements Route {
         for(int row = 0; row < 8; row++){
             for(int col = 0; col < 8; col++){
                 Piece piece = model[row][col].getPiece();
-                if(piece != null){
-                    if(piece.getColor() == colorCheck){
+                if(piece != null)
+                    if(piece.getColor() == colorCheck)
                         return true;
-                    }
-                }
             }
         }
         return false;
@@ -137,17 +135,22 @@ public class GetGameRoute implements Route {
         //Check Game End
             //Check to see if there aren't any pieces left for red player
         if(!piecesLeft(board, redPlayer)){
-            final Map<String, Object> modeOptions = new HashMap<>(2);
-            modeOptions.put("isGameOver", true);
-            modeOptions.put("gameOverMessage", "Red player has no more pieces!");
+            final Map<String, Object> modeOptions = gameEnd(whitePlayer.getName() + " has captured all of the pieces.");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-
+            gameCenter.removePlayer(redPlayer);
+            gameCenter.removePlayer(whitePlayer);
         }
         //Check to see if there aren't any pieces left for white player
         else if(!piecesLeft(board, whitePlayer)){
+            final Map<String, Object> modeOptions = gameEnd(redPlayer.getName() + " has captured all of the pieces. ");
+            vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+            gameCenter.removePlayer(redPlayer);
+            gameCenter.removePlayer(whitePlayer);
+        }
+        else if(board.getOpponent() == null || board.getCurrentUser() == null){
             final Map<String, Object> modeOptions = new HashMap<>(2);
             modeOptions.put("isGameOver", true);
-            modeOptions.put("gameOverMessage", "White player has no more pieces!");
+            modeOptions.put("gameOverMessage", "Your opponent has resigned. You WIN!");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
         }
 
