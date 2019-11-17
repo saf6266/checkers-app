@@ -34,8 +34,9 @@ public class PostBackupMoveRoute implements Route {
             gameCenter.setBoardView(gameCenter.getStackOfBoardView().peek());
             if(gameCenter.getStackOfBoardView().size() == 1){
                 gameCenter.getBoardView().setJumped(false);
-                gameCenter.getBoardView().setTurnEnd(false);
+
             }
+            gameCenter.getBoardView().setTurnEnd(false);
 
             return gson.toJson(Message.info("Returned to previous move"));
         } else {
