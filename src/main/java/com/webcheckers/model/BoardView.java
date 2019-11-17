@@ -93,7 +93,10 @@ public class BoardView implements Iterable<Row>{
     }
 
     public boolean isTurnEnd() {
-        return turnEnd;
+        if(!isJumped()) {
+            return turnEnd;
+        }
+        return false;
     }
 
     public Board getMoveCheck(Space[][] m) {

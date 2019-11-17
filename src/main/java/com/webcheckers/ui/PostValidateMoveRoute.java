@@ -40,29 +40,29 @@ public class PostValidateMoveRoute implements Route {
 //        if(gameCenter.getStackOfBoardView().size() > 1)
 //            gameCenter.getStackOfBoardView().pop();
 //        gameCenter.getStackOfBoardView().push(boardView);
-        boardView.setTurnEnd(false);
-        boardView.setJumped(false);
+//        boardView.setTurnEnd(false);
+//        boardView.setJumped(false);
 
         if (!boardView.isTurnEnd()) {
             //checking if moved made was valid
             if (gameCenter.getBoardView().getMoveCheck(boardView.getModel()).isValidMove(move, activeColor)) {
 
                 //if last move is a jumped
-                if (boardView.isJumped()) {
-                    //update moves made array
-                    boardView.getMoveCheck(boardView.getModel()).jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
-                            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
-                            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
-
-                    if (boardView.getMoveCheck(boardView.getModel()).getPossibleMoves().size() > 0) {
-                        boardView.setTurnEnd(false);
-                    } else {
-                        boardView.setTurnEnd(true);
-                    }
-
-                } else {
-                    boardView.setTurnEnd(true);
-                }
+//                if (boardView.isJumped()) {
+//                    //update moves made array
+//                    boardView.getMoveCheck(boardView.getModel()).jumpable(move.getEnd().getRow(), move.getEnd().getCell(),
+//                            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPieceColor(),
+//                            boardView.getModel()[move.getEnd().getRow()][move.getEnd().getCell()].getPiece().getType());
+//
+//                    if (boardView.getMoveCheck(boardView.getModel()).getPossibleMoves().size() > 0) {
+//                        boardView.setTurnEnd(false);
+//                    } else {
+//                        boardView.setTurnEnd(true);
+//                    }
+//
+//                } else {
+//                    boardView.setTurnEnd(true);
+//                }
 
                 Space[][] newModel = boardView.generateCopyBoard(boardView.getModel(), move);
                 BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),

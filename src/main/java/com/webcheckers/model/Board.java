@@ -58,11 +58,20 @@ public class Board {
                     boardview.setTurnEnd(false);
                     row = playerMove.getEnd().getRow();
                     col = playerMove.getEnd().getCell();
+                    int startRow = playerMove.getStart().getRow();
+                    int startCol = playerMove.getStart().getCell();
+                    Piece piece = model[startRow][startCol].getPiece();
+                    jumpable(row, col, piece.getColor(), piece.getType());
+                    if(possibleMoves.size() == 0){
+                        boardview.setJumped(false);
+                        boardview.setTurnEnd(true);
+                    }
+                    possibleMoves.clear();
                 }
                 else {
                     boardview.setTurnEnd(true);
                 }
-                boardview.setJumped(false);
+
                 return true;
 
             }
@@ -185,6 +194,7 @@ public class Board {
     Checks for any possible jumps that can be made
      */
     public void jumpable(int row, int col, Piece.COLOR color, Piece.TYPE type){
+        boardview.setJumped(true);
         if(type == Piece.TYPE.SINGLE){
             if(color == Piece.COLOR.WHITE){
                 //bottom left
@@ -364,6 +374,7 @@ public class Board {
     Checks for singular move - ability
      */
     private void movePiece(int row, int col, Piece.COLOR color, Piece.TYPE type){
+        boardview.setJumped(false);
         if(type == Piece.TYPE.SINGLE){
             if(color == Piece.COLOR.WHITE){
                 //bottom left
@@ -507,7 +518,6 @@ public class Board {
             }
         }
         else{
-            boardview.setJumped(true);
             for(int r = 0; r < 8; r++){
                 for(int c = 0; c < 8; c++){
                     if(model[r][c].isDark()) {
@@ -528,7 +538,6 @@ public class Board {
             }
 
             if(possibleMoves.size() == 0){
-                boardview.setJumped(false);
                 for(int r = 0; r < 8; r++){
                     for(int c = 0; c < 8; c++){
                         if(model[r][c].isDark()) {
