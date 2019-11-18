@@ -93,7 +93,7 @@ public class Board {
         }
         else{
             isValid.add(0, false);
-            isValid.add(1, "Invalid Single Move");
+            isValid.add(1, "You must make the available jump move");
         }
         return isValid;
     }
