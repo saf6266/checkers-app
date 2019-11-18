@@ -8,6 +8,7 @@ import com.webcheckers.util.Move;
 import com.webcheckers.util.Position;
 import spark.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -37,6 +38,8 @@ public class PostValidateMoveRoute implements Route {
         Move move = gson.fromJson(query, Move.class);
         //get the live board in gamecenter
         BoardView boardView = gameCenter.getBoardView();
+        Space[][] model = boardView.getModel();
+        Board moves = boardView.getMoveCheck(model);
 //        if(gameCenter.getStackOfBoardView().size() > 1)
 //            gameCenter.getStackOfBoardView().pop();
 //        gameCenter.getStackOfBoardView().push(boardView);
@@ -45,7 +48,10 @@ public class PostValidateMoveRoute implements Route {
 
         if (!boardView.isTurnEnd()) {
             //checking if moved made was valid
-            if (gameCenter.getBoardView().getMoveCheck(boardView.getModel()).isValidMove(move, activeColor)) {
+            ArrayList<Object> validationResults = moves.isValidMove(move, activeColor);
+            boolean isValid = (boolean) validationResults.get(0);
+            String message = (String) validationResults.get(1);
+            if (isValid) {
 
                 //if last move is a jumped
 //                if (boardView.isJumped()) {
@@ -67,15 +73,18 @@ public class PostValidateMoveRoute implements Route {
                 Space[][] newModel = boardView.generateCopyBoard(boardView.getModel(), move);
                 BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
                         newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(newModel), boardView.getActivecolor());
-                //moving the piece aka update the live model in boardVIew
+                //moving the piece aka update the live model in boardView
                 newBoard.updateModel(move, boardView);
                 gameCenter.getStackOfBoardView().push(newBoard);
                 gameCenter.setBoardView(newBoard);
-                return gson.toJson(Message.info("Valid move"));
+                return gson.toJson(Message.info(message));
             } else {
-                return gson.toJson(Message.error("Invalid move"));
+                return gson.toJson(Message.error(message));
             }
         }
-        return gson.toJson(Message.error("Not your turn to make  a move"));
+        if(moves.isJump(move.getStart(), move.getEnd())){
+            return gson.toJson(Message.error("You can't jump over your own piece!"));
+        }
+        return gson.toJson(Message.error("You can't make two moves at once"));
     }
 }

@@ -45,10 +45,13 @@ public class Board {
     /*
     Creates an arraylist of valid moves and then compares the given move to a list of moves
      */
-    public boolean isValidMove(Move playerMove, Player.Color color){
+    public ArrayList<Object> isValidMove(Move playerMove, Player.Color color){
+        ArrayList<Object> isValid = new ArrayList<>(2);
         reset();
         row = playerMove.getStart().getRow();
         col = playerMove.getStart().getCell();
+        Position start = playerMove.getStart();
+        Position end = playerMove.getEnd();
         findMoves(color);
         for(Move move : possibleMoves){
             if(playerMove.equals(move)){
@@ -71,12 +74,28 @@ public class Board {
                     boardview.setTurnEnd(true);
                     boardview.setJumped(false);
                 }
-
-                return true;
+                //Check to see if the player move is a jump move and add the appropriate message to the array list
+                if(isJump(start, end)){
+                    isValid.add(0, true);
+                    isValid.add(1, "Valid Jump Move");
+                    return isValid;
+                }
+                isValid.add(0, true);
+                isValid.add(1, "Valid Single Move");
+                return isValid;
 
             }
         }
-        return false;
+        //Check to see if the player move is a jump move and add the appropriate message to the array list
+        if(isJump(start, end)){
+            isValid.add(0, false);
+            isValid.add(1, "Invalid Jump Move");
+        }
+        else{
+            isValid.add(0, false);
+            isValid.add(1, "Invalid Single Move");
+        }
+        return isValid;
     }
 
     public ArrayList<Move> getPossibleMoves() {
@@ -111,7 +130,13 @@ public class Board {
         return endSpace.isValid();
     }
 
-    private boolean isJump(Position start, Position end){
+    /**
+     * Check to see if a move is a jump
+     * @param start The start position of the piece
+     * @param end The end position of the piece
+     * @return true if the move is a jump, false otherwise
+     */
+    public boolean isJump(Position start, Position end){
         return Math.abs(end.getRow() - start.getRow()) == 2;
     }
 
