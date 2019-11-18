@@ -282,34 +282,35 @@ public class Board {
                         }
                     }
                 }
-            }
-            //top left
-            if(!outOfBounds(row - 2, col - 2)){
-                if(model[row - 1][col - 1].getPiece() != null) {
-                    if (model[row - 1][col - 1].getPieceColor() == Piece.COLOR.RED) {
-                        if (model[row - 2][col - 2].getPiece() == null) {
-                            Position start = new Position(row, col);
-                            Position end = new Position(row - 2, col - 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                //top left
+                if(!outOfBounds(row - 2, col - 2)){
+                    if(model[row - 1][col - 1].getPiece() != null) {
+                        if (model[row - 1][col - 1].getPieceColor() == Piece.COLOR.RED) {
+                            if (model[row - 2][col - 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row - 2, col - 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
-            }
-            //top right
-            if(!outOfBounds(row - 2, col + 2)){
-                if(model[row - 1][col + 1].getPiece() != null) {
-                    if (model[row - 1][col + 1].getPieceColor() == Piece.COLOR.RED) {
-                        if (model[row - 2][col + 2].getPiece() == null) {
-                            Position start = new Position(row, col);
-                            Position end = new Position(row - 2, col + 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
-                        }
+                //top right
+                if(!outOfBounds(row - 2, col + 2)){
+                    if(model[row - 1][col + 1].getPiece() != null) {
+                        if (model[row - 1][col + 1].getPieceColor() == Piece.COLOR.RED) {
+                            if (model[row - 2][col + 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row - 2, col + 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
 
+                        }
                     }
                 }
             }
+            //King Piece is red
             else{
                 //bottom left
                 if(!outOfBounds(row + 2, col - 2)){
@@ -337,33 +338,34 @@ public class Board {
                         }
                     }
                 }
-            }
-            //top left
-            if(!outOfBounds(row - 2, col - 2)){
-                if(model[row - 1][col - 1].getPiece() != null) {
-                    if (model[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE) {
-                        if (model[row - 2][col - 2].getPiece() == null) {
-                            Position start = new Position(row, col);
-                            Position end = new Position(row - 2, col - 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
+                //top left
+                if(!outOfBounds(row - 2, col - 2)){
+                    if(model[row - 1][col - 1].getPiece() != null) {
+                        if (model[row - 1][col - 1].getPieceColor() == Piece.COLOR.WHITE) {
+                            if (model[row - 2][col - 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row - 2, col - 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
+                        }
+                    }
+                }
+                //top right
+                if(!outOfBounds(row - 2, col + 2)){
+                    if(model[row - 1][col + 1].getPiece() != null) {
+                        if (model[row - 1][col + 1].getPieceColor() == Piece.COLOR.WHITE) {
+                            if (model[row - 2][col + 2].getPiece() == null) {
+                                Position start = new Position(row, col);
+                                Position end = new Position(row - 2, col + 2);
+                                Move move = new Move(start, end);
+                                possibleMoves.add(move);
+                            }
                         }
                     }
                 }
             }
-            //top right
-            if(!outOfBounds(row - 2, col + 2)){
-                if(model[row - 1][col + 1].getPiece() != null) {
-                    if (model[row - 1][col + 1].getPieceColor() == Piece.COLOR.WHITE) {
-                        if (model[row - 2][col + 2].getPiece() == null) {
-                            Position start = new Position(row, col);
-                            Position end = new Position(row - 2, col + 2);
-                            Move move = new Move(start, end);
-                            possibleMoves.add(move);
-                        }
-                    }
-                }
-            }
+
         }
 
     }
@@ -439,25 +441,26 @@ public class Board {
                             possibleMoves.add(move);
                     }
                 }
-            }
-            //top left
-            if(!outOfBounds(row - 1, col - 1)){
-                if(model[row - 1][col - 1].getPiece() == null){
+                //top left
+                if(!outOfBounds(row - 1, col - 1)){
+                    if(model[row - 1][col - 1].getPiece() == null){
                         Position start = new Position(row, col);
                         Position end = new Position(row - 1, col - 1);
                         Move move = new Move(start, end);
                         possibleMoves.add(move);
+                    }
                 }
-            }
-            //top right
-            if(!outOfBounds(row - 1, col + 1)){
+                //top right
+                if(!outOfBounds(row - 1, col + 1)){
                     if(model[row - 1][col + 1].getPiece() == null){
                         Position start = new Position(row, col);
                         Position end = new Position(row - 1, col + 1);
                         Move move = new Move(start, end);
                         possibleMoves.add(move);
+                    }
                 }
             }
+
             else{
                 //bottom left
                 if(!outOfBounds(row + 1, col - 1)){
