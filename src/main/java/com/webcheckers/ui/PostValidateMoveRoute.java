@@ -70,7 +70,7 @@ public class PostValidateMoveRoute implements Route {
 //                    boardView.setTurnEnd(true);
 //                }
 
-                Space[][] newModel = boardView.generateCopyBoard(boardView.getModel(), move);
+                Space[][] newModel = boardView.generateCopyBoard(model);
                 BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(),
                         newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(newModel), boardView.getActivecolor());
                 //moving the piece aka update the live model in boardView

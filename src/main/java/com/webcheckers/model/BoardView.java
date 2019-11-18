@@ -160,11 +160,7 @@ public class BoardView implements Iterable<Row>{
         convertToArrayList(this.model);
     }
 
-    public Space[][] generateCopyBoard(Space[][] model, Move move){
-        int endRow = move.getEnd().getRow();
-        int endCol = move.getEnd().getCell();
-        int startRow = move.getStart().getRow();
-        int startCol = move.getStart().getCell();
+    public Space[][] generateCopyBoard(Space[][] model){
         Space[][] newModel = new Space[8][8];
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
