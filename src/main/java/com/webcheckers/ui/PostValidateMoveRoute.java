@@ -85,6 +85,7 @@ public class PostValidateMoveRoute implements Route {
         if(moves.isJump(move.getStart(), move.getEnd())){
             return gson.toJson(Message.error("You can't jump over your own piece!"));
         }
+
         return gson.toJson(Message.error("You can't make two moves at once"));
     }
 }
