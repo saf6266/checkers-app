@@ -57,13 +57,13 @@
               PlayerName
             </th>
           </tr>
-            <form id="postgame" action="/game" method="POST">
+            <form id="postgame" action="/game" method="POST" >
                 <#list playerList as playerName>
                   <#if playerName != currentUser>
                    <tr>
-                       <input name="opponent" type="hidden" value="${playerName.getName()}">
-                     <td>
-                         <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>
+                       <td>
+                       <input name="opponent" type="submit" value="${playerName.getName()}">
+<#--                         <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>-->
                      </td>
                    </tr>
                   </#if>
