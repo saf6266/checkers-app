@@ -7,6 +7,8 @@ import com.webcheckers.model.Space;
 import com.webcheckers.util.Move;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -25,51 +27,69 @@ public class GameCenter {
         REPLAY
     }
 
+    /* The map of boardViews and stacks of boardViews */
+    private Map<String, ArrayList<Object>> boards;
     /* The board for the two players in a game */
-    private BoardView boardView;
+    //private BoardView boardView;
     /* The list of players in a game */
     private ArrayList<Player> inGameList = new ArrayList<>();
     // The stack of BoardView states
-    private Stack<BoardView> stackOfBoardView;
+    //private Stack<BoardView> stackOfBoardView;
 
 
 
     /* Constructor */
-    public GameCenter(Player currentUser, Player opponent){
-        boardView = new BoardView(currentUser, opponent);
-        stackOfBoardView = new Stack<>();
-        stackOfBoardView.push(boardView);
+    public GameCenter(){
+        boards = new HashMap<>();
+        //boardView = new BoardView(currentUser, opponent);
+        //stackOfBoardView = new Stack<>();
+        //stackOfBoardView.push(boardView);
     }
 
 
 
 
-    public Stack<BoardView> getStackOfBoardView() {
-        return stackOfBoardView;
+    public Stack<BoardView> getStackOfBoardView(String gameCode) {
+        ArrayList<Object> board = boards.get(gameCode);
+        return (Stack<BoardView>) board.get(1);
+
     }
 
-    public void setBoardView(BoardView boardView) {
-        this.boardView = boardView;
+    public void setBoardView(String gameCode, BoardView boardView) {
+        ArrayList<Object> board = boards.get(gameCode);
+        board.set(0, boardView);
     }
 
     /**
      * Gets the board for the two players
      * @return this.board
      */
-    public BoardView getBoardView() {
-        return boardView;
+    public BoardView getBoardView(String gameCode) {
+        ArrayList<Object> board = boards.get(gameCode);
+        return (BoardView) board.get(0);
     }
 
     /**
      * Adds a player to the game list
-     * @param player The player that is being added
+     * @param currentUser The player that is being added
      */
-    public void addPlayer(Player player){
-        boardView.setCurrentUser(player);
-        inGameList.add(player);
+    public void addPlayer(Player currentUser, Player opponent){
+        BoardView boardView = new BoardView(currentUser, opponent);
+        Stack<BoardView> stackOfBoardViews = new Stack<>();
+        stackOfBoardViews.push(boardView);
+        ArrayList<Object> boardArray = new ArrayList<>(2);
+        String gameCode = currentUser.getName() + opponent.getName();
+        boardArray.add(0, boardView);
+        boardArray.add(1, stackOfBoardViews);
+        boards.put(gameCode, boardArray);
+        //boardView.setCurrentUser(player);
+        inGameList.add(currentUser);
+        inGameList.add(opponent);
     }
 
-    public void removePlayer(Player player){
+    public void removePlayer(String gameCode, Player player){
+        ArrayList<Object> board = boards.get(gameCode);
+        BoardView boardView = (BoardView) board.get(0);
         boardView.setCurrentUser(null);
         inGameList.remove(player);
     }
@@ -81,7 +101,7 @@ public class GameCenter {
      */
     public boolean inGame(Player player){
         for(Player person : inGameList){
-            if(person.getName().equals(player.getName())){
+            if(person.equals(player)){
                 return true;
             }
         }

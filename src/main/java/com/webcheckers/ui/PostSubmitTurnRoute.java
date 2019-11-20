@@ -11,6 +11,7 @@ import spark.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 public class PostSubmitTurnRoute implements Route {
@@ -32,34 +33,44 @@ public class PostSubmitTurnRoute implements Route {
         LOG.finer("PostSubmitTurnRoute is invoked.");
 
         final Session session = request.session();
-        Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
+        //Player.Color activeColor = session.attribute(GetGameRoute.ACTIVE_COLOR);
+        Player r = session.attribute(GetGameRoute.RED_PLAYER);
+        Player w = session.attribute(GetGameRoute.WHITE_PLAYER);
 
+        String gameCode = r.getName() + w.getName();
+
+        BoardView boardView = gameCenter.getBoardView(gameCode);
+        Stack<BoardView> stackBoardViews = gameCenter.getStackOfBoardView(gameCode);
         //if they can submit turn
-        if ( gameCenter.getBoardView().isTurnEnd() && gameCenter.getStackOfBoardView().size() > 1){
-            BoardView mostRecent = gameCenter.getStackOfBoardView().peek();
+        if ( boardView.isTurnEnd() && stackBoardViews.size() > 1){
+            BoardView mostRecent = stackBoardViews.peek();
             //reset game center's stack
-            gameCenter.getStackOfBoardView().clear();
-            gameCenter.getStackOfBoardView().push(mostRecent);
-            gameCenter.setBoardView(mostRecent);
+            stackBoardViews.clear();
+            stackBoardViews.push(mostRecent);
+            gameCenter.setBoardView(gameCode, mostRecent);
 
-            gameCenter.getBoardView().setTurnEnd(false);
-            Player redPlayer = gameCenter.getBoardView().getRedPlayer();
-            Player whitePlayer = gameCenter.getBoardView().getWhitePlayer();
-            if (gameCenter.getBoardView().getActivecolor() == Player.Color.RED){
-                gameCenter.getBoardView().setActivecolor(Player.Color.WHITE);
-                gameCenter.getBoardView().setCurrentUser(whitePlayer);
-                gameCenter.getBoardView().setOpponent(redPlayer);
-            } else {
-                gameCenter.getBoardView().setActivecolor(Player.Color.RED);
-                gameCenter.getBoardView().setCurrentUser(whitePlayer);
-                gameCenter.getBoardView().setOpponent(redPlayer);
+            boardView.setTurnEnd(false);
+            Player redPlayer = boardView.getRedPlayer();
+            Player whitePlayer = boardView.getWhitePlayer();
+            //Check to see which player is submitting a turn
+                //Red Player
+            if (boardView.getActivecolor() == Player.Color.RED){
+                boardView.setActivecolor(Player.Color.WHITE);
+                boardView.setCurrentUser(whitePlayer);
+                boardView.setOpponent(redPlayer);
+            }
+                //White Player
+            else {
+                boardView.setActivecolor(Player.Color.RED);
+                boardView.setCurrentUser(whitePlayer);
+                boardView.setOpponent(redPlayer);
 
             }
             return gson.toJson(Message.info("Success"));
         } else {
-            if(gameCenter.getBoardView().isJumped())
+            if(boardView.isJumped())
                 return gson.toJson(Message.error("A jump exists"));
-            else if(gameCenter.getBoardView().isTurnEnd())
+            else if(boardView.isTurnEnd())
                 return gson.toJson(Message.error("Move still available"));
         }
         return null;

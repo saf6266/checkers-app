@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.app.GameCenter;
 import com.webcheckers.app.PlayerLobby;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
@@ -72,19 +73,22 @@ public class PostGameRoute implements Route {
             return null;
         }
         else{                                   //No
-            gameCenter.addPlayer(currentUser);
+            gameCenter.addPlayer(currentUser, opponent);
             currentUser.setOpponent(opponent);
-            gameCenter.addPlayer(opponent);
+            //gameCenter.addPlayer(opponent);
             opponent.setOpponent(currentUser);
             session.attribute(GetGameRoute.RED_PLAYER, currentUser);
             session.attribute(GetGameRoute.WHITE_PLAYER, opponent);
+            //Make the game code for the boardView both of the player's names
+            String gameCode = currentUser.getName() + opponent.getName();
             //set red color player, white color player
-            gameCenter.getBoardView().setRedPlayer(currentUser);
-            gameCenter.getBoardView().setWhitePlayer(opponent);
+            BoardView boardView = gameCenter.getBoardView(gameCode);
+            boardView.setRedPlayer(currentUser);
+            boardView.setWhitePlayer(opponent);
             //Red player goes first
-            gameCenter.getBoardView().setActivecolor(Player.Color.RED);
-            gameCenter.getBoardView().setCurrentUser(currentUser);
-            gameCenter.getBoardView().setOpponent(opponent);
+            boardView.setActivecolor(Player.Color.RED);
+            boardView.setCurrentUser(currentUser);
+            boardView.setOpponent(opponent);
             response.redirect(WebServer.GAME_URL);
             return null;
         }

@@ -33,6 +33,20 @@ public class PlayerLobby {
     }
 
     /**
+     * Check to see if a player is in the player lobby
+     * @param player The player to check
+     * @return true if the player is in the lobby, false otherwise
+     */
+    public boolean inLobby(Player player){
+        for(Player p : players){
+            if(p.equals(player)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a player to current number of players online
      * @param player: The current user
      * @return true if the player was added, false if the player name is already in the database

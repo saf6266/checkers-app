@@ -28,11 +28,14 @@ public class PostCheckTurnRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
         final Session session = request.session();
+        final Player redPlayer = session.attribute(GetGameRoute.RED_PLAYER);
+        final Player whitePlayer = session.attribute(GetGameRoute.WHITE_PLAYER);
+        String gameCode = redPlayer.getName() + whitePlayer.getName();
         //Get the active color
-        Player.Color activeColor = this.gameCenter.getBoardView().getActivecolor();
+        Player.Color activeColor = this.gameCenter.getBoardView(gameCode).getActivecolor();
         //Get the current User
-        Player currentUser = this.gameCenter.getBoardView().getCurrentUser();
-        BoardView board = this.gameCenter.getBoardView();
+        Player currentUser = this.gameCenter.getBoardView(gameCode).getCurrentUser();
+        BoardView board = this.gameCenter.getBoardView(gameCode);
         //Create the text message
         Message text;
 

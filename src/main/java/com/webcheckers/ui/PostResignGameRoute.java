@@ -31,10 +31,13 @@ public class PostResignGameRoute implements Route {
         LOG.finer("PostResignGameRoute is invoked");
 
         final Session session = request.session();
+        Player redPlayer = session.attribute(GetGameRoute.RED_PLAYER);
+        Player whitePlayer = session.attribute(GetGameRoute.WHITE_PLAYER);
 
+        String gameCode = redPlayer.getName() + whitePlayer.getName();
         Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
 
-        gameCenter.removePlayer(currentUser);
+        gameCenter.removePlayer(gameCode, currentUser);
 
         Message text = Message.info(currentUser.getName() + " has resigned! ");
         session.attribute("INFO", text);

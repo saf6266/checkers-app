@@ -177,4 +177,13 @@ public class Player {
         return true;
     }
 
+    @Override
+    public boolean equals(Object object){
+        if(object instanceof Player){
+            Player other = (Player) object;
+            return this.getName().equals(other.getName());
+        }
+        return false;
+    }
+
 }

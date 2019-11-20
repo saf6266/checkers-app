@@ -88,7 +88,7 @@ public final class Application {
     }
 
     final PlayerLobby playerLobby = new PlayerLobby();
-    final GameCenter gameCenter = new GameCenter(null, null);
+    final GameCenter gameCenter = new GameCenter();
     // The application uses FreeMarker templates to generate the HTML
     // responses sent back to the client. This will be the engine processing
     // the templates and associated data.

@@ -104,10 +104,12 @@ public class GetGameRoute implements Route {
         final Player redPlayer = session.attribute(RED_PLAYER);
         final Player whitePlayer = session.attribute(WHITE_PLAYER);
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
+        String gameCode = redPlayer.getName() + whitePlayer.getName();
+        BoardView board = gameCenter.getBoardView(gameCode);
         Player.Color player = session.attribute(ACTIVE_COLOR);
-        Player.Color activeColor = gameCenter.getBoardView().getActivecolor();
+        Player.Color activeColor = board.getActivecolor();
         player = activeColor;
-        BoardView board = gameCenter.getBoardView();
+
 
         whitePlayer.setWhite();
         redPlayer.setRed();
@@ -140,23 +142,24 @@ public class GetGameRoute implements Route {
         if(!piecesLeft(board, redPlayer)){
             final Map<String, Object> modeOptions = gameEnd(whitePlayer.getName() + " has captured all of the pieces.");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-            gameCenter.removePlayer(redPlayer);
-            gameCenter.removePlayer(whitePlayer);
+            gameCenter.removePlayer(gameCode, redPlayer);
+            gameCenter.removePlayer(gameCode, whitePlayer);
         }
-        //Check to see if there aren't any pieces left for white player
+            //Check to see if there aren't any pieces left for white player
         else if(!piecesLeft(board, whitePlayer)){
             final Map<String, Object> modeOptions = gameEnd(redPlayer.getName() + " has captured all of the pieces. ");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-            gameCenter.removePlayer(redPlayer);
-            gameCenter.removePlayer(whitePlayer);
+            gameCenter.removePlayer(gameCode, redPlayer);
+            gameCenter.removePlayer(gameCode, whitePlayer);
         }
+            //Check to see if a player has resigned
         else if(board.getOpponent() == null || board.getCurrentUser() == null){
             final Map<String, Object> modeOptions = new HashMap<>(2);
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", "Your opponent has resigned. You WIN!");
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-            gameCenter.removePlayer(redPlayer);
-            gameCenter.removePlayer(whitePlayer);
+            gameCenter.removePlayer(gameCode, redPlayer);
+            gameCenter.removePlayer(gameCode, whitePlayer);
         }
 
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));

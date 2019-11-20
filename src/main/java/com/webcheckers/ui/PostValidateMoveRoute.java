@@ -32,12 +32,15 @@ public class PostValidateMoveRoute implements Route {
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         final Session session = request.session();
+        final Player currentUser = session.attribute(GetGameRoute.RED_PLAYER);
+        final Player opponent = session.attribute(GetGameRoute.WHITE_PLAYER);
+        String gameCode = currentUser.getName() + opponent.getName();
 
-        Player.Color activeColor = gameCenter.getBoardView().getActivecolor();
+        Player.Color activeColor = gameCenter.getBoardView(gameCode).getActivecolor();
         String query = request.queryParams("actionData");
         Move move = gson.fromJson(query, Move.class);
         //get the live board in gamecenter
-        BoardView boardView = gameCenter.getBoardView();
+        BoardView boardView = gameCenter.getBoardView(gameCode);
         Space[][] model = boardView.getModel();
         Board moves = boardView.getMoveCheck(model);
 //        if(gameCenter.getStackOfBoardView().size() > 1)
@@ -75,8 +78,8 @@ public class PostValidateMoveRoute implements Route {
                         newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(newModel), boardView.getActivecolor());
                 //moving the piece aka update the live model in boardView
                 newBoard.updateModel(move, boardView);
-                gameCenter.getStackOfBoardView().push(newBoard);
-                gameCenter.setBoardView(newBoard);
+                gameCenter.getStackOfBoardView(gameCode).push(newBoard);
+                gameCenter.setBoardView(gameCode, newBoard);
                 return gson.toJson(Message.info(message));
             } else {
                 return gson.toJson(Message.error(message));

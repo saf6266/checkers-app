@@ -52,7 +52,10 @@ public class PostSignOutRoute implements Route {
 
         //If the player is in a game, then remove them from the game
         if(gameCenter.inGame(currentUser)){
-            gameCenter.removePlayer(currentUser);
+            Player redPlayer = session.attribute(GetGameRoute.RED_PLAYER);
+            Player whitePlayer = session.attribute(GetGameRoute.WHITE_PLAYER);
+            String gameCode = redPlayer.getName() + whitePlayer.getName();
+            gameCenter.removePlayer(gameCode, currentUser);
         }
         //Remove the player from the player lobby
         playerLobby.removePlayer(currentUser);
