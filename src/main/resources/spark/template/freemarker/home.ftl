@@ -84,7 +84,7 @@
                    <tr>
                        <td>
                        <input name="opponent" type="submit" value="${playerName.getName()}">
-<#--                         <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>-->
+                         <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>
                      </td>
                    </tr>
                   </#if>
