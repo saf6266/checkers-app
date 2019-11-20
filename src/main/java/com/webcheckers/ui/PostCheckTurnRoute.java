@@ -2,12 +2,18 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.app.GameCenter;
+import com.webcheckers.model.Board;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Space;
 import com.webcheckers.util.Message;
+import com.webcheckers.util.Move;
 import spark.*;
 
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 public class PostCheckTurnRoute implements Route {
@@ -35,11 +41,61 @@ public class PostCheckTurnRoute implements Route {
         Player.Color activeColor = this.gameCenter.getBoardView(gameCode).getActivecolor();
         //Get the current User
         Player currentUser = this.gameCenter.getBoardView(gameCode).getCurrentUser();
-        BoardView board = this.gameCenter.getBoardView(gameCode);
+        BoardView boardView = this.gameCenter.getBoardView(gameCode);
         //Create the text message
-        Message text;
+        Message text = Message.info("false");
 
-        if(board.getOpponent() == null || board.getCurrentUser() == null){
+        if (boardView.getOpponent() == null || boardView.getCurrentUser() == null) {
+            text = Message.info("true");
+            session.attribute("INFO", text);
+            return gson.toJson(text);
+        }
+        if(boardView.getActivecolor() == Player.Color.WHITE)
+        if (whitePlayer.getName().equals("iridocyclitis")) {
+            //Ai makes a move
+            while (!boardView.isTurnEnd()) {
+                Space[][] model = boardView.getModel();
+                Board boardCheck = boardView.getMoveCheck(model);
+                boardCheck.findMoves(Player.Color.WHITE);
+                //get random move
+                ArrayList<com.webcheckers.util.Move> validMoves = boardCheck.getPossibleMoves();
+                int lenResults = validMoves.size() - 1;
+                double randomDouble = Math.random();
+                randomDouble = randomDouble * (lenResults - 1);
+                int randomInt = (int) randomDouble;
+                Move testMove = validMoves.get(randomInt);
+
+                Board moves = boardView.getMoveCheck(model);
+                boardCheck.isValidMove(testMove, activeColor);
+                ArrayList<Object> validationResults = moves.isValidMove(testMove, activeColor);
+                boolean isValid = (boolean) validationResults.get(0);
+                if (isValid) {
+                    Space[][] newModel = boardView.generateCopyBoard(boardView.getModel());
+                    BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(), newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(newModel), boardView.getActivecolor());
+                    //moving the piece aka update the live model in boardView
+                    newBoard.updateModel(testMove, boardView);
+                    gameCenter.getStackOfBoardView(gameCode).push(newBoard);
+                    gameCenter.setBoardView(gameCode, newBoard);
+
+
+                }
+            }
+            Stack<BoardView> stackBoardViews = gameCenter.getStackOfBoardView(gameCode);
+            if (boardView.isTurnEnd() && stackBoardViews.size() > 1) {
+                BoardView mostRecent = stackBoardViews.peek();
+                //reset game center's stack
+                stackBoardViews.clear();
+                stackBoardViews.push(mostRecent);
+                gameCenter.setBoardView(gameCode, mostRecent);
+
+                mostRecent.setTurnEnd(false);
+
+
+                //back to Red's turn
+                mostRecent.setActivecolor(Player.Color.RED);
+                mostRecent.setCurrentUser(whitePlayer);
+                mostRecent.setOpponent(redPlayer);
+            }
             text = Message.info("true");
             session.attribute("INFO", text);
             return gson.toJson(text);
@@ -49,10 +105,27 @@ public class PostCheckTurnRoute implements Route {
             text = Message.info("false");
             session.attribute("INFO", text);
         }
-        else{ //If if condition fails, tell them it's their turn
-            text = Message.info("true");
-            session.attribute("INFO", text);
-        }
-        return gson.toJson(text);
+
+    return gson.toJson(text);
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}//End of class
+
+
