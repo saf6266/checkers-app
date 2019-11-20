@@ -137,8 +137,8 @@ public class Board {
 
 
     /*
-    Checks for any possible jumps that can be made
-     */
+     Checks for any possible jumps that can be made
+      */
     public void jumpable(int row, int col, Piece.COLOR color, Piece.TYPE type){
         boardview.setJumped(true);
         if(type == Piece.TYPE.SINGLE){
@@ -461,42 +461,55 @@ public class Board {
     public void findMoves(Player.Color color){
         Piece piece = this.model[row][col].getPiece();
         if(boardview.isJumped()){
-            if(color == Player.Color.RED)
+            if(color == Player.Color.RED) {
                 jumpable(row, col, Piece.COLOR.RED, piece.getType());
-            else
+            }
+            else{
                 jumpable(row, col, Piece.COLOR.WHITE, piece.getType());
+
+            }
         }
         else{
             for(int r = 0; r < 8; r++){
                 for(int c = 0; c < 8; c++){
                     if(model[r][c].isDark()) {
                         piece = model[r][c].getPiece();
-                        if(piece != null)
-                            if (color == Player.Color.RED)
-                                if (model[r][c].getPieceColor() == Piece.COLOR.RED)
+                        if(piece != null) {
+                            if (color == Player.Color.RED) {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
                                     jumpable(r, c, Piece.COLOR.RED, piece.getType());
-                            else
-                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE)
+                                }
+                            } else {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
                                     jumpable(r, c, Piece.COLOR.WHITE, piece.getType());
-                    }
-                }
-            }
-            if(possibleMoves.size() == 0)
-                for(int r = 0; r < 8; r++){
-                    for(int c = 0; c < 8; c++){
-                        if(model[r][c].isDark()) {
-                            piece = model[r][c].getPiece();
-                            if(piece != null) {
-                                if (color == Player.Color.RED)
-                                    if (model[r][c].getPieceColor() == Piece.COLOR.RED)
-                                        movePiece(r, c, Piece.COLOR.RED, piece.getType());
-                                else
-                                    if (model[r][c].getPieceColor() == Piece.COLOR.WHITE)
-                                        movePiece(r, c, Piece.COLOR.WHITE, piece.getType());
+                                }
                             }
                         }
                     }
                 }
+            }
+
+            if(possibleMoves.size() == 0){
+                for(int r = 0; r < 8; r++){
+                    for(int c = 0; c < 8; c++){
+                        if(model[r][c].isDark()) {
+
+                            piece = model[r][c].getPiece();
+                            if(piece != null) {
+                                if (color == Player.Color.RED) {
+                                    if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
+                                        movePiece(r, c, Piece.COLOR.RED, piece.getType());
+                                    }
+                                } else {
+                                    if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
+                                        movePiece(r, c, Piece.COLOR.WHITE, piece.getType());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
