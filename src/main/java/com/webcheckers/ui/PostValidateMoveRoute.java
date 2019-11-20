@@ -82,13 +82,11 @@ public class PostValidateMoveRoute implements Route {
                 gameCenter.setBoardView(gameCode, newBoard);
                 return gson.toJson(Message.info(message));
             } else {
+                if(moves.isJump(move.getStart(), move.getEnd()))
+                    return gson.toJson(Message.error("You can't jump over your own piece!"));
                 return gson.toJson(Message.error(message));
             }
         }
-        if(moves.isJump(move.getStart(), move.getEnd())){
-            return gson.toJson(Message.error("You can't jump over your own piece!"));
-        }
-
         return gson.toJson(Message.error("You can't make two moves at once"));
     }
 }
