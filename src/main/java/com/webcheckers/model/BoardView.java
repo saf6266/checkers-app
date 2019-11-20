@@ -136,6 +136,11 @@ public class BoardView implements Iterable<Row>{
         return row;
     }
 
+    /**
+     * Update the model with all the correct moves and convert to kingpiece
+     * @param move: The move that was made
+     * @param old: The boardview associated the current game
+     */
     public void updateModel(Move move, BoardView old){
         Piece p = this.model[move.getStart().getRow()][move.getStart().getCell()].getPiece();
         Piece wp = new Piece(Piece.TYPE.SINGLE, Piece.COLOR.WHITE);     //White Normal Piece
@@ -164,6 +169,9 @@ public class BoardView implements Iterable<Row>{
         convertToArrayList(this.model);
     }
 
+    /**
+     * Generate a deep copy of the board
+     */
     public Space[][] generateCopyBoard(Space[][] model){
         Space[][] newModel = new Space[8][8];
         for (int i = 0; i < 8; i++){
