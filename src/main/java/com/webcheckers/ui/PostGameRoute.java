@@ -70,6 +70,7 @@ public class PostGameRoute implements Route {
 
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
 
+
         //Is the opponent already in a game
         if(gameCenter.inGame(opponent)){        //Yes
             session.attribute(PostSignInRoute.CURR_USER_ATTR, currentUser);

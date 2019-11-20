@@ -14,29 +14,42 @@
             padding: 8px;
         }
         tr:nth-child(even){
-            background-color: #FFDDA1;
+            background-color: #ffa321;
         }
         tr:nth-child(odd){
-            background-color: #DFFDFF ;
+            background-color: #FFC175 ;
         }
 
         th {
-            color: azure;
-            background-color: #223843;
+            color: #A2E5DE;
+            background-color: #F9A43B;
         }
-
         .button1{
             float: right;
             margin-top: 15px;
-            border-radius: 12px;
-            color: Black;
-            border: 2px solid #FFD487;
+            border-radius: 10px;
+            color: #73BFB8;
+            border: 2px solid #ffa321;
             background-color: white;
             transition-duration: 0.4s;
             font-size: 16px;
+            width: auto;
         }
         .button1:hover {
-            background-color: #FFD487;
+            background-color: #ffa321;
+            color: white;
+        }
+        .button2{
+            border-radius: 10px;
+            color: #73BFB8;
+            border: 2px solid #ffa321;
+            background-color: white;
+            transition-duration: 0.4s;
+            font-size: 16px;
+            width: 15%;
+        }
+        .button2:hover {
+            background-color: #ffa321;
             color: white;
         }
 
@@ -59,7 +72,7 @@
     <#if currentUser??>
         <div>
             <form id="postgame" action="/game" method="POST">
-                <h2 style="color: blue; display: inline-block">Players Online </h2>
+                <h2 style="color: mediumseagreen; display: inline-block">Players Online </h2>
                 <button name="opponent" value="iridocyclitis" type="submit" class= "button1">AI Opponent</button>
             </form>
         </div>
@@ -83,7 +96,7 @@
                   <#if playerName != currentUser>
                    <tr>
                        <td>
-                       <input name="opponent" type="submit" value="${playerName.getName()}">
+                       <button class="button2" name="opponent" type="submit" value="${playerName.getName()}">${playerName.getName()}</button>
 <#--                         <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>-->
                      </td>
                    </tr>
@@ -95,7 +108,7 @@
 
     <#else>
 <#--      Player is not signed in, can only see a number-->
-        <h2 style="color: blue; display: inline-block">Players Online </h2>
+        <h2 style="color: lightgreen; display: inline-block">Players Online </h2>
       <ul>
         <li>There are: ${playerList?size} online</li>
       </ul>

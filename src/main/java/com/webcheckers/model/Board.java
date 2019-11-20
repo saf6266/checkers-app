@@ -23,6 +23,13 @@ public class Board {
     }
 
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
 
     public boolean isTurn() {
         return turn;
