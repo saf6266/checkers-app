@@ -408,7 +408,7 @@ public class Board {
                     }
                 }
             }
-
+            //King is red
             else{
                 //bottom left
                 if(!outOfBounds(row + 1, col - 1)){
@@ -428,25 +428,26 @@ public class Board {
                             possibleMoves.add(move);
                     }
                 }
-            }
-            //top left
-            if(!outOfBounds(row - 1, col - 1)){
-                if(model[row - 1][col - 1].getPiece() == null){
+                //top left
+                if(!outOfBounds(row - 1, col - 1)){
+                    if(model[row - 1][col - 1].getPiece() == null){
                         Position start = new Position(row, col);
                         Position end = new Position(row - 1, col - 1);
                         Move move = new Move(start, end);
                         possibleMoves.add(move);
+                    }
                 }
-            }
-            //top right
-            if(!outOfBounds(row - 1, col + 1)){
-                if(model[row - 1][col + 1].getPiece() == null){
+                //top right
+                if(!outOfBounds(row - 1, col + 1)){
+                    if(model[row - 1][col + 1].getPiece() == null){
                         Position start = new Position(row, col);
                         Position end = new Position(row - 1, col + 1);
                         Move move = new Move(start, end);
                         possibleMoves.add(move);
+                    }
                 }
             }
+
         }
     }
 
@@ -461,10 +462,12 @@ public class Board {
     public void findMoves(Player.Color color){
         Piece piece = this.model[row][col].getPiece();
         if(boardview.isJumped()){
-            if(color == Player.Color.RED)
+            if(color == Player.Color.RED) {
                 jumpable(row, col, Piece.COLOR.RED, piece.getType());
-            else
+            }
+            else {
                 jumpable(row, col, Piece.COLOR.WHITE, piece.getType());
+            }
         }
         else{
             for(int r = 0; r < 8; r++){
@@ -472,12 +475,16 @@ public class Board {
                     if(model[r][c].isDark()) {
                         piece = model[r][c].getPiece();
                         if(piece != null)
-                            if (color == Player.Color.RED)
-                                if (model[r][c].getPieceColor() == Piece.COLOR.RED)
+                            if (color == Player.Color.RED) {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
                                     jumpable(r, c, Piece.COLOR.RED, piece.getType());
-                            else
-                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE)
+                                }
+                            }
+                            else {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
                                     jumpable(r, c, Piece.COLOR.WHITE, piece.getType());
+                                }
+                            }
                     }
                 }
             }
@@ -487,12 +494,16 @@ public class Board {
                         if(model[r][c].isDark()) {
                             piece = model[r][c].getPiece();
                             if(piece != null) {
-                                if (color == Player.Color.RED)
-                                    if (model[r][c].getPieceColor() == Piece.COLOR.RED)
+                                if (color == Player.Color.RED) {
+                                    if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
                                         movePiece(r, c, Piece.COLOR.RED, piece.getType());
-                                else
-                                    if (model[r][c].getPieceColor() == Piece.COLOR.WHITE)
+                                    }
+                                }
+                                else {
+                                    if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
                                         movePiece(r, c, Piece.COLOR.WHITE, piece.getType());
+                                    }
+                                }
                             }
                         }
                     }
