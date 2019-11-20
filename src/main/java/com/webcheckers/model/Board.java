@@ -450,7 +450,7 @@ public class Board {
         }
     }
 
-    private void reset(){
+    public void reset(){
         possibleMoves.clear();
     }
 

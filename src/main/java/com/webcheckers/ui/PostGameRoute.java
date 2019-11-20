@@ -54,12 +54,17 @@ public class PostGameRoute implements Route {
 
         //Get the opponent's name
         final String opponentName = request.queryParams("opponent");
-
         Player opponent = null;
-        for(Player player : playerLobby.getPlayers()) {
-            if (player.getName().equals(opponentName)) {
-                opponent = player;
-                break;
+
+        //if opponent name is "AI"
+        if(opponentName.equals("iridocyclitis")){
+            opponent = new Player(opponentName);
+        } else {
+            for (Player player : playerLobby.getPlayers()) {
+                if (player.getName().equals(opponentName)) {
+                    opponent = player;
+                    break;
+                }
             }
         }
 

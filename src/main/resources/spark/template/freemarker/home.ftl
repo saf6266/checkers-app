@@ -24,6 +24,22 @@
             color: azure;
             background-color: #223843;
         }
+
+        .button1{
+            float: right;
+            margin-top: 15px;
+            border-radius: 12px;
+            color: Black;
+            border: 2px solid #FFD487;
+            background-color: white;
+            transition-duration: 0.4s;
+            font-size: 16px;
+        }
+        .button1:hover {
+            background-color: #FFD487;
+            color: white;
+        }
+
     </style>
 </head>
 
@@ -39,10 +55,15 @@
 
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
-
-    <h2 style="color: blue">Players Online </h2>
 <#--    if player signed in, display list-->
     <#if currentUser??>
+        <div>
+            <form id="postgame" action="/game" method="POST">
+                <h2 style="color: blue; display: inline-block">Players Online </h2>
+                <button name="opponent" value="iridocyclitis" type="submit" class= "button1">AI Opponent</button>
+            </form>
+        </div>
+
 <#--      there is no one online, 1 player means use are the only one in lobby-->
       <#if playerList?size == 1>
           <ul>
@@ -57,12 +78,12 @@
               PlayerName
             </th>
           </tr>
-            <form id="postgame" action="/game" method="POST">
+            <form id="postgame" action="/game" method="POST" >
                 <#list playerList as playerName>
                   <#if playerName != currentUser>
                    <tr>
-                       <input name="opponent" type="hidden" value="${playerName.getName()}">
-                     <td>
+                       <td>
+                       <input name="opponent" type="submit" value="${playerName.getName()}">
                          <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>
                      </td>
                    </tr>
@@ -74,6 +95,7 @@
 
     <#else>
 <#--      Player is not signed in, can only see a number-->
+        <h2 style="color: blue; display: inline-block">Players Online </h2>
       <ul>
         <li>There are: ${playerList?size} online</li>
       </ul>

@@ -104,6 +104,10 @@ public class BoardView implements Iterable<Row>{
         return moveCheck;
     }
 
+    public Board getMoveCheck() {
+        return moveCheck;
+    }
+
     public boolean isJumped() {
         return jumped;
     }
