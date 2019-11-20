@@ -49,7 +49,7 @@ public class PostCheckTurnRoute implements Route {
             text = Message.info("false");
             session.attribute("INFO", text);
         }
-        else{
+        else{ //If if condition fails, tell them it's their turn
             text = Message.info("true");
             session.attribute("INFO", text);
         }
