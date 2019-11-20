@@ -476,13 +476,13 @@ public class Board {
                         piece = model[r][c].getPiece();
                         if(piece != null) {
                             if (color == Player.Color.RED) {
-                                if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.RED)
                                     jumpable(r, c, Piece.COLOR.RED, piece.getType());
-                                }
+
                             } else {
-                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE)
                                     jumpable(r, c, Piece.COLOR.WHITE, piece.getType());
-                                }
+
                             }
                         }
                     }
