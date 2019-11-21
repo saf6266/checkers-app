@@ -14,21 +14,21 @@
             padding: 8px;
         }
         tr:nth-child(even){
-            background-color: #fde396;
+            background-color: #0F8A5F;
         }
         tr:nth-child(odd){
-            background-color: #FFC175 ;
+            background-color: #34A65F ;
         }
 
         th {
-            color: #A2E5DE;
-            background-color: #fde396;
+            color: white;
+            background-color: #CC231E;
         }
         .button1{
             float: right;
             margin-top: 15px;
             border-radius: 10px;
-            color: #96a7fd;
+            color: red;
             border: 2px solid #fccf4b;
             background-color: white;
             transition-duration: 0.4s;
@@ -37,11 +37,11 @@
         }
         .button1:hover {
             background-color: #fccf4b;
-            color: white;
+            color: #34A65F;
         }
         .button2{
             border-radius: 10px;
-            color: #96a7fd;
+            color: red;
             border: 2px solid #fccf4b;
             background-color: white;
             transition-duration: 0.4s;
@@ -52,7 +52,7 @@
         /*fde396*/
         .button2:hover {
             background-color: #fccf4b;
-            color: white;
+            color: #34A65F;
         }
 
     </style>
@@ -74,7 +74,7 @@
         <#if currentUser??>
             <div>
                 <form id="postgame" action="/game" method="POST">
-                    <h1 style="color: #fde396; font-weight: bolder; text-shadow: 0 0 5px black; display: inline-block">Players Online </h1>
+                    <h1 style="color: #fde396; font-weight: bolder; -webkit-text-stroke: .5px #34A65F; display: inline-block">Players Online </h1>
                     <button name="opponent" value="#iridocyclitis" type="submit" class= "button1">AI Opponent</button>
                 </form>
             </div>
@@ -92,6 +92,9 @@
                         <th>
                             PlayerName
                         </th>
+                        <th>
+                            Spectate
+                        </th>
                     </tr>
                     <form id="postgame" action="/game" method="POST" >
                         <#list playerList as playerName>
@@ -99,10 +102,13 @@
                                 <tr>
                                     <td>
                                         <button class="button2" name="opponent" type="submit" value="${playerName.getName()}">${playerName.getName()}</button>
-                                        <button class="button2" name="spectate" type="submit" value="${playerName.getName()}">Spectate Game</button>
-                                        <#--                         <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>-->
+                                    </td>
+                                    <td>
+                                        <button class="button2" name="spectate" type="submit" value="${playerName.getName()}">Spectate ${playerName.getName()}</button>
                                     </td>
                                 </tr>
+
+
                             </#if>
                         </#list>
                     </form>
@@ -111,7 +117,7 @@
 
         <#else>
         <#--      Player is not signed in, can only see a number-->
-            <h1 style="color: #fccc43; font-weight: bolder; text-shadow: 0 0 5px black; display: inline-block">Players Online </h1>
+            <h1 style="color: #fccc43; font-weight: bolder;   -webkit-text-stroke: .5px #34A65F; display: inline-block">Players Online </h1>
             <ul>
                 <li>There are: ${playerList?size} online</li>
             </ul>

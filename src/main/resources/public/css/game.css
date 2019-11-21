@@ -27,11 +27,11 @@ div#game-controls fieldset {
   flex: 1; /* same width */
   margin: 1em;
   border-radius: 5px;
-  border: 2px solid white;
+  border: 2px solid #34A65F;
 }
 div#game-controls fieldset legend {
   padding: 0 0.75em 0 0.75em;
-  color: white;
+  color: #34A65F;
   font-size: large;
 }
 

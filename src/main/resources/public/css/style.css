@@ -1,8 +1,9 @@
 
 
 body {
-  background: url("https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2009&q=80") no-repeat center top;
-  background-size: 1980px;
+  background: url("https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/3571989/910/606/m2/fpnw/wm0/osfp2t9wtwjhvrbqkeurkyo3ntsp8yv8msctpkm64y4gckniuymkmnkcii3kuvmb-.jpg?1510605124&s=e365d852236a0f34d0d861d20d186b7c") no-repeat center top;
+  /*background: #235E6F;*/
+  background-size: 2300px;
   height: auto;
   width: auto;
   font-family: 'Trebuchet MS', sans-serif;
@@ -11,7 +12,7 @@ body {
 
 
 a {
-  color: #2677FF;
+  color: red;
 }
 
 a:hover {
@@ -41,7 +42,7 @@ input[type="password"] {
 
 input[type="submit"] {
   background: #1057FF;
-  border: 1px solid #073BFF;
+  border: 1px solid red;
   padding: 1px 3px;
   font-family: 'Trebuchet MS', sans-serif;
   font-size: 14px;
@@ -52,36 +53,40 @@ input[type="submit"] {
 }
 
 div.page {
-  background: #96a7fd;
-  border: 1px solid #6ECCFF;
+  background: antiquewhite;
+  border: 1px solid #34A65F ;
   width: 710px;
   margin: 30px auto;
 }
 
+/* WebChecker/Signin */
 div.page h1 {
-  background: #96a7fd;
+  background: antiquewhite;
   margin: 0;
   padding: 10px 14px;
-  color: #fccc43;
+  color: red;
   letter-spacing: 1px;
-  text-shadow: 0 0 3px black;
+  /*text-shadow: 0 0 1px #34A65F;*/
+    -webkit-text-stroke: 1px #fccc43;
   font-weight: normal;
 }
 
+/*sign in bar background*/
 div.page div.navigation {
-  background: #96a7fd;
+  background: antiquewhite;
   padding: 4px 10px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #eee;
-  color: #fccc43;
+  color: #f2e2c8;
   font-size: 12px;
-  text-shadow: 0 0 5px black;
+  /*text-shadow: 0 0 5px black;*/
   letter-spacing: 0.6px;
 }
 
+/*sign in/sign out*/
 div.page div.navigation a {
-  color: #fccc43;
-  text-shadow: 0 0 3px black;
+  color: #a16e55;
+  /*text-shadow: 0 0 3px black;*/
   font-weight: bold;
 }
 
@@ -120,13 +125,15 @@ div.ERROR {
  */
 div.INFO {
   margin: 10px 0;
-  background: #fccf4b;
+  background: #edb76e;
   filter: brightness(100%);
-  border: 1px solid #6ECCFF;
+  border: 1px solid #34A65F;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   padding: 4px;
   font-size: 13px;
+
+  color: white;
 }
 
 .flex-container {

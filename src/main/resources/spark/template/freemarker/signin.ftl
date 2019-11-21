@@ -6,7 +6,7 @@
     <style>
         .button1{
             border-radius: 10px;
-            color: #96a7fd;
+            color: red;
             border: 2px solid #fccf4b;
             background-color: white;
             transition-duration: 0.4s;
@@ -15,7 +15,7 @@
         }
         .button1:hover {
             background-color: #fccf4b;
-            color: white;
+            color: #34A65F;
         }
 
 
