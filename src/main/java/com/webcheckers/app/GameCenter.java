@@ -81,6 +81,9 @@ public class GameCenter {
         String gameCode = currentUser.getName() + opponent.getName();
         boardArray.add(0, boardView);
         boardArray.add(1, stackOfBoardViews);
+        if(boards.containsKey(gameCode)){
+            boards.replace(gameCode, boardArray);
+        }
         boards.put(gameCode, boardArray);
         //boardView.setCurrentUser(player);
         inGameList.add(currentUser);
@@ -110,7 +113,19 @@ public class GameCenter {
         return false;
     }
 
+    /**
+     * Add a spectator to the in game list
+     * @param player the spectator
+     */
     public void addSpectator(Player player){
         inGameList.add(player);
+    }
+
+    /**
+     * Remove a spectator from the game list
+     * @param player The spectator
+     */
+    public void removeSpectator(Player player){
+        inGameList.remove(player);
     }
 }
