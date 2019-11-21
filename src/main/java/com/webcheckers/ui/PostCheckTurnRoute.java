@@ -51,64 +51,69 @@ public class PostCheckTurnRoute implements Route {
             return gson.toJson(text);
         }
 
-        if(boardView.getActivecolor() == Player.Color.WHITE) {
-            if (whitePlayer.getName().equals("#iridocyclitis")) {
-                Space[][] model = boardView.getModel();
-                Board boardCheck = boardView.getMoveCheck(model);
-                //Ai makes a move
-                while (!boardView.isTurnEnd()) {
 
-                    boardCheck.findMoves(Player.Color.WHITE);
-                    //get random move
-                    ArrayList<com.webcheckers.util.Move> validMoves = boardCheck.getPossibleMoves();
-                    if (validMoves.size() == 0) {
-                        boardView.setActivecolor(Player.Color.RED);
-                        boardView.setCurrentUser(whitePlayer);
-                        boardView.setOpponent(redPlayer);
-                        text = Message.info("true");
-                        session.attribute("INFO", text);
-                        return gson.toJson(text);
-                    } else {
-                        int lenResults = validMoves.size() - 1;
-                        double randomDouble = Math.random();
-                        randomDouble = randomDouble * (lenResults - 1);
-                        int randomInt = (int) randomDouble;
-                        Move testMove = validMoves.get(randomInt);
+        if (whitePlayer.getName().equals("#iridocyclitis")) {
+            Space[][] model = boardView.getModel();
+            Board boardCheck = boardView.getMoveCheck(model);
+            //Ai makes a move
+            while (!boardView.isTurnEnd()) {
 
-                        Board moves = boardView.getMoveCheck(model);
-                        boardCheck.isValidMove(testMove, activeColor);
-                        ArrayList<Object> validationResults = moves.isValidMove(testMove, activeColor);
-                        boardView.updateModel(testMove, boardView);
-                    }
+                boardCheck.findMoves(Player.Color.WHITE);
+                //get random move
+                ArrayList<com.webcheckers.util.Move> validMoves = boardCheck.getPossibleMoves();
+                if (validMoves.size() == 0) {
+                    boardView.setActivecolor(Player.Color.RED);
+                    boardView.setCurrentUser(whitePlayer);
+                    boardView.setOpponent(redPlayer);
+                    text = Message.info("true");
+                    session.attribute("INFO", text);
+                    return gson.toJson(text);
+                } else {
+                    int lenResults = validMoves.size() - 1;
+                    double randomDouble = Math.random();
+                    randomDouble = randomDouble * (lenResults - 1);
+                    int randomInt = (int) randomDouble;
+                    Move testMove = validMoves.get(randomInt);
+
+                    Board moves = boardView.getMoveCheck(model);
+                    boardCheck.isValidMove(testMove, activeColor);
+                    ArrayList<Object> validationResults = moves.isValidMove(testMove, activeColor);
+                    boardView.updateModel(testMove, boardView);
                 }
-
-                Stack<BoardView> stackBoardViews = gameCenter.getStackOfBoardView(gameCode);
-                if (boardView.isTurnEnd() && stackBoardViews.size() == 1) {
-                    BoardView mostRecent = stackBoardViews.peek();
-                    //reset game center's stack
-                    stackBoardViews.clear();
-                    stackBoardViews.push(mostRecent);
-                    gameCenter.setBoardView(gameCode, mostRecent);
-                    mostRecent.setTurnEnd(false);
-                    //back to Red's turn
-                    mostRecent.setActivecolor(Player.Color.RED);
-                    mostRecent.setCurrentUser(whitePlayer);
-                    mostRecent.setOpponent(redPlayer);
-                }
-                text = Message.info("true");
-                session.attribute("INFO", text);
-                return gson.toJson(text);
             }
-        }
-        //Determine if it is the current User's turn or not
-        if (activeColor != currentUser.getColor()) {
-            text = Message.info("false");
-            session.attribute("INFO", text);
-        } else{ //If if condition fails, tell them it's their turn
+
+            Stack<BoardView> stackBoardViews = gameCenter.getStackOfBoardView(gameCode);
+            if (boardView.isTurnEnd() && stackBoardViews.size() == 1) {
+                BoardView mostRecent = stackBoardViews.peek();
+                //reset game center's stack
+                stackBoardViews.clear();
+                stackBoardViews.push(mostRecent);
+                gameCenter.setBoardView(gameCode, mostRecent);
+                mostRecent.setTurnEnd(false);
+                //back to Red's turn
+                mostRecent.setActivecolor(Player.Color.RED);
+                mostRecent.setCurrentUser(whitePlayer);
+                mostRecent.setOpponent(redPlayer);
+            }
             text = Message.info("true");
             session.attribute("INFO", text);
+
         }
+        else{
+            if (activeColor != currentUser.getColor()) {
+                text = Message.info("false");
+                session.attribute("INFO", text);
+
+            } else{ //If if condition fails, tell them it's their turn
+                text = Message.info("true");
+                session.attribute("INFO", text);
+
+            }
+        }
+
         return gson.toJson(text);
+        //Determine if it is the current User's turn or not
+
     }
 
 }//End of class

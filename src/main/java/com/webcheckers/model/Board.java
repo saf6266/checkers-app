@@ -457,7 +457,18 @@ public class Board {
         }
     }
 
-    public void reset(){
+    public boolean noMoves(Player.Color color){
+        findMoves(color);
+        boolean tempJumped = boardview.isJumped();
+        boolean tempTurnEnd = boardview.isTurnEnd();
+        int a = getPossibleMoves().size();
+        reset();
+        boardview.setTurnEnd(tempTurnEnd);
+        boardview.setJumped(tempJumped);
+        return a == 0;
+    }
+
+    private void reset(){
         possibleMoves.clear();
     }
 
