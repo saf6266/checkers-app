@@ -62,8 +62,8 @@ public class PostSubmitTurnRoute implements Route {
                 //White Player
             else {
                 boardView.setActivecolor(Player.Color.RED);
-                boardView.setCurrentUser(whitePlayer);
-                boardView.setOpponent(redPlayer);
+                boardView.setCurrentUser(redPlayer);
+                boardView.setOpponent(whitePlayer);
 
             }
             return gson.toJson(Message.info("Success"));

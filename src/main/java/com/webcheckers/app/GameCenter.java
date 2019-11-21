@@ -109,4 +109,8 @@ public class GameCenter {
         }
         return false;
     }
+
+    public void addSpectator(Player player){
+        inGameList.add(player);
+    }
 }

@@ -76,6 +76,17 @@ public class PostGameRoute implements Route {
         //Check to see if the player clicked the spectate button
         if(spectateGame != null){
             if(gameCenter.inGame(opponent)){
+                //Get the opponent of the player that you selected
+                Player player = opponent.getOpponent();
+                if(opponent.getColor() == Player.Color.RED){
+                    session.attribute(GetGameRoute.RED_PLAYER, opponent);
+                    session.attribute(GetGameRoute.WHITE_PLAYER, player);
+                }
+                else{
+                    session.attribute(GetGameRoute.WHITE_PLAYER, opponent);
+                    session.attribute(GetGameRoute.RED_PLAYER, player);
+                }
+                gameCenter.addSpectator(currentUser);
                 response.redirect(WebServer.SPECTATE_GAME);
             }
             else{

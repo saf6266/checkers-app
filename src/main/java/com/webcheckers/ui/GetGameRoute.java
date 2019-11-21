@@ -140,14 +140,14 @@ public class GetGameRoute implements Route {
         //Check Game End
             //Check to see if there aren't any pieces left for red player
         if(!piecesLeft(board, redPlayer)){
-            final Map<String, Object> modeOptions = gameEnd(whitePlayer.getName() + " has captured all of the pieces.");
+            final Map<String, Object> modeOptions = gameEnd(piecesCaptured(whitePlayer));
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
         }
             //Check to see if there aren't any pieces left for white player
         else if(!piecesLeft(board, whitePlayer)){
-            final Map<String, Object> modeOptions = gameEnd(redPlayer.getName() + " has captured all of the pieces. ");
+            final Map<String, Object> modeOptions = gameEnd(piecesCaptured(redPlayer));
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
