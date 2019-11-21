@@ -5,24 +5,19 @@ import com.webcheckers.app.GameCenter;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
-import spark.Request;
-import spark.Response;
-import spark.Session;
-import spark.TemplateEngine;
+import spark.*;
 
 import java.util.Objects;
 import java.util.logging.Logger;
 
-public class PostSpectatorCheckTurnRoute {
+public class PostSpectatorCheckTurnRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(PostSubmitTurnRoute.class.getName());
 
-    private TemplateEngine templateEngine;
     private GameCenter gameCenter;
     private Gson gson;
 
-    PostSpectatorCheckTurnRoute(TemplateEngine templateEngine, GameCenter gameCenter, Gson gson){
-        this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required.");
+    PostSpectatorCheckTurnRoute(GameCenter gameCenter, Gson gson){
         this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required.");
         this.gson = gson;
         LOG.config("PostSpectatorCheckTurnRoute is initialized.");

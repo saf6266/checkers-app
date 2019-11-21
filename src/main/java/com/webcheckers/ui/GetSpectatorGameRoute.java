@@ -3,7 +3,9 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.app.GameCenter;
 import com.webcheckers.model.BoardView;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Space;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -23,13 +25,37 @@ public class GetSpectatorGameRoute implements Route {
      *   the HTML template rendering engine
      * @param gameCenter
      *   the gameCenter with all of the games
-     * @param gson
-     *  the gson
      */
     GetSpectatorGameRoute(final TemplateEngine templateEngine, GameCenter gameCenter){
         Objects.requireNonNull(templateEngine, "templateEngine is required.");
         this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required.");
         this.templateEngine = templateEngine;
+    }
+
+    /**
+     * Check to see if a player has any pieces left
+     * @param board The board for the player
+     * @param player The player being checked
+     * @return true if no pieces are left, false otherwise
+     */
+    private boolean noPiecesLeft(BoardView board, Player player){
+        Piece.COLOR colorCheck;
+        if(player.getColor() == Player.Color.RED){
+            colorCheck = Piece.COLOR.RED;
+        }
+        else{
+            colorCheck = Piece.COLOR.WHITE;
+        }
+        Space[][] model = board.getModel();
+        for(int row = 0; row < 8; row++){
+            for(int col = 0; col < 8; col++){
+                Piece piece = model[row][col].getPiece();
+                if(piece != null)
+                    if(piece.getColor() == colorCheck)
+                        return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -57,9 +83,22 @@ public class GetSpectatorGameRoute implements Route {
         BoardView boardView = gameCenter.getBoardView(gameCode);
         Player boardCurrentUser = boardView.getCurrentUser();
         Player boardOpponent = boardView.getOpponent();
+
         //Create the message
-        Message message = Message.info(boardOpponent.getName() + " made the last move.\n" +
-                                            "It is " + boardCurrentUser.getName() + "'s turn");
+        Message message;
+        if(noPiecesLeft(boardView, redPlayer)){
+            message = Message.info(redPlayer.getName() + " has no more pieces!\n" +
+                    whitePlayer.getName() + " captured all of their pieces.");
+        }
+        else if(noPiecesLeft(boardView, whitePlayer)){
+            message = Message.info(whitePlayer.getName() + " has no more pieces!\n" +
+                    redPlayer.getName() + " captured all of their pieces.");
+        }
+        else {
+            message = Message.info(boardOpponent.getName() + " made the last move.\n" +
+                    "It is " + boardCurrentUser.getName() + "'s turn");
+        }
+
         Player.Color activeColor = boardView.getActivecolor();
 
         //Set the current user to the spectator

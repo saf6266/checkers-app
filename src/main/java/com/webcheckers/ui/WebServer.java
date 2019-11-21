@@ -199,6 +199,12 @@ public class WebServer {
     //Post a RESIGN request
     post(RESIGN_GAME, new PostResignGameRoute(gameCenter, gson));
 
+    //Post a SPECTATOR CHECK TURN request
+    post(SPECTATE_CHECK_TURN, new PostSpectatorCheckTurnRoute(gameCenter, gson));
+
+    //Get a SPECTATOR GAME route
+    get(SPECTATE_GAME, new GetSpectatorGameRoute(templateEngine, gameCenter));
+
 
 
 
