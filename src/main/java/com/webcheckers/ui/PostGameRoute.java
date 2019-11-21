@@ -60,7 +60,7 @@ public class PostGameRoute implements Route {
 
         //if opponent name is "AI"
         if(opponentName != null) {
-            if (opponentName.equals("iridocyclitis")) {
+            if (opponentName.equals("#iridocyclitis")) {
                 opponent = new Player(opponentName);
             } else {
                 for (Player player : playerLobby.getPlayers()) {

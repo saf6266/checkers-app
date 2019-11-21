@@ -75,7 +75,7 @@
             <div>
                 <form id="postgame" action="/game" method="POST">
                     <h1 style="color: #fde396; font-weight: bolder; text-shadow: 0 0 5px black; display: inline-block">Players Online </h1>
-                    <button name="opponent" value="iridocyclitis" type="submit" class= "button1">AI Opponent</button>
+                    <button name="opponent" value="#iridocyclitis" type="submit" class= "button1">AI Opponent</button>
                 </form>
             </div>
 

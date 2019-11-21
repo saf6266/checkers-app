@@ -39,8 +39,8 @@ public class GetGameRoute implements Route {
      * @param player The player that captured all your pieces
      * @return The string corresponding to this case
      */
-    private String piecesCaptured(Player player){
-        return player.getName() + " has captured all of your pieces.";
+    private String piecesCaptured(Player player, Player opponent){
+        return player.getName() + " has captured all of " + opponent.getName() + "'s pieces.";
     }
 
     /**
@@ -140,14 +140,14 @@ public class GetGameRoute implements Route {
         //Check Game End
             //Check to see if there aren't any pieces left for red player
         if(!piecesLeft(board, redPlayer)){
-            final Map<String, Object> modeOptions = gameEnd(piecesCaptured(whitePlayer));
+            final Map<String, Object> modeOptions = gameEnd(piecesCaptured(whitePlayer, redPlayer));
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
         }
             //Check to see if there aren't any pieces left for white player
         else if(!piecesLeft(board, whitePlayer)){
-            final Map<String, Object> modeOptions = gameEnd(piecesCaptured(redPlayer));
+            final Map<String, Object> modeOptions = gameEnd(piecesCaptured(redPlayer, whitePlayer));
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
