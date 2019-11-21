@@ -12,10 +12,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * The UI Controller to GET the Game page.
+ */
 public class GetGameRoute implements Route {
 
     private TemplateEngine templateEngine;
-    private PlayerLobby playerLobby;
     private GameCenter gameCenter;
     private Gson gson;
 
@@ -24,14 +26,22 @@ public class GetGameRoute implements Route {
     static final String ACTIVE_COLOR = "activeColor";
     private static final Logger LOG = Logger.getLogger(PostSubmitTurnRoute.class.getName());
 
-    GetGameRoute(TemplateEngine templateEngine, PlayerLobby playerLobby, GameCenter gameCenter, Gson gson){
+    /**
+     * Create the Spark Route (UI controller) to handle all {@code GET /game} HTTP requests.
+     *
+     * @param templateEngine
+     *   the HTML template rendering engine
+     * @param gameCenter
+     *   the single game center that holds all of the games
+     * @param gson
+     *   the gson
+     */
+    GetGameRoute(TemplateEngine templateEngine, GameCenter gameCenter, Gson gson){
         Objects.requireNonNull(templateEngine, "templateEngine is required.");
-        Objects.requireNonNull(playerLobby, "playerLobby is required.");
         this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required.");
         this.templateEngine = templateEngine;
-        this.playerLobby = playerLobby;
         this.gson = gson;
-
+        LOG.config("GetGameRoute is initialized");
     }
 
     /**
@@ -43,19 +53,30 @@ public class GetGameRoute implements Route {
         return player.getName() + " has captured all of " + opponent.getName() + "'s pieces.";
     }
 
+    /**
+     * Creates a string for the case that a player has no more valid moves
+     * @param player the player with no more moves
+     * @param opponent the player's opponent
+     * @return The string corresponding to this case
+     */
     private String noValidMoves(Player player, Player opponent){
         return player.getName() + " has no more valid moves! " + opponent.getName() + " wins the game!";
     }
 
     /**
      * Creates a string for the case that a player resigned
-     * @param player The player that resigned
      * @return The string corresponding to the player resigning
      */
-    private String playerResigned(Player player){
-        return player.getName() + " has decided to resign because you are just too good.";
+    private String playerResignedMessage(){
+        return "Your opponent has decided to resign because you are just too good.";
     }
 
+    private Map<String, Object> playerResigned(){
+        final Map<String, Object> modeOptions = new HashMap<>(2);
+        modeOptions.put("isGameOver", true);
+        modeOptions.put("gameOverMessage", playerResignedMessage());
+        return modeOptions;
+    }
     /**
      * Creates the modeOptions map for game end. Takes in a string for the reason
      * why the game ended.
@@ -96,8 +117,20 @@ public class GetGameRoute implements Route {
         return false;
     }
 
+    /**
+     * Render the WebCheckers Game page.
+     *
+     * @param request
+     *   the HTTP request
+     * @param response
+     *   the HTTP response
+     *
+     * @return
+     *   the rendered HTML for the Game page
+     */
     @Override
     public Object handle(Request request, Response response){
+        LOG.finer("GetGameRoute is invoked");
         Map<String, Object> vm = new HashMap<>();
 
         vm.put("title", "GAME");
@@ -156,27 +189,30 @@ public class GetGameRoute implements Route {
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
         }
+            //Check to see if white player doesn't have any moves left
         else if(board.getMoveCheck().noMoves(Player.Color.WHITE)){
             final Map<String, Object> modeOptions = gameEnd(noValidMoves(whitePlayer, redPlayer));
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
         }
+            //Check to see if red player doesn't have any moves left
         else if(board.getMoveCheck().noMoves(Player.Color.RED)){
             final Map<String, Object> modeOptions = gameEnd(noValidMoves(redPlayer, whitePlayer));
             vm.put("modeOptionsAsJSON" , gson.toJson(modeOptions));
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
         }
-
             //Check to see if a player has resigned
-        else if(board.getOpponent() == null || board.getCurrentUser() == null){
-            final Map<String, Object> modeOptions = new HashMap<>(2);
-            modeOptions.put("isGameOver", true);
-            modeOptions.put("gameOverMessage", "Your opponent has resigned. You WIN!");
+        else if(board.getCurrentUser() == null || board.getOpponent() == null){
+            final Map<String, Object> modeOptions = playerResigned();
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-            gameCenter.removePlayer(gameCode, redPlayer);
-            gameCenter.removePlayer(gameCode, whitePlayer);
+            if(board.getCurrentUser() == null){
+                gameCenter.removePlayer(gameCode, board.getOpponent());
+            }
+            else{
+                gameCenter.removePlayer(gameCode, board.getCurrentUser());
+            }
         }
 
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));

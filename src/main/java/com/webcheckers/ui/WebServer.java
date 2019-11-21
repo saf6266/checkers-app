@@ -182,7 +182,7 @@ public class WebServer {
     post(GAME_URL, new PostGameRoute(playerLobby, gameCenter));
 
     //Get the game route
-    get(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameCenter, gson));
+    get(GAME_URL, new GetGameRoute(templateEngine, gameCenter, gson));
 
     //Post a VALIDATE request
     post(VALIDATE_MOVE, new PostValidateMoveRoute(templateEngine, gameCenter, gson));

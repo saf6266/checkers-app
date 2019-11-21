@@ -95,7 +95,12 @@ public class GameCenter {
     public void removePlayer(String gameCode, Player player){
         ArrayList<Object> board = boards.get(gameCode);
         BoardView boardView = (BoardView) board.get(0);
-        boardView.setCurrentUser(null);
+        if(player == boardView.getCurrentUser()){
+            boardView.setCurrentUser(null);
+        }
+        else if(player == boardView.getOpponent()){
+            boardView.setOpponent(null);
+        }
         inGameList.remove(player);
     }
 

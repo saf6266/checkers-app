@@ -38,7 +38,7 @@ public class PostResignGameRoute implements Route {
         Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
 
         gameCenter.removePlayer(gameCode, currentUser);
-        Message message = GetHomeRoute.WELCOME_MSG;
+        Message message = Message.info("You resigned from you game, you have lost");
         session.attribute("message", message);
         Message text = Message.info(currentUser.getName() + " has resigned! ");
         session.attribute("INFO", text);
