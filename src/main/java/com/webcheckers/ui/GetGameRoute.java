@@ -168,6 +168,7 @@ public class GetGameRoute implements Route {
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
         }
+
             //Check to see if a player has resigned
         else if(board.getOpponent() == null || board.getCurrentUser() == null){
             final Map<String, Object> modeOptions = new HashMap<>(2);
