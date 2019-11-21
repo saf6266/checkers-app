@@ -47,6 +47,7 @@
             transition-duration: 0.4s;
             font-size: 16px;
             width: 15%;
+            display: inline-block;
         }
         /*fde396*/
         .button2:hover {
@@ -98,6 +99,7 @@
                                 <tr>
                                     <td>
                                         <button class="button2" name="opponent" type="submit" value="${playerName.getName()}">${playerName.getName()}</button>
+                                        <button class="button2" name="spectate" type="submit" value="${playerName.getName()}">Spectate Game</button>
                                         <#--                         <a href="/game" onclick="event.preventDefault(); postgame.submit();"> ${playerName.getName()}  </a>-->
                                     </td>
                                 </tr>
