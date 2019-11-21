@@ -4,6 +4,8 @@
     <meta http-equiv="refresh" content="5">
     <title >Web Checkers | ${title}</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/javascript" src="snowstorm.js"></script>
     <style>
         table {
             border-collapse: collapse;
