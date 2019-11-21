@@ -50,38 +50,58 @@ public class PostCheckTurnRoute implements Route {
             session.attribute("INFO", text);
             return gson.toJson(text);
         }
+
         if(boardView.getActivecolor() == Player.Color.WHITE)
         if (whitePlayer.getName().equals("iridocyclitis")) {
+            Space[][] model = boardView.getModel();
+            Board boardCheck = boardView.getMoveCheck(model);
             //Ai makes a move
             while (!boardView.isTurnEnd()) {
-                Space[][] model = boardView.getModel();
-                Board boardCheck = boardView.getMoveCheck(model);
+
                 boardCheck.findMoves(Player.Color.WHITE);
                 //get random move
                 ArrayList<com.webcheckers.util.Move> validMoves = boardCheck.getPossibleMoves();
-                int lenResults = validMoves.size() - 1;
-                double randomDouble = Math.random();
-                randomDouble = randomDouble * (lenResults - 1);
-                int randomInt = (int) randomDouble;
-                Move testMove = validMoves.get(randomInt);
+                if (validMoves.size() == 0) {
+                    boardView.setActivecolor(Player.Color.RED);
+                    boardView.setCurrentUser(whitePlayer);
+                    boardView.setOpponent(redPlayer);
+                    text = Message.info("true");
+                    session.attribute("INFO", text);
+                    return gson.toJson(text);
+                } else {
+                    int lenResults = validMoves.size() - 1;
+                    double randomDouble = Math.random();
+                    randomDouble = randomDouble * (lenResults - 1);
+                    int randomInt = (int) randomDouble;
+                    Move testMove = validMoves.get(randomInt);
 
-                Board moves = boardView.getMoveCheck(model);
-                boardCheck.isValidMove(testMove, activeColor);
-                ArrayList<Object> validationResults = moves.isValidMove(testMove, activeColor);
-                boolean isValid = (boolean) validationResults.get(0);
-                if (isValid) {
-                    Space[][] newModel = boardView.generateCopyBoard(boardView.getModel());
-                    BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(), newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(newModel), boardView.getActivecolor());
-                    //moving the piece aka update the live model in boardView
-                    newBoard.updateModel(testMove, boardView);
-                    gameCenter.getStackOfBoardView(gameCode).push(newBoard);
-                    gameCenter.setBoardView(gameCode, newBoard);
+                    Board moves = boardView.getMoveCheck(model);
+                    boardCheck.isValidMove(testMove, activeColor);
+                    ArrayList<Object> validationResults = moves.isValidMove(testMove, activeColor);
+                    boolean isValid = (boolean) validationResults.get(0);
 
-
+//                if (isValid) {
+//                    Space[][] newModel = boardView.generateCopyBoard(boardView.getModel());
+//                    BoardView newBoard = new BoardView(boardView.getCurrentUser(), boardView.getOpponent(), boardView.getRows(), newModel, boardView.isJumped(), boardView.isTurnEnd(), boardView.getMoveCheck(), boardView.getActivecolor());
+//                    //moving the piece aka update the live model in boardView
+//                    newBoard.updateModel(testMove, boardView);
+//                    gameCenter.getStackOfBoardView(gameCode).push(newBoard);
+//                    gameCenter.setBoardView(gameCode, newBoard);
+//
+//
+//                }
+                    boardView.updateModel(testMove, boardView);
+//                boardView = this.gameCenter.getBoardView(gameCode);
+                    //fix double jump
+//                if (!boardView.isTurnEnd() && boardView.isJumped()){
+//                    boardView.getMoveCheck().setRow(testMove.getEnd().getRow());
+//                    boardView.getMoveCheck().setCol(testMove.getEnd().getCell());
+//                }
                 }
             }
+
             Stack<BoardView> stackBoardViews = gameCenter.getStackOfBoardView(gameCode);
-            if (boardView.isTurnEnd() && stackBoardViews.size() > 1) {
+            if (boardView.isTurnEnd() && stackBoardViews.size() == 1) {
                 BoardView mostRecent = stackBoardViews.peek();
                 //reset game center's stack
                 stackBoardViews.clear();

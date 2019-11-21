@@ -2,6 +2,24 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+
+    <style>
+        .button1{
+            border-radius: 10px;
+            color: #73BFB8;
+            border: 2px solid #ffa321;
+            background-color: white;
+            transition-duration: 0.4s;
+            font-size: 16px;
+            width: 15%;
+        }
+        .button1:hover {
+            background-color: #ffa321;
+            color: white;
+        }
+
+
+    </style>
 <#--    <meta http-equiv="refresh" content="10">-->
     <title>Web Checkers | ${title}</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -24,7 +42,7 @@
              <br>
              <input name="username"/>
              <br/><br/>
-             <button type="submit">Sign In</button>
+             <button class="button1" type="submit">Sign In</button>
          </form>
          <!-- Provide a message to the user, if supplied. -->
          <#include "message.ftl" />
