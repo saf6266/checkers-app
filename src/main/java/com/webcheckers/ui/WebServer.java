@@ -72,6 +72,12 @@ public class WebServer {
 
   public static final String CHECK_TURN = "/checkTurn";
 
+  public static final String SPECTATE_GAME = "/spectator/game";
+
+  public static final String SPECTATE_STOP_WATCHING = "/spectator/stopWatching";
+
+  public static final String SPECTATE_CHECK_TURN = "/spectator/checkTurn";
+
   //
   // Attributes
   //

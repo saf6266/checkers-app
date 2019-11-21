@@ -18,6 +18,7 @@ public class PostGameRoute implements Route {
 
     //values put in the view-model map
     static final Message PLAYER_IN_GAME = Message.error("That player is already in a game. Select someone else.");
+    static final Message CANT_SPECTATE = Message.error("That player is not in a game. You can't spectate them.");
 
 
     private final PlayerLobby playerLobby;
@@ -54,6 +55,7 @@ public class PostGameRoute implements Route {
 
         //Get the opponent's name
         final String opponentName = request.queryParams("opponent");
+        final String spectateGame = request.queryParams("spectate");
         Player opponent = null;
 
         //if opponent name is "AI"
@@ -61,7 +63,7 @@ public class PostGameRoute implements Route {
             opponent = new Player(opponentName);
         } else {
             for (Player player : playerLobby.getPlayers()) {
-                if (player.getName().equals(opponentName)) {
+                if (player.getName().equals(opponentName) || player.getName().equals(spectateGame)) {
                     opponent = player;
                     break;
                 }
@@ -71,6 +73,16 @@ public class PostGameRoute implements Route {
         final Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
 
 
+        //Check to see if the player clicked the spectate button
+        if(spectateGame != null){
+            if(gameCenter.inGame(opponent)){
+                response.redirect(WebServer.SPECTATE_GAME);
+            }
+            else{
+                session.attribute("message", CANT_SPECTATE);
+                response.redirect(WebServer.HOME_URL);
+            }
+        }
         //Is the opponent already in a game
         if(gameCenter.inGame(opponent)){        //Yes
             session.attribute(PostSignInRoute.CURR_USER_ATTR, currentUser);
