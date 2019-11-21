@@ -141,7 +141,6 @@ public class GetGameRoute implements Route {
         //add the board
         vm.put("board", board);
 
-        Board testModel = board.getMoveCheck()
         //Check Game End
             //Check to see if there aren't any pieces left for red player
         if(!piecesLeft(board, redPlayer)){
@@ -163,7 +162,7 @@ public class GetGameRoute implements Route {
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
         }
-        else if(board.getMoveCheck().noMoves(Player.Color.WHITE)){
+        else if(board.getMoveCheck().noMoves(Player.Color.RED)){
             final Map<String, Object> modeOptions = gameEnd(noValidMoves(redPlayer, whitePlayer));
             vm.put("modeOptionsAsJSON" , gson.toJson(modeOptions));
             gameCenter.removePlayer(gameCode, redPlayer);

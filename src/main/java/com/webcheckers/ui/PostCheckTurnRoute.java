@@ -62,10 +62,10 @@ public class PostCheckTurnRoute implements Route {
                 //get random move
                 ArrayList<com.webcheckers.util.Move> validMoves = boardCheck.getPossibleMoves();
                 if (validMoves.size() == 0) {
-                    boardView.setActivecolor(Player.Color.RED);
-                    boardView.setCurrentUser(whitePlayer);
-                    boardView.setOpponent(redPlayer);
-                    text = Message.info("true");
+                    gameCenter.removePlayer(gameCode, currentUser);
+                    Message message = GetHomeRoute.WELCOME_MSG;
+                    session.attribute("message", message);
+                    text = Message.info(currentUser.getName() + " has resigned! ");
                     session.attribute("INFO", text);
                     return gson.toJson(text);
                 } else {

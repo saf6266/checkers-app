@@ -458,7 +458,7 @@ public class Board {
     }
 
     public boolean noMoves(Player.Color color){
-        findMoves(color);
+        findPossMoves(color);
         boolean tempJumped = boardview.isJumped();
         boolean tempTurnEnd = boardview.isTurnEnd();
         int a = getPossibleMoves().size();
@@ -522,6 +522,53 @@ public class Board {
                                     if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
                                         movePiece(r, c, Piece.COLOR.WHITE, piece.getType());
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Generate a list of all the possible moves that a certain color can make
+     * @param color: The player whose moves you want to determine
+     */
+    public void findPossMoves(Player.Color color){
+        Piece piece = this.model[row][col].getPiece();
+        for(int r = 0; r < 8; r++){
+            for(int c = 0; c < 8; c++){
+                if(model[r][c].isDark()) {
+                    piece = model[r][c].getPiece();
+                    if(piece != null) {
+                        if (color == Player.Color.RED) {
+                            if (model[r][c].getPieceColor() == Piece.COLOR.RED)
+                                jumpable(r, c, Piece.COLOR.RED, piece.getType());
+
+                        } else {
+                            if (model[r][c].getPieceColor() == Piece.COLOR.WHITE)
+                                jumpable(r, c, Piece.COLOR.WHITE, piece.getType());
+                        }
+                    }
+                }
+            }
+        }
+
+        if(possibleMoves.size() == 0){
+            for(int r = 0; r < 8; r++){
+                for(int c = 0; c < 8; c++){
+                    if(model[r][c].isDark()) {
+
+                        piece = model[r][c].getPiece();
+                        if(piece != null) {
+                            if (color == Player.Color.RED) {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.RED) {
+                                    movePiece(r, c, Piece.COLOR.RED, piece.getType());
+                                }
+                            } else {
+                                if (model[r][c].getPieceColor() == Piece.COLOR.WHITE) {
+                                    movePiece(r, c, Piece.COLOR.WHITE, piece.getType());
                                 }
                             }
                         }
