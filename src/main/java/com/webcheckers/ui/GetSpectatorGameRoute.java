@@ -83,23 +83,62 @@ public class GetSpectatorGameRoute implements Route {
         BoardView boardView = gameCenter.getBoardView(gameCode);
         Player boardCurrentUser = boardView.getCurrentUser();
         Player boardOpponent = boardView.getOpponent();
+        Player.Color activeColor = boardView.getActivecolor();
 
         //Create the message
         Message message;
+        if(boardCurrentUser != null && boardOpponent != null) {
+            message = Message.info(boardOpponent.getName() + " made the last move. " +
+                    "It is " + boardCurrentUser.getName() + "'s turn");
+            vm.put("message", message);
+        }
+        else{
+            //Check to see if red player or white player has resigned.
+            if(activeColor == Player.Color.RED){
+                if(boardCurrentUser == null) {
+                    message = Message.info(redPlayer.getName() + " has resigned the game. " +
+                            "The game is now over.");
+                    vm.put("message", message);
+                }
+                else{
+                    message = Message.info(whitePlayer.getName() + " has resigned the game. " +
+                            "The game is now over.");
+                    vm.put("message", message);
+                }
+            }
+            else if(activeColor == Player.Color.WHITE){
+                if(boardCurrentUser == null) {
+                    if(whitePlayer.getName().equals("#iridocyclitis")){
+                        message = Message.info(redPlayer.getName() + " has resigned the game. " +
+                                "The game is now over.");
+                    }
+                    else {
+                        message = Message.info(whitePlayer.getName() + " has resigned the game. " +
+                                "The game is now over.");
+                    }
+                    vm.put("message", message);
+                }
+                else{
+                    message = Message.info(redPlayer.getName() + " has resigned the game. " +
+                            "The game is now over.");
+                    vm.put("message", message);
+                }
+            }
+        }
+            //Check to see if red player has any pieces left
         if(noPiecesLeft(boardView, redPlayer)){
             message = Message.info(redPlayer.getName() + " has no more pieces!\n" +
                     whitePlayer.getName() + " captured all of their pieces.");
+            vm.put("message", message);
         }
+            //Check to see if white player has any pieces left
         else if(noPiecesLeft(boardView, whitePlayer)){
             message = Message.info(whitePlayer.getName() + " has no more pieces!\n" +
                     redPlayer.getName() + " captured all of their pieces.");
-        }
-        else {
-            message = Message.info(boardOpponent.getName() + " made the last move.\n" +
-                    "It is " + boardCurrentUser.getName() + "'s turn");
+            vm.put("message", message);
         }
 
-        Player.Color activeColor = boardView.getActivecolor();
+
 
         //Set the current user to the spectator
         vm.put("title", "SPECTATE");
@@ -110,7 +149,6 @@ public class GetSpectatorGameRoute implements Route {
         vm.put(GetGameRoute.ACTIVE_COLOR, activeColor);
         vm.put("viewMode", GameCenter.Mode.SPECTATOR);
         vm.put("board", boardView);
-        vm.put("message", message);
 
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));
 
