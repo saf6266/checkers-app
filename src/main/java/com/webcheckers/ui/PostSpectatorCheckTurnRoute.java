@@ -29,19 +29,25 @@ public class PostSpectatorCheckTurnRoute implements Route {
         final Player redPlayer = session.attribute(GetGameRoute.RED_PLAYER);
         final Player whitePlayer = session.attribute(GetGameRoute.WHITE_PLAYER);
         String gameCode = redPlayer.getName() + whitePlayer.getName();
-        //Get the active color
-        Player.Color activeColor = this.gameCenter.getBoardView(gameCode).getActivecolor();
-        //Get the current User
-        Player currentUser = this.gameCenter.getBoardView(gameCode).getCurrentUser();
-        //Create the text message
-        Message text = Message.info("false");
         BoardView boardView = this.gameCenter.getBoardView(gameCode);
+        //Get the active color
+        Player.Color activeColor = boardView.getActivecolor();
+        //Get the current User
+        Player currentUser = boardView.getCurrentUser();
+        Player opponent = boardView.getOpponent();
+        //Create the text message
+        Message text;
 
+        //Check to see if the game has ended
+        if(currentUser == null || opponent == null){
+            text = Message.info("true");
+            return gson.toJson(text);
+        }
         //player still deciding
         if (activeColor != currentUser.getColor()) {
             text = Message.info("false");
             session.attribute("INFO", text);
-        } else{ //state needs tp update
+        } else{ //state needs to update
             text = Message.info("true");
             session.attribute("INFO", text);
         }

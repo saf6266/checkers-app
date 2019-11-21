@@ -40,10 +40,11 @@ public class PostCheckTurnRoute implements Route {
         //Get the active color
         Player.Color activeColor = this.gameCenter.getBoardView(gameCode).getActivecolor();
         //Get the current User
-        Player currentUser = this.gameCenter.getBoardView(gameCode).getCurrentUser();
+        Player currentUser = session.attribute(PostSignInRoute.CURR_USER_ATTR);
+        //Player currentUser = this.gameCenter.getBoardView(gameCode).getCurrentUser();
         BoardView boardView = this.gameCenter.getBoardView(gameCode);
         //Create the text message
-        Message text = Message.info("false");
+        Message text;
 
         if (boardView.getOpponent() == null || boardView.getCurrentUser() == null) {
             text = Message.info("true");
@@ -63,8 +64,8 @@ public class PostCheckTurnRoute implements Route {
                     ArrayList<com.webcheckers.util.Move> validMoves = boardCheck.getPossibleMoves();
                     if (validMoves.size() == 0) {
                         boardView.setActivecolor(Player.Color.RED);
-                        boardView.setCurrentUser(whitePlayer);
-                        boardView.setOpponent(redPlayer);
+                        boardView.setCurrentUser(redPlayer);
+                        boardView.setOpponent(whitePlayer);
                         text = Message.info("true");
                         session.attribute("INFO", text);
                         return gson.toJson(text);
@@ -92,8 +93,8 @@ public class PostCheckTurnRoute implements Route {
                     mostRecent.setTurnEnd(false);
                     //back to Red's turn
                     mostRecent.setActivecolor(Player.Color.RED);
-                    mostRecent.setCurrentUser(whitePlayer);
-                    mostRecent.setOpponent(redPlayer);
+                    mostRecent.setCurrentUser(redPlayer);
+                    mostRecent.setOpponent(whitePlayer);
                 }
                 text = Message.info("true");
                 session.attribute("INFO", text);
