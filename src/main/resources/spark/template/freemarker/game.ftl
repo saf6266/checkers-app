@@ -129,9 +129,9 @@
     </div>
   </div>
 
-  <audio id="audio" src="https://fsa.zobj.net/download/boDU8ICR7xIrOZICsYZGsvXTmVMJJAV9Z8o1DczRPkfy7wDiCPVfE4pIC2oyT6der0cmkoIgmbQkXA1JMC0pLUCmTUhYCBjThseo_TXphlV8U_tsFAWZ_3M6AaV0/?a=web&c=72&f=hohoho.mp3&special=1574321011-IlvARyJYsoxy0OFGx0gfQdwbTD7VjBd5%2BwLuX4ZNXMc%3D" autostart="false" ></audio>
+  <audio id="audio" src="http://www.soundjay.com/button/beep-07.mp3" autostart="false" ></audio>
 
-<#--  http://www.soundjay.com/button/beep-07.mp3-->
+
   <script data-main="/js/game/index" src="/js/require.js"></script>
   
 </body>
