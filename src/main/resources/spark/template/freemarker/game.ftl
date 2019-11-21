@@ -42,13 +42,19 @@
             <div>
               <table data-color='RED'>
                 <tr>
-                  <td><img src="../img/single-piece-red.svg" /></td>
+<#--                  <td><img src="../img/single-piece-red.svg" /></td>-->
+                  <td>
+                    <img  style="width: 40px" src="../img/christmas-sock-3.svg" />
+                  </td>
                   <td class="name">Red</td>
                 </tr>
               </table>
               <table data-color='WHITE'>
                 <tr>
-                  <td><img src="../img/single-piece-white.svg" /></td>
+                  <td><img style="width: 40px;" src="../img/christmas-sock-2.svg" /></td>
+<#--                  <td>-->
+<#--                    <img src="../img/christmas.svg" />-->
+<#--                  </td>-->
                   <td class="name">White</td>
                 </tr>
               </table>
