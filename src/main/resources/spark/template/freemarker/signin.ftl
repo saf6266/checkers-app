@@ -6,15 +6,15 @@
     <style>
         .button1{
             border-radius: 10px;
-            color: #73BFB8;
-            border: 2px solid #ffa321;
+            color: #96a7fd;
+            border: 2px solid #fccf4b;
             background-color: white;
             transition-duration: 0.4s;
             font-size: 16px;
             width: 15%;
         }
         .button1:hover {
-            background-color: #ffa321;
+            background-color: #fccf4b;
             color: white;
         }
 

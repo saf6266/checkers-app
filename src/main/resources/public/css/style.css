@@ -1,8 +1,14 @@
+
+
 body {
-  background: antiquewhite;
+  background: url("https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2009&q=80") no-repeat center top;
+  background-size: 1980px;
+  height: auto;
+  width: auto;
   font-family: 'Trebuchet MS', sans-serif;
   font-size: 14px;
 }
+
 
 a {
   color: #2677FF;
@@ -46,34 +52,36 @@ input[type="submit"] {
 }
 
 div.page {
-  background: white;
+  background: #96a7fd;
   border: 1px solid #6ECCFF;
   width: 710px;
   margin: 30px auto;
 }
 
 div.page h1 {
-  background: #6ECCFF;
+  background: #96a7fd;
   margin: 0;
   padding: 10px 14px;
-  color: white;
+  color: #fccc43;
   letter-spacing: 1px;
-  text-shadow: 0 0 3px #2477FF;
+  text-shadow: 0 0 3px black;
   font-weight: normal;
 }
 
 div.page div.navigation {
-  background: #DEE9FF;
+  background: #96a7fd;
   padding: 4px 10px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #eee;
-  color: #888;
+  color: #fccc43;
   font-size: 12px;
-  letter-spacing: 0.5px;
+  text-shadow: 0 0 5px black;
+  letter-spacing: 0.6px;
 }
 
 div.page div.navigation a {
-  color: #444;
+  color: #fccc43;
+  text-shadow: 0 0 3px black;
   font-weight: bold;
 }
 
@@ -112,8 +120,8 @@ div.ERROR {
  */
 div.INFO {
   margin: 10px 0;
-  background: #CAECFF;
-  filter: brightness(115%);
+  background: #fccf4b;
+  filter: brightness(100%);
   border: 1px solid #6ECCFF;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
