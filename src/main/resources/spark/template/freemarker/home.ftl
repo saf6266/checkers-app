@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="refresh" content="5">
-    <title>Web Checkers | ${title}</title>
+    <title >Web Checkers | ${title}</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <style>
         table {
@@ -14,7 +14,7 @@
             padding: 8px;
         }
         tr:nth-child(even){
-            background-color: #ffa321;
+            background-color: #fde396;
         }
         tr:nth-child(odd){
             background-color: #FFC175 ;
@@ -22,35 +22,36 @@
 
         th {
             color: #A2E5DE;
-            background-color: #F9A43B;
+            background-color: #fde396;
         }
         .button1{
             float: right;
             margin-top: 15px;
             border-radius: 10px;
-            color: #73BFB8;
-            border: 2px solid #ffa321;
+            color: #96a7fd;
+            border: 2px solid #fccf4b;
             background-color: white;
             transition-duration: 0.4s;
             font-size: 16px;
             width: auto;
         }
         .button1:hover {
-            background-color: #ffa321;
+            background-color: #fccf4b;
             color: white;
         }
         .button2{
             border-radius: 10px;
-            color: #73BFB8;
-            border: 2px solid #ffa321;
+            color: #96a7fd;
+            border: 2px solid #fccf4b;
             background-color: white;
             transition-duration: 0.4s;
             font-size: 16px;
             width: 15%;
             display: inline-block;
         }
+        /*fde396*/
         .button2:hover {
-            background-color: #ffa321;
+            background-color: #fccf4b;
             color: white;
         }
 
@@ -73,7 +74,7 @@
         <#if currentUser??>
             <div>
                 <form id="postgame" action="/game" method="POST">
-                    <h2 style="color: mediumseagreen; display: inline-block">Players Online </h2>
+                    <h1 style="color: #fde396; font-weight: bolder; text-shadow: 0 0 5px black; display: inline-block">Players Online </h1>
                     <button name="opponent" value="iridocyclitis" type="submit" class= "button1">AI Opponent</button>
                 </form>
             </div>
@@ -110,7 +111,7 @@
 
         <#else>
         <#--      Player is not signed in, can only see a number-->
-            <h2 style="color: lightgreen; display: inline-block">Players Online </h2>
+            <h1 style="color: #fccc43; font-weight: bolder; text-shadow: 0 0 5px black; display: inline-block">Players Online </h1>
             <ul>
                 <li>There are: ${playerList?size} online</li>
             </ul>

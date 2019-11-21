@@ -4,9 +4,9 @@
  
 /* animation definitions */
 @keyframes gray-fades {
-     0% {background-color: lightgray;}
-    50% {background-color: white;}
-   100% {background-color: lightgray;}
+     0% {background-color: #fccc43;}
+    50% {background-color: #fde77d;}
+   100% {background-color: #fccc43;}
 }
 @keyframes background-fades {
      0% {background-color: rgba(255, 192, 203, 0.4);}
@@ -27,12 +27,12 @@ div#game-controls fieldset {
   flex: 1; /* same width */
   margin: 1em;
   border-radius: 5px;
-  border: 2px solid #6ECCFF;
+  border: 2px solid white;
 }
 div#game-controls fieldset legend {
   padding: 0 0.75em 0 0.75em;
-  color: #6ECCFF;
-  font-size: larger;
+  color: white;
+  font-size: large;
 }
 
 /*
@@ -65,13 +65,13 @@ fieldset#game-toolbar button {
   margin-right: 0.25em;
   font-size: larger;
   cursor: pointer;
-  background-color: #CAECFF;
-  border-color: #6ECCFF;
+  background-color: #fccc43;
+  border-color: #fde77d ;
   border-radius: 7px;
 }
 fieldset#game-toolbar button:disabled {
-  background-color: lightgray;
-  border-color: darkgray;
+  background-color: #cfc6ab;
+  border-color: #fde77d;
   cursor: default;
 }
 
