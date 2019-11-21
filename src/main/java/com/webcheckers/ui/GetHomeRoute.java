@@ -72,8 +72,8 @@ public class GetHomeRoute implements Route {
     final Player player = session.attribute(PostSignInRoute.CURR_USER_ATTR);
 
     final Player opponent;
-    //Get the playerInGame message if it exists
-    final Message playerInGame = session.attribute("message");
+    //Get the message if it exists
+    final Message message = session.attribute("message");
 
     if (player != null) {
         if (gameCenter.inGame(player)) {
@@ -87,12 +87,12 @@ public class GetHomeRoute implements Route {
         }
     }
 
-    if(playerInGame == null) {
+    if(message == null) {
       // display a user message in the Home page
       vm.put("message", WELCOME_MSG);
     }
     else{
-      vm.put("message", playerInGame);
+      vm.put("message", message);
     }
     //check to see if the player exists
     if(player != null) {

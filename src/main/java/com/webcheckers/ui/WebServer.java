@@ -205,6 +205,9 @@ public class WebServer {
     //Get a SPECTATOR GAME route
     get(SPECTATE_GAME, new GetSpectatorGameRoute(templateEngine, gameCenter));
 
+    //Get a SPECTATOR STOP WATCHING route
+    get(SPECTATE_STOP_WATCHING, new GetSpectatorStopWatchingRoute(gameCenter));
+
 
 
 
