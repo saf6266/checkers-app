@@ -102,6 +102,7 @@ public class GetSpectatorGameRoute implements Route {
         Player.Color activeColor = boardView.getActivecolor();
 
         //Set the current user to the spectator
+        vm.put("title", "SPECTATE");
         vm.put(PostSignInRoute.CURR_USER_ATTR, currentUser);
 
         vm.put(GetGameRoute.RED_PLAYER, redPlayer);

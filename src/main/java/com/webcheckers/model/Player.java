@@ -118,6 +118,15 @@ public class Player {
     }
 
     /**
+     * Check to see if this player's color is set to none
+     * Used for spectate mode
+     * @return true if none, false otherwise
+     */
+    public boolean isNone(){
+        return this.color == Color.NONE;
+    }
+
+    /**
      * Set the player's color to red
      */
     public void setRed(){

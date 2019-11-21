@@ -94,7 +94,7 @@
           </#if>
 
 
-          <#if  currentUser.isRed()>
+          <#if  currentUser.isRed() || currentUser.isNone()>
             <div class="game-board">
             <table id="game-board">
               <tbody>

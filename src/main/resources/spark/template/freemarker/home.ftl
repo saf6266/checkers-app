@@ -46,7 +46,7 @@
             background-color: white;
             transition-duration: 0.4s;
             font-size: 16px;
-            width: 15%;
+            width: auto;
             display: inline-block;
         }
         /*fde396*/

@@ -59,13 +59,15 @@ public class PostGameRoute implements Route {
         Player opponent = null;
 
         //if opponent name is "AI"
-        if(opponentName.equals("iridocyclitis")){
-            opponent = new Player(opponentName);
-        } else {
-            for (Player player : playerLobby.getPlayers()) {
-                if (player.getName().equals(opponentName) || player.getName().equals(spectateGame)) {
-                    opponent = player;
-                    break;
+        if(opponentName != null) {
+            if (opponentName.equals("iridocyclitis")) {
+                opponent = new Player(opponentName);
+            } else {
+                for (Player player : playerLobby.getPlayers()) {
+                    if (player.getName().equals(opponentName)) {
+                        opponent = player;
+                        break;
+                    }
                 }
             }
         }
@@ -75,6 +77,12 @@ public class PostGameRoute implements Route {
 
         //Check to see if the player clicked the spectate button
         if(spectateGame != null){
+            for (Player player : playerLobby.getPlayers()) {
+                if (player.getName().equals(spectateGame)) {
+                    opponent = player;
+                    break;
+                }
+            }
             if(gameCenter.inGame(opponent)){
                 //Get the opponent of the player that you selected
                 Player player = opponent.getOpponent();
@@ -88,10 +96,12 @@ public class PostGameRoute implements Route {
                 }
                 gameCenter.addSpectator(currentUser);
                 response.redirect(WebServer.SPECTATE_GAME);
+                return null;
             }
             else{
                 session.attribute("message", CANT_SPECTATE);
                 response.redirect(WebServer.HOME_URL);
+                return null;
             }
         }
         //Is the opponent already in a game
