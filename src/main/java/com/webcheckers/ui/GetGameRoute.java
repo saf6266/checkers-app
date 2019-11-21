@@ -43,6 +43,10 @@ public class GetGameRoute implements Route {
         return player.getName() + " has captured all of " + opponent.getName() + "'s pieces.";
     }
 
+    private String noValidMoves(Player player, Player opponent){
+        return player.getName() + " has no more valid moves! " + opponent.getName() + " wins the game!";
+    }
+
     /**
      * Creates a string for the case that a player resigned
      * @param player The player that resigned
@@ -149,6 +153,18 @@ public class GetGameRoute implements Route {
         else if(!piecesLeft(board, whitePlayer)){
             final Map<String, Object> modeOptions = gameEnd(piecesCaptured(redPlayer, whitePlayer));
             vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+            gameCenter.removePlayer(gameCode, redPlayer);
+            gameCenter.removePlayer(gameCode, whitePlayer);
+        }
+        else if(board.getMoveCheck().noMoves(Player.Color.WHITE)){
+            final Map<String, Object> modeOptions = gameEnd(noValidMoves(whitePlayer, redPlayer));
+            vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+            gameCenter.removePlayer(gameCode, redPlayer);
+            gameCenter.removePlayer(gameCode, whitePlayer);
+        }
+        else if(board.getMoveCheck().noMoves(Player.Color.RED)){
+            final Map<String, Object> modeOptions = gameEnd(noValidMoves(redPlayer, whitePlayer));
+            vm.put("modeOptionsAsJSON" , gson.toJson(modeOptions));
             gameCenter.removePlayer(gameCode, redPlayer);
             gameCenter.removePlayer(gameCode, whitePlayer);
         }

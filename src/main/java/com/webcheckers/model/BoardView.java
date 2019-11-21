@@ -32,7 +32,7 @@ public class BoardView implements Iterable<Row>{
 
     private Player redPlayer;
     private Player whitePlayer;
-    public boolean b;
+
 
 
 
@@ -51,7 +51,7 @@ public class BoardView implements Iterable<Row>{
         this.moveCheck = new Board(model, this);
         this.activecolor = Player.Color.RED;
         this.turnEnd = false;
-        b = false;
+
 
     }
 
