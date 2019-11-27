@@ -93,6 +93,7 @@ public class GetHomeRoute implements Route {
     }
     else{
       vm.put("message", message);
+      session.removeAttribute("message");
     }
     //check to see if the player exists
     if(player != null) {
