@@ -102,6 +102,7 @@ public class GameCenter {
             boardView.setOpponent(null);
         }
         inGameList.remove(player);
+        player.setOpponent(null);
     }
 
     /**

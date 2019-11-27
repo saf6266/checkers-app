@@ -1,6 +1,6 @@
  <div class="navigation">
   <#if currentUser??>
-    <form id="home" action="/" method="post">
+    <form id="home" action="/" method="post" style="display:inline-block">
         <a href="/" onclick="event.preventDefault(); home.submit();">my home</a>
     </form> |
     <form id="signout" action="/signout" method="post">
