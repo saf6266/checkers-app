@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.app.GameCenter;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -45,7 +46,15 @@ public class PostHomeRoute implements Route {
             }
             //Current User is in a game
             else{
-                response.redirect(WebServer.RESIGN_GAME);
+                //Remove the player from the game
+                Player redPlayer = session.attribute(GetGameRoute.RED_PLAYER);
+                Player whitePlayer = session.attribute(GetGameRoute.WHITE_PLAYER);
+
+                String gameCode = redPlayer.getName() + whitePlayer.getName();
+                gameCenter.removePlayer(gameCode, currentUser);
+                Message message = Message.info("You have resigned from your game, you lost.");
+                session.attribute("message", message);
+                response.redirect(WebServer.HOME_URL);
                 return null;
             }
         }
