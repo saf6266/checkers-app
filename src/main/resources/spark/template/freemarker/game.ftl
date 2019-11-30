@@ -13,13 +13,16 @@
     "modeOptions" : ${modeOptionsAsJSON!'{}'},
     "redPlayer" : "${redPlayer.name}",
     "whitePlayer" : "${whitePlayer.name}",
-    "activeColor" : "${activeColor}"
+    "activeColor" : "${activeColor}",
   };
   </script>
+
 </head>
+
 <body>
+
   <div class="page">
-    <h1>Web Checkers | Game View</h1>
+    <h1>Web Checkers  | Game View</h1>
     
     <#include "nav-bar.ftl" />
 
@@ -139,6 +142,6 @@
 
 
   <script data-main="/js/game/index" src="/js/require.js"></script>
-  
+
 </body>
 </html>
