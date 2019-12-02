@@ -72,7 +72,7 @@
         </div>
   
 
-          <#if  currentUser.isWhite()>
+        <#if  currentUser.isWhite()>
         <div class="game-board" style="transform: rotate(180deg);">
             <table id="game-board" >
               <tbody>

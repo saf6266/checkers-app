@@ -140,6 +140,38 @@ table#game-board td > div[data-type="KING"][data-color="WHITE"] {
 }
 
 
+/*David*/
+table#game-board-David td > div[data-type="SINGLE"][data-color="RED"] {
+  background: url("../img/christmas-sock-3.svg") no-repeat center center ;
+  background-size: 80%;
+}
+table#game-board-David td > div[data-type="KING"][data-color="RED"] {
+  background: url("../img/gift.svg") no-repeat center center;
+  background-size: 80%;
+}
+table#game-board-David td > div[data-type="SINGLE"][data-color="WHITE"] {
+  background: url("../img/christmas-sock-2.svg") no-repeat center center;
+  background-size: 80%;
+}
+table#game-board-David td > div[data-type="KING"][data-color="WHITE"] {
+  background: url("../img/giftG.svg") no-repeat center center;
+  background-size: 80%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 table#game-board td.pending {
   animation: background-fades;
   animation-duration: 3s;

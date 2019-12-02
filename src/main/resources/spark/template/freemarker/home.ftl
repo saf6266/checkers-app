@@ -5,6 +5,7 @@
     <title >Web Checkers | ${title}</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
     <style>
         table {
             border-collapse: collapse;
@@ -56,8 +57,57 @@
             color: #34A65F;
         }
 
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            float: left;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+
     </style>
 
+    <div class="dropdown">
+        <button class="dropbtn">Themes</button>
+        <div class="dropdown-content">
+            <button name="theme" value="Christmas" >Christmas</button>
+            <button name="theme" value="David & Mansfield">David & Mansfield</button>
+            <button name="theme" value="TacoTuesday">TacoTuesday</button>
+        </div>
+    </div>
 </head>
 
 <body>
@@ -126,6 +176,8 @@
 
         </#if>
 
+
+
         <!-- TODO: future content on the Home:
                 to start games,
                 spectating active games,lo
@@ -133,11 +185,11 @@
         -->
 
 
-
-
     </div>
 
 </div>
 </body>
+
+
 
 </html>
