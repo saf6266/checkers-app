@@ -79,7 +79,7 @@
         <#if currentUser??>
             <div>
                 <form id="postgame" action="/game" method="POST">
-                    <h1 style="color: #fde396; font-weight: bolder; -webkit-text-stroke: .5px #34A65F; display: inline-block">Players Online </h1>
+                    <h1 style="color: #fccc43; font-weight: bolder; -webkit-text-stroke: .5px #34A65F; display: inline-block">Players Online </h1>
                     <button name="opponent" value="#iridocyclitis" type="submit" class= "button1">AI Opponent</button>
                 </form>
             </div>
@@ -87,7 +87,7 @@
         <#--      there is no one online, 1 player means use are the only one in lobby-->
             <#if playerList?size == 1>
                 <ul>
-                    <li>There are no other players available to play at this time.</li>
+                    <li style="color: #fccc43">There are no other players available to play at this time.</li>
                 </ul>
 
             <#--      Other users online besides me, displays list make it clickable-->
@@ -124,7 +124,7 @@
         <#--      Player is not signed in, can only see a number-->
             <h1 style="color: #fccc43; font-weight: bolder;   -webkit-text-stroke: .5px #34A65F; display: inline-block">Players Online </h1>
             <ul>
-                <li>There are: ${playerList?size} online</li>
+                <li style="color: #fccc43" >There are: ${playerList?size} online</li>
             </ul>
 
         </#if>

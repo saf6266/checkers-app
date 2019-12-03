@@ -28,11 +28,13 @@ div#game-controls fieldset {
   margin: 1em;
   border-radius: 5px;
   border: 2px solid #34A65F;
+  color: #39689F;
 }
 div#game-controls fieldset legend {
   padding: 0 0.75em 0 0.75em;
   color: #34A65F;
   font-size: large;
+
 }
 
 /*
@@ -52,9 +54,11 @@ fieldset#game-info table.isMyTurn {
 }
 fieldset#game-info table td {
   width: 50%;
+  color: white;
 }
 fieldset#game-info table td.name {
   font-size: larger;
+  color: white;
 }
 
 /*
@@ -67,11 +71,13 @@ fieldset#game-toolbar button {
   cursor: pointer;
   background-color: #fccc43;
   border-color: #fde77d ;
+  color: white;
   border-radius: 7px;
 }
 fieldset#game-toolbar button:disabled {
   background-color: #cfc6ab;
   border-color: #fde77d;
+  color: white;
   cursor: default;
 }
 
@@ -139,24 +145,6 @@ table#game-board td > div[data-type="KING"][data-color="WHITE"] {
   background-size: 80%;
 }
 
-
-/*David*/
-table#game-board-David td > div[data-type="SINGLE"][data-color="RED"] {
-  background: url("../img/christmas-sock-3.svg") no-repeat center center ;
-  background-size: 80%;
-}
-table#game-board-David td > div[data-type="KING"][data-color="RED"] {
-  background: url("../img/gift.svg") no-repeat center center;
-  background-size: 80%;
-}
-table#game-board-David td > div[data-type="SINGLE"][data-color="WHITE"] {
-  background: url("../img/christmas-sock-2.svg") no-repeat center center;
-  background-size: 80%;
-}
-table#game-board-David td > div[data-type="KING"][data-color="WHITE"] {
-  background: url("../img/giftG.svg") no-repeat center center;
-  background-size: 80%;
-}
 
 
 

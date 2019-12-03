@@ -86,7 +86,7 @@ div.page div.navigation {
 
 /*sign in/sign out*/
 div.page div.navigation a {
-  color: #a16e55;
+  color: #fccc43;
   /*text-shadow: 0 0 3px black;*/
   font-weight: bold;
 }
@@ -126,7 +126,7 @@ div.ERROR {
  */
 div.INFO {
   margin: 10px 0;
-  background: #edb76e;
+  background: #39689F;
   filter: brightness(100%);
   border: 1px solid #34A65F;
   -moz-border-radius: 2px;
