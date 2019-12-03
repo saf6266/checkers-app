@@ -1,7 +1,7 @@
  <div class="navigation">
      <script type="text/javascript" src="js/game/LetItSnow.js"></script>
      <script type="text/javascript">
-         snowStorm.snowColor = 'red'; // blue-ish snow!?
+         snowStorm.snowColor = 'white'; // blue-ish snow!?
          snowStorm.flakesMaxActive = 1000;  // show more snow on screen at once
          snowStorm.useTwinkleEffect = true; // let the snow flicker in and out of view
      </script>
