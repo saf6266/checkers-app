@@ -80,7 +80,7 @@
             <div>
                 <form id="postgame" action="/game" method="POST">
                     <h1 style="color: #fccc43; font-weight: bolder; -webkit-text-stroke: .5px #34A65F; display: inline-block">Players Online </h1>
-                    <button name="opponent" value="#iridocyclitis" type="submit" class= "button1">AI Opponent</button>
+                    <button name="opponent" value="$ANTA" type="submit" class= "button1">AI Opponent</button>
                 </form>
             </div>
 

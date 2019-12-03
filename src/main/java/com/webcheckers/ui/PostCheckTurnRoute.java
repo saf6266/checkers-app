@@ -52,7 +52,7 @@ public class PostCheckTurnRoute implements Route {
         }
 
         if(boardView.getActivecolor() == Player.Color.WHITE) {
-            if (whitePlayer.getName().equals("#iridocyclitis")) {
+            if (whitePlayer.getName().equals("$ANTA")) {
                 Space[][] model = boardView.getModel();
                 Board boardCheck = boardView.getMoveCheck(model);
                 //Ai makes a move
