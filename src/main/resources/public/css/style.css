@@ -1,9 +1,10 @@
 
 
 body {
-  background: url("https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/3571989/910/606/m2/fpnw/wm0/osfp2t9wtwjhvrbqkeurkyo3ntsp8yv8msctpkm64y4gckniuymkmnkcii3kuvmb-.jpg?1510605124&s=e365d852236a0f34d0d861d20d186b7c") no-repeat center top;
+  /*background: url("https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/3571989/910/606/m2/fpnw/wm0/osfp2t9wtwjhvrbqkeurkyo3ntsp8yv8msctpkm64y4gckniuymkmnkcii3kuvmb-.jpg?1510605124&s=e365d852236a0f34d0d861d20d186b7c") no-repeat center top;*/
+  background: url("https://www.desktopbackground.org/download/o/2010/07/27/54922_christmas-large-wallpapers_2560x1600_h.jpg") no-repeat center top;
   /*background: #235E6F;*/
-  background-size: 2300px;
+  background-size: cover;
   height: auto;
   width: auto;
   font-family: 'Trebuchet MS', sans-serif;
