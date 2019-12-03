@@ -54,7 +54,7 @@ input[type="submit"] {
 }
 
 div.page {
-  background: antiquewhite;
+  background: #061333;
   border: 1px solid #34A65F ;
   width: 710px;
   margin: 30px auto;
@@ -62,7 +62,7 @@ div.page {
 
 /* WebChecker/Signin */
 div.page h1 {
-  background: antiquewhite;
+  background: #061333;
   margin: 0;
   padding: 10px 14px;
   color: red;
@@ -74,7 +74,7 @@ div.page h1 {
 
 /*sign in bar background*/
 div.page div.navigation {
-  background: antiquewhite;
+  background: #061333;
   padding: 4px 10px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #eee;
