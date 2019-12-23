@@ -115,7 +115,7 @@ public class BoardView implements Iterable<Row>{
         return moveCheck.isLoss(color);
     }
 
-    public void setJumped(Boolean b){
+    public void setJumped(boolean b){
         this.jumped = b;
     }
 

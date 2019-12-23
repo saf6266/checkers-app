@@ -87,7 +87,7 @@ public class GameCenter {
         boards.put(gameCode, boardArray);
         //boardView.setCurrentUser(player);
         inGameList.add(currentUser);
-        if (!opponent.getName().equals("#iridocyclitis")) {
+        if (!opponent.getName().equals("$ANTA")) {
             inGameList.add(opponent);
         }
     }
